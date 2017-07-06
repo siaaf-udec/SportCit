@@ -33,66 +33,59 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/', function () {
         return view('material.sample');
-    });
+    })->name('root');
 
     $controller = "\\App\\Container\\Users\\Src\\Controllers\\";
     Route::get('/container', [
         'uses' => $controller.'UserController@index',
-        'as' => 'index'
+        'as' => 'sportcit.index'
     ]);
 
-    Route::get('/', function () {
-        return view('material.sample');
-    });
-
     Route::group(['prefix' => 'components'], function () {
+        //Submenu 1
         Route::get('buttons', function ()    {
             return view('examples.buttons');
-        });
-        Route::get('portlet', function ()    {
-            return view('examples.portlet');
-        });
+        })->name('components.buttons');
         Route::get('icons', function ()    {
             return view('examples.icons');
-        });
+        })->name('components.icons');
+
+        Route::get('portlet', function ()    {
+            return view('examples.portlet');
+        })->name('components.portlet');
+
         Route::get('sidebar', function ()    {
             return view('examples.sidebar');
-        });
-        Route::get('tabs', function ()    {
-            return view('examples.tabs');
-        });
+        })->name('components.sidebar');
 
-        /*
-         * Example Datatable
-         */
         Route::get('datatables', function ()    {
             return view('examples.datatables');
-        });
+        })->name('components.datatables');
 
-        Route::get('datatables/index',['as' => 'datatables/index', 'uses' => function (Request $request)    {
-            if($request->ajax()){
-                return Datatables::of(User::all())
-                    ->addIndexColumn()
-                    ->make(true);
-            }else{
-                return response()->json([
-                    'message' => 'Incorrect request',
-                    'code' => 412
-                ],412);
-            }
-        }]);
+        Route::get('datatables/index',[
+            'as' => 'components.datatables.data',
+            'uses' => function (Request $request)    {
+                if($request->ajax()){
+                    return Datatables::of(User::all())
+                        ->addIndexColumn()
+                        ->make(true);
+                }else{
+                    return response()->json([
+                        'message' => 'Incorrect request',
+                        'code' => 412
+                    ],412);
+                }
+            }]);
 
     });
-
-
 
     Route::group(['prefix' => 'forms'], function () {
         Route::get('fields', function ()    {
             return view('examples.fields');
-        });
+        })->name('forms.fields');
         Route::get('validation', function ()    {
             return view('examples.validation');
-        });
+        })->name('forms.validation');
     });
 });
 
@@ -104,9 +97,3 @@ Route::group(['middleware' => ['auth']], function () {
  */
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-
-$controller = "\\App\\Container\\Users\\Src\\Controllers\\";
-Route::get('/prueba', [
-    'uses' => $controller.'UserController@index',
-    'as' => 'index'
-]);
