@@ -87,6 +87,20 @@ Route::group(['middleware' => ['auth']], function () {
             return view('examples.validation');
         })->name('forms.validation');
     });
+
+    Route::group(['prefix' => 'user'], function () {
+        $controller = "\\App\\Container\\Users\\Src\\Controllers\\";
+        Route::get('profile',[
+            'uses' => $controller.'ProfileController@index',
+            'as' => 'user.profile'
+        ]);
+        Route::put('profile/update/{id}',[
+            'uses' => $controller.'ProfileController@update',
+            'as' => 'user.profile.update'
+        ])->where(['id' => '[0-9]+']);
+    });
+
+
 });
 
 
