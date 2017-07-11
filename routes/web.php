@@ -94,13 +94,19 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller.'ProfileController@index',
             'as' => 'user.profile'
         ]);
-        Route::put('profile/update/{id}',[
+        Route::post('profile/update/{id}',[
             'uses' => $controller.'ProfileController@update',
             'as' => 'user.profile.update'
         ])->where(['id' => '[0-9]+']);
     });
 
-
+    Route::group(['prefix' => 'organization'], function () {
+        $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
+        Route::get('create',[
+            'uses' => $controller.'OrganizationController@index',
+            'as' => 'organization.create'
+        ]);
+    });
 });
 
 
@@ -110,4 +116,3 @@ Route::group(['middleware' => ['auth']], function () {
  * Fin de las rutas de ejemplo.
  */
 Auth::routes();
-Route::get('/home', 'HomeController@index')->name('home');

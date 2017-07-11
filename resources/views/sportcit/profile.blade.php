@@ -23,6 +23,7 @@
 @push('styles')
 <link href="{{asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/pages/css/profile.min.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{-- asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css') --}}" rel="stylesheet" type="text/css" />
 @endpush
 
@@ -213,7 +214,7 @@
                                             <div class="tab-pane active" id="tab_1_1">
                                                 {!! Form::open(['id' => 'from_personal_info', 'class' => '', 'url' => '/forms']) !!}
                                                 {!! Field::text(
-                                                       'name',
+                                                       'name', $user->name,
                                                        ['label' => 'Texto para el Label', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
                                                        ['help' => 'Texto de ayuda', 'icon' => 'fa fa-user']) !!}
 
@@ -389,6 +390,9 @@
 <script src="{{ asset('assets/global/plugins/jquery-validation/js/localization/messages_es.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}" type="text/javascript"></script>
+
+
+<script src="{{ asset('assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
 @endpush
 
 {{--
@@ -411,44 +415,51 @@
 @push('functions')
 <script src="{{ asset('assets/pages/scripts/profile.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/main/scripts/form-validation-md.js') }}" type="text/javascript"></script>
-
+<script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     $( document ).on( "ready", function(e) {
+
+        /*$( "#from_personal_info" ).on( "submit", function(e) {
+            e.preventDefault();
+        });*/
+
         var xte = function () {
           return{
               init: function () {
                   var route = "{{ route('user.profile.update', ['id' => Auth::id()]) }}";
-                  var type = 'PUT';
-                  var data = {
-                      name: $('#name').val()
-                  };
+                  var type = 'POST';
                   var async = async || false;
+
+                  var formData = new FormData();
+                  formData.append('name', $('input:text[name="name"]').val());
+
                   $.ajax({
                       url: route,
                       headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                       cache: false,
                       type: type,
                       contentType: false,
-                      data: data,
+                      data: formData,
                       processData: false,
                       async: async,
                       beforeSend: function () {
 
                       },
                       success: function (response, xhr, request) {
-
+                          if (request.status === 200 && xhr === 'success') {
+                              UIToastr.init(xhr , response.title , response.message  );
+                          }
                       },
                       error: function (response, xhr, request) {
-
+                          if (request.status === 422 &&  xhr === 'success') {
+                              UIToastr.init(xhr, response.title, response.message);
+                          }
                       }
                   });
               }
           }
         };
 
-        $( "#from_personal_info" ).on( "submit", function(e) {
-            e.preventDefault();
-        });
 
         var form = $('#from_personal_info');
         var rules = {

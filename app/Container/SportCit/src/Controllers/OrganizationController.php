@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Container\Users\Src\Controllers;
+namespace App\Container\SportCit\Src\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Container\Users\Src\Interfaces\UserInterface;
 use App\Container\Overall\Src\Facades\AjaxResponse;
 
-class ProfileController extends Controller
+class OrganizationController extends Controller
 {
 
     protected $userRepository;
@@ -27,7 +27,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = $this->userRepository->show(Auth::id());
-        return view('sportcit.profile', ['user' => $user]);
+        return view('sportcit.create-organization', ['user' => $user]);
     }
 
     /**
