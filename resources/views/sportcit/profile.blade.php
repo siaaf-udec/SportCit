@@ -423,7 +423,7 @@
             e.preventDefault();
         });*/
 
-        var xte = function () {
+        var updateProfile = function () {
           return{
               init: function () {
                   var route = "{{ route('user.profile.update', ['id' => Auth::id()]) }}";
@@ -465,7 +465,7 @@
         var rules = {
             name: {minlength: 5, required: true},
         };
-        FormValidationMd.init(form,rules,false,xte());
+        FormValidationMd.init(form,rules,false,updateProfile());
 
     });
 </script>

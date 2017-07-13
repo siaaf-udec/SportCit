@@ -201,6 +201,8 @@ return [
          * Custom Service Providers...
          */
         App\Container\Users\Src\Providers\UserServiceProvider::class,
+        App\Container\Permissions\Src\Providers\PermissionServiceProvider::class,
+        App\Container\Permissions\Src\Providers\RoleServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -273,6 +275,8 @@ return [
         * Custom Aliases...
         */
         'Users' => App\Container\Users\Src\Facades\UserFacades::class,
+        'Permissions' => App\Container\Permissions\Src\Facades\PermissionFacades::class,
+        'Roles' => App\Container\Permissions\Src\Facades\RoleFacades::class,
     ],
 
 ];

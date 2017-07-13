@@ -34,8 +34,8 @@ abstract class ControllerRepository implements ControllerInterface
      * @return \Illuminate\Http\Response
      */
     public function index($relations = [])
-    {
-        $models = $this->model->all();
+            {
+            $models = $this->model->all();
 
         if (count($relations))
             $models->load($relations);
@@ -118,7 +118,7 @@ abstract class ControllerRepository implements ControllerInterface
     public function getModel()
     {
         return $this->model;
-    }
+}
 
     protected abstract function process($model, $data);
 }

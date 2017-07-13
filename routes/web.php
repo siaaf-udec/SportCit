@@ -107,6 +107,26 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'organization.create'
         ]);
     });
+
+    Route::group(['prefix' => 'permissions'], function () {
+        $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
+        Route::get('index',[
+            'uses' => $controller.'PermissionController@index',
+            'as' => 'permissions.index'
+        ]);
+        Route::get('data',[
+            'uses' => $controller.'PermissionController@data',
+            'as' => 'permissions.data'
+        ]);
+        Route::post('update/{id?}',[
+            'uses' => $controller.'PermissionController@update',
+            'as' => 'permissions.update'
+        ])->where(['id' => '[0-9]+']);
+        Route::delete('delete/{id?}',[
+            'uses' => $controller.'PermissionController@destroy',
+            'as' => 'permissions.destroy'
+        ])->where(['id' => '[0-9]+']);
+    });
 });
 
 
