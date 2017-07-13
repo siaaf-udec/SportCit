@@ -105,6 +105,12 @@
             <div class="clearfix"> </div><br><br><br>
             <div class="row">
                 <div class="col-md-12">
+                    <div class="actions">
+                        <a href="javascript:;" class="btn btn-simple btn-success btn-icon create"><i class="fa fa-plus"></i></a>                    </div>
+                    </div>
+                </div>
+                <div class="clearfix"> </div><br>
+                <div class="col-md-12">
                     @component('themes.bootstrap.elements.tables.datatables', ['id' => 'example-table-ajax'])
                         @slot('columns', [
                             '#' => ['style' => 'width:20px;'],
@@ -117,11 +123,12 @@
                     @endcomponent
                 </div>
             </div>
+
             <div class="clearfix"></div>
             <div class="row">
                 <div class="col-md-12">
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="modal-update-permission" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <!-- Modal content-->
                             <div class="modal-content">
@@ -133,10 +140,7 @@
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                {!! Field::text(
-                                                    'id_edit',
-                                                    ['label' => 'Nombre', 'max' => '15', 'min' => '1', 'required', 'auto' => 'off'],
-                                                    ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
+                                                {!! Field::hidden('id_edit') !!}
                                                 {!! Field::text(
                                                     'name_edit',
                                                     ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
@@ -156,6 +160,44 @@
                                         {!! Form::submit('Guardar', ['class' => 'btn blue']) !!}
                                         {!! Form::button('Cancelar', ['class' => 'btn red', 'data-dismiss' => 'modal' ]) !!}
                                     </div>
+                                {!! Form::close() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal-create-permission" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                {!! Form::open(['id' => 'from_permissions_create', 'class' => '', 'url' => '/forms']) !!}
+                                <div class="modal-header modal-header-success">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h1><i class="glyphicon glyphicon-thumbs-up"></i> Success Modal</h1>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            {!! Field::text(
+                                                'name_create',
+                                                ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
+                                                ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
+                                            {!! Field::text(
+                                                'display_name_create',
+                                                ['label' => 'Nombre para Mostrar', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
+                                                ['help' => 'Ingrese el Nombre para Mostrar', 'icon' => 'fa fa-user']) !!}
+                                            {!! Field::textarea(
+                                                'description_create',
+                                                ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'required', 'auto' => 'off'],
+                                                ['help' => 'Ingrese la Descripción']) !!}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    {!! Form::submit('Guardar', ['class' => 'btn blue']) !!}
+                                    {!! Form::button('Cancelar', ['class' => 'btn red', 'data-dismiss' => 'modal' ]) !!}
+                                </div>
                                 {!! Form::close() !!}
                             </div>
                         </div>
@@ -275,7 +317,7 @@
                 },
                 success: function (response, xhr, request) {
                     if (request.status === 200 && xhr === 'success') {
-                        $('#myModal').modal('hide');
+                        $('#modal-update-permission').modal('hide');
                         UIToastr.init(xhr , response.title , response.message  );
                     }
                 },
@@ -292,18 +334,23 @@
             e.preventDefault();
             $tr = $(this).closest('tr');
             var dataTable = table.row($tr).data();
-            $('#id_edit').attr('value', dataTable.id);
+            $('input[name="id_edit"]').val(dataTable.id);
             $('#name_edit').attr('value', dataTable.name);
             $('#display_name_edit').attr('value', dataTable.display_name);
             $('#description_edit').val(dataTable.description);
-            $('#myModal').modal('toggle');
+            $('#modal-update-permission').modal('toggle');
+        });
+
+        $( ".create" ).on('click', function (e) {
+            e.preventDefault();
+            $('#modal-create-permission').modal('toggle');
         });
 
         /*Editar Permiso*/
         var updatePermissions = function () {
             return{
                 init: function () {
-                    var id_edit = $('#id_edit').attr('value');
+                    var id_edit = $('input[name="id_edit"]').val();
                     var route = '{{ route('permissions.update') }}'+'/'+id_edit;
                     var type = 'POST';
                     var async = async || false;
@@ -328,8 +375,50 @@
                         success: function (response, xhr, request) {
                             if (request.status === 200 && xhr === 'success') {
                                 table.ajax.reload();
-                                $('#myModal').modal('hide');
+                                $('#modal-update-permission').modal('hide');
                                 $('#from_permissions_update')[0].reset(); //Limpia formulario
+                                UIToastr.init(xhr , response.title , response.message  );
+                            }
+                        },
+                        error: function (response, xhr, request) {
+                            if (request.status === 422 &&  xhr === 'success') {
+                                UIToastr.init(xhr, response.title, response.message);
+                            }
+                        }
+                    });
+                }
+            }
+        };
+        /*Crear Permissions*/
+        var createPermissions = function () {
+            return{
+                init: function () {
+                    var route = '{{ route('permissions.store') }}';
+                    var type = 'POST';
+                    var async = async || false;
+
+                    var formData = new FormData();
+                    formData.append('name', $('input:text[name="name_create"]').val());
+                    formData.append('display_name', $('input:text[name="display_name_create"]').val());
+                    formData.append('description', $('#description_create').val());
+
+                    $.ajax({
+                        url: route,
+                        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                        cache: false,
+                        type: type,
+                        contentType: false,
+                        data: formData,
+                        processData: false,
+                        async: async,
+                        beforeSend: function () {
+
+                        },
+                        success: function (response, xhr, request) {
+                            if (request.status === 200 && xhr === 'success') {
+                                table.ajax.reload();
+                                $('#modal-create-permission').modal('hide');
+                                $('#from_permissions_create')[0].reset(); //Limpia formulario
                                 UIToastr.init(xhr , response.title , response.message  );
                             }
                         },
@@ -344,13 +433,21 @@
         };
 
 
-        var form = $('#from_permissions_update');
-        var rules = {
+        var form_edit = $('#from_permissions_update');
+        var rules_edit = {
             name_edit: {minlength: 5, required: true},
             display_name_edit: {minlength: 5, required: true},
             descriptión_edit: {minlength: 5},
         };
-        FormValidationMd.init(form,rules,false,updatePermissions());
+        FormValidationMd.init(form_edit,rules_edit,false,updatePermissions());
+
+        var form_create = $('#from_permissions_create');
+        var rules_create = {
+            name_create: {minlength: 5, required: true},
+            display_name_create: {minlength: 5, required: true},
+            descriptión_create: {minlength: 5},
+        };
+        FormValidationMd.init(form_create,rules_create,false,createPermissions());
 
     });
 </script>

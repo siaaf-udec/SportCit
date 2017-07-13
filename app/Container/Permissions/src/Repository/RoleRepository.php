@@ -9,12 +9,6 @@ namespace App\Container\Permissions\Src\Repository;
 use App\Container\Overall\Src\Repository\ControllerRepository;
 use App\Container\Permissions\Src\Interfaces\RoleInterface;
 
-
-/*
- * Facades
- */
-use Illuminate\Support\Facades\App;
-
 /*
  * Modelos
  */

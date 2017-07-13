@@ -71,7 +71,18 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->ajax() && $request->isMethod('POST')){
+            $this->permissionRepository->store($request->all());
+            return AjaxResponse::success(
+                '¡Bien hecho!',
+                'Datos modificados correctamente.'
+            );
+        }else{
+            return AjaxResponse::fail(
+                '¡Lo sentimos!',
+                'No se pudo completar tu solicitud.'
+            );
+        }
     }
 
     /**

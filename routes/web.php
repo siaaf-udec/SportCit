@@ -118,6 +118,10 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller.'PermissionController@data',
             'as' => 'permissions.data'
         ]);
+        Route::post('store',[
+            'uses' => $controller.'PermissionController@store',
+            'as' => 'permissions.store'
+        ]);
         Route::post('update/{id?}',[
             'uses' => $controller.'PermissionController@update',
             'as' => 'permissions.update'
@@ -125,6 +129,30 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('delete/{id?}',[
             'uses' => $controller.'PermissionController@destroy',
             'as' => 'permissions.destroy'
+        ])->where(['id' => '[0-9]+']);
+    });
+
+    Route::group(['prefix' => 'roles'], function () {
+        $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
+        Route::get('index',[
+            'uses' => $controller.'roleController@index',
+            'as' => 'roles.index'
+        ]);
+        Route::get('data',[
+            'uses' => $controller.'roleController@data',
+            'as' => 'roles.data'
+        ]);
+        Route::post('store',[
+            'uses' => $controller.'roleController@store',
+            'as' => 'roles.store'
+        ]);
+        Route::post('update/{id?}',[
+            'uses' => $controller.'roleController@update',
+            'as' => 'roles.update'
+        ])->where(['id' => '[0-9]+']);
+        Route::delete('delete/{id?}',[
+            'uses' => $controller.'roleController@destroy',
+            'as' => 'roles.destroy'
         ])->where(['id' => '[0-9]+']);
     });
 });

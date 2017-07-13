@@ -26,5 +26,11 @@
                 <span class="title">Gestion de Permisos</span>
             </a>
         </li>
+        <li class="nav-item {{ active(['access-control.roles'], 'start active open') }}">
+            <a href="{{ route('roles.index') }}" class="nav-link">
+                <i class="icon-frame"></i>
+                <span class="title">Gestion de Roles</span>
+            </a>
+        </li>
     </ul>
 </li>
