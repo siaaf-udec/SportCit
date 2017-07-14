@@ -135,26 +135,39 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['prefix' => 'roles'], function () {
         $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
         Route::get('index',[
-            'uses' => $controller.'roleController@index',
+            'uses' => $controller.'RoleController@index',
             'as' => 'roles.index'
         ]);
         Route::get('data',[
-            'uses' => $controller.'roleController@data',
+            'uses' => $controller.'RoleController@data',
             'as' => 'roles.data'
         ]);
         Route::post('store',[
-            'uses' => $controller.'roleController@store',
+            'uses' => $controller.'RoleController@store',
             'as' => 'roles.store'
         ]);
         Route::post('update/{id?}',[
-            'uses' => $controller.'roleController@update',
+            'uses' => $controller.'RoleController@update',
             'as' => 'roles.update'
         ])->where(['id' => '[0-9]+']);
         Route::delete('delete/{id?}',[
-            'uses' => $controller.'roleController@destroy',
+            'uses' => $controller.'RoleController@destroy',
             'as' => 'roles.destroy'
         ])->where(['id' => '[0-9]+']);
     });
+
+    Route::group(['prefix' => 'role/permission'], function () {
+        $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
+        Route::get('index',[
+            'uses' => $controller.'RolePermissionController@index',
+            'as' => 'roles.permission.index'
+        ]);
+        Route::get('data/role',[
+            'uses' => $controller.'RolePermissionController@show_roles',
+            'as' => 'roles.permission.data.role'
+        ]);
+    });
+
 });
 
 

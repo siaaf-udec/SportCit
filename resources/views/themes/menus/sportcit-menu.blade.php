@@ -21,6 +21,12 @@
     </a>
     <ul class="sub-menu">
         <li class="nav-item {{ active(['access-control.permissions'], 'start active open') }}">
+            <a href="{{ route('roles.permission.index') }}" class="nav-link">
+                <i class="icon-frame"></i>
+                <span class="title">Asignaciones</span>
+            </a>
+        </li>
+        <li class="nav-item {{ active(['access-control.permissions'], 'start active open') }}">
             <a href="{{ route('permissions.index') }}" class="nav-link">
                 <i class="icon-frame"></i>
                 <span class="title">Gestion de Permisos</span>
