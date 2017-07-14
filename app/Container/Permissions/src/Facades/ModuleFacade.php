@@ -4,7 +4,7 @@ namespace App\Container\Permissions\Src\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class RoleFacades extends Facade
+class ModuleFacades extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -13,6 +13,6 @@ class RoleFacades extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'roles';
+        return 'modules';
     }
 }

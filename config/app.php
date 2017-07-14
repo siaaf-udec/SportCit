@@ -203,6 +203,7 @@ return [
         App\Container\Users\Src\Providers\UserServiceProvider::class,
         App\Container\Permissions\Src\Providers\PermissionServiceProvider::class,
         App\Container\Permissions\Src\Providers\RoleServiceProvider::class,
+        App\Container\Permissions\Src\Providers\ModuleServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -277,6 +278,7 @@ return [
         'Users' => App\Container\Users\Src\Facades\UserFacades::class,
         'Permissions' => App\Container\Permissions\Src\Facades\PermissionFacades::class,
         'Roles' => App\Container\Permissions\Src\Facades\RoleFacades::class,
+        'Modules' => App\Container\Permissions\Src\Facades\ModuleFacades::class,
     ],
 
 ];

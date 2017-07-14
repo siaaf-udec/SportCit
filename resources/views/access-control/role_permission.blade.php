@@ -127,22 +127,30 @@
                         <div class="form-group">
                             <div class="col-md-9">
                                 <select multiple="multiple" class="multi-select" id="multi_select_roles" name="multi_select_roles[]">
-                                    <option>Dallas Cowboys</option>
-                                    <option>New York Giants</option>
-                                    <option selected>Philadelphia Eagles</option>
-                                    <option selected>Washington Redskins</option>
-                                    <option>Chicago Bears</option>
-                                    <option>Detroit Lions</option>
-                                    <option>Green Bay Packers</option>
-                                    <option>Minnesota Vikings</option>
-                                    <option selected>Atlanta Falcons</option>
-                                    <option>Carolina Panthers</option>
-                                    <option>New Orleans Saints</option>
-                                    <option>Tampa Bay Buccaneers</option>
-                                    <option>Arizona Cardinals</option>
-                                    <option>St. Louis Rams</option>
-                                    <option>San Francisco 49ers</option>
-                                    <option>Seattle Seahawks</option>
+                                    <optgroup label="NFC EAST">
+                                        <option>Dallas Cowboys</option>
+                                        <option>New York Giants</option>
+                                        <option>Philadelphia Eagles</option>
+                                        <option>Washington Redskins</option>
+                                    </optgroup>
+                                    <optgroup label="NFC NORTH">
+                                        <option>Chicago Bears</option>
+                                        <option>Detroit Lions</option>
+                                        <option>Green Bay Packers</option>
+                                        <option>Minnesota Vikings</option>
+                                    </optgroup>
+                                    <optgroup label="NFC SOUTH">
+                                        <option>Atlanta Falcons</option>
+                                        <option>Carolina Panthers</option>
+                                        <option>New Orleans Saints</option>
+                                        <option>Tampa Bay Buccaneers</option>
+                                    </optgroup>
+                                    <optgroup label="NFC WEST">
+                                        <option>Arizona Cardinals</option>
+                                        <option>St. Louis Rams</option>
+                                        <option>San Francisco 49ers</option>
+                                        <option>Seattle Seahawks</option>
+                                    </optgroup>
                                 </select>
                             </div>
                         </div>
@@ -231,7 +239,8 @@
         afterDeselect: function(){
             this.qs1.cache();
             this.qs2.cache();
-        }
+        },
+        selectableOptgroup: true
     });
     $( "a.nav-role-select" ).on('click', function (e) {
         var route = this.id.substr(10);
