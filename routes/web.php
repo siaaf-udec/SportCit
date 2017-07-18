@@ -156,16 +156,44 @@ Route::group(['middleware' => ['auth']], function () {
         ])->where(['id' => '[0-9]+']);
     });
 
+    Route::group(['prefix' => 'modules'], function () {
+        $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
+        Route::get('index',[
+            'uses' => $controller.'ModuleController@index',
+            'as' => 'modules.index'
+        ]);
+        Route::get('data',[
+            'uses' => $controller.'ModuleController@data',
+            'as' => 'modules.data'
+        ]);
+        Route::post('store',[
+            'uses' => $controller.'ModuleController@store',
+            'as' => 'modules.store'
+        ]);
+        Route::post('update/{id?}',[
+            'uses' => $controller.'ModuleController@update',
+            'as' => 'modules.update'
+        ])->where(['id' => '[0-9]+']);
+        Route::delete('delete/{id?}',[
+            'uses' => $controller.'ModuleController@destroy',
+            'as' => 'modules.destroy'
+        ])->where(['id' => '[0-9]+']);
+    });
+
     Route::group(['prefix' => 'role/permission'], function () {
         $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
         Route::get('index',[
             'uses' => $controller.'RolePermissionController@index',
             'as' => 'roles.permission.index'
         ]);
-        Route::get('data/role',[
-            'uses' => $controller.'RolePermissionController@show_roles',
-            'as' => 'roles.permission.data.role'
+        Route::get('data/role/{id?}',[
+            'uses' => $controller.'RolePermissionController@data',
+            'as' => 'roles.permission.data'
         ]);
+        Route::post('update/{id?}',[
+            'uses' => $controller.'RolePermissionController@update',
+            'as' => 'role.permission.update'
+        ])->where(['id' => '[0-9]+']);
     });
 
 });

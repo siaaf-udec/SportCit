@@ -26,6 +26,7 @@ class PermissionRepository extends ControllerRepository implements PermissionInt
         $permission['name'] = $data['name'];
         $permission['display_name'] = $data['display_name'];
         $permission['description'] = $data['description'];
+        $permission['module_id'] = $data['module_id'];
         $permission->save();
         return $permission;
     }

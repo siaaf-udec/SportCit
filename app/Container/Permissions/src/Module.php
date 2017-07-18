@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Container\Permissions\Src;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +14,7 @@ class Module extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'name', 'description'
     ];
     /**
      * The attributes that should be hidden for arrays.
@@ -23,4 +23,12 @@ class Module extends Model
      */
     protected $hidden = [
     ];
+
+    /**
+     * Get the permissions for the permission.
+     */
+    public function permissions()
+    {
+        return $this->hasMany(Permission::class);
+    }
 }

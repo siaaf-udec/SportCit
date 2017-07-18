@@ -122,43 +122,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-7 col-md-offset-1">
+                <div class="col-md-5 col-md-offset-1">
                     <div class="form-body">
                         <div class="form-group">
                             <div class="col-md-9">
-                                <select multiple="multiple" class="multi-select" id="multi_select_roles" name="multi_select_roles[]">
-                                    <optgroup label="NFC EAST">
-                                        <option>Dallas Cowboys</option>
-                                        <option>New York Giants</option>
-                                        <option>Philadelphia Eagles</option>
-                                        <option>Washington Redskins</option>
-                                    </optgroup>
-                                    <optgroup label="NFC NORTH">
-                                        <option>Chicago Bears</option>
-                                        <option>Detroit Lions</option>
-                                        <option>Green Bay Packers</option>
-                                        <option>Minnesota Vikings</option>
-                                    </optgroup>
-                                    <optgroup label="NFC SOUTH">
-                                        <option>Atlanta Falcons</option>
-                                        <option>Carolina Panthers</option>
-                                        <option>New Orleans Saints</option>
-                                        <option>Tampa Bay Buccaneers</option>
-                                    </optgroup>
-                                    <optgroup label="NFC WEST">
-                                        <option>Arizona Cardinals</option>
-                                        <option>St. Louis Rams</option>
-                                        <option>San Francisco 49ers</option>
-                                        <option>Seattle Seahawks</option>
-                                    </optgroup>
+                                {!! Field::hidden('id_role_update') !!}
+                                <select multiple="multiple" class="multi-select" id="multi_select_permission" name="multi_select_permission[]">
+                                    @foreach($modules as $module)
+                                        <optgroup label="{{$module->name}}">
+                                            @foreach($module->permissions as $permission)
+                                            <option value="{{$permission->id}}">{{$permission->name}}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         @endcomponent
     </div>
-
     {{-- END HTML SAMPLE --}}
 @endsection
 {{--
@@ -184,6 +168,8 @@
 <script src="{{ asset('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/plugins/jquery-multi-select/js/jquery.quicksearch.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
 @endpush
 
 {{--
@@ -204,51 +190,119 @@
 | @endpush
 --}}
 @push('functions')
+<script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
+
 <script type="text/javascript">
-    //$('#multi_select_roles').find('option').remove().end();
-    $('#multi_select_roles').multiSelect({
-        selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' '>",
-        selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' '>",
-        afterInit: function(ms){
-            var that = this,
-                $selectableSearch = that.$selectableUl.prev(),
-                $selectionSearch = that.$selectionUl.prev(),
-                selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
-                selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+    //$('#multi_select_permission').find('option').remove().end();
+    jQuery(document).ready(function () {
 
-            that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
-                .on('keydown', function(e){
-                    if (e.which === 40){
-                        that.$selectableUl.focus();
-                        return false;
-                    }
-                });
+        var $widget_select = $("#multi_select_permission").multiSelect(),
+            state = false;
+        //$widget_select.multiSelect(state ? 'disable' : 'enable');
 
-            that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
-                .on('keydown', function(e){
-                    if (e.which == 40){
-                        that.$selectionUl.focus();
-                        return false;
+        var afterSelect = function(){
+            var id_update = $('input[name="id_role_update"]').val().substr(19);
+            var route = '{{ route('role.permission.update') }}'+'/'+id_update;
+            var type = 'POST';
+            var async = async || false;
+
+            var formData = new FormData();
+            formData.append('multi_permission', $widget_select.val());
+
+            $.ajax({
+                url: route,
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                cache: false,
+                type: type,
+                contentType: false,
+                data: formData,
+                processData: false,
+                async: async,
+                beforeSend: function () {
+
+                },
+                success: function (response, xhr, request) {
+                    if (request.status === 200 && xhr === 'success') {
+                        UIToastr.init(xhr , response.title , response.message  );
                     }
-                });
-        },
-        afterSelect: function(){
-            this.qs1.cache();
-            this.qs2.cache();
-        },
-        afterDeselect: function(){
-            this.qs1.cache();
-            this.qs2.cache();
-        },
-        selectableOptgroup: true
-    });
-    $( "a.nav-role-select" ).on('click', function (e) {
-        var route = this.id.substr(10);
-        /*$.get( "ajax/test.html", function( data ) {
-            $( ".result" ).html( data );
-            alert( "Load was performed." );
-        });*/
-        alert(route);
+                },
+                error: function (response, xhr, request) {
+                    if (request.status === 422 &&  xhr === 'success') {
+                        UIToastr.init(xhr, response.title, response.message);
+                    }
+                }
+            });
+
+        };
+
+        $widget_select.multiSelect({
+            selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' '>",
+            selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' '>",
+            afterInit: function(ms){
+                var that = this,
+                    $selectableSearch = that.$selectableUl.prev(),
+                    $selectionSearch = that.$selectionUl.prev(),
+                    selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+                    selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+
+                that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                    .on('keydown', function(e){
+                        if (e.which === 40){
+                            that.$selectableUl.focus();
+                            return false;
+                        }
+                    });
+
+                that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                    .on('keydown', function(e){
+                        if (e.which == 40){
+                            that.$selectionUl.focus();
+                            return false;
+                        }
+                    });
+            },
+            afterSelect: function(){
+                this.qs1.cache();
+                this.qs2.cache();
+                afterSelect();
+            },
+            afterDeselect: function(){
+                this.qs1.cache();
+                this.qs2.cache();
+                afterSelect();
+            },
+            selectableOptgroup: true
+        });
+
+        $( "a.nav-role-select" ).on('click', function (e) {
+            var route = '{{ route('roles.permission.data') }}'+'/'+this.id.substr(10);
+            var type = 'GET';
+            var async = false;
+
+            var element = [];
+
+            $.ajax({
+                url: route,
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                cache: false,
+                type: type,
+                contentType: false,
+                processData: false,
+                async: async,
+                success: function (response, xhr, request) {
+                    $( response.data ).each(function( key,value ) {
+                        element.push(value.id);
+                    });
+                }
+            });
+
+            $('input[name="id_role_update"]').val('id_role_permission_'+ this.id.substr(10));
+            $widget_select.val(element);
+
+            $widget_select.multiSelect("refresh");
+        });
+
+
     });
 </script>
 

@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 
 use App\Container\Permissions\Src\Interfaces\PermissionInterface;
 use App\Container\Permissions\Src\Interfaces\RoleInterface;
+use App\Container\Permissions\Src\Interfaces\ModuleInterface;
+
 use App\Container\Overall\Src\Facades\AjaxResponse;
 
 class RolePermissionController extends Controller
@@ -17,11 +19,13 @@ class RolePermissionController extends Controller
 
     protected $permissionRepository;
     protected $roleRepository;
+    protected $moduleRepository;
 
-    public function __construct(PermissionInterface $permissionRepository, RoleInterface $roleRepository)
+    public function __construct(PermissionInterface $permissionRepository, RoleInterface $roleRepository, ModuleInterface $moduleRepository)
     {
         $this->permissionRepository = $permissionRepository;
         $this->roleRepository = $roleRepository;
+        $this->moduleRepository = $moduleRepository;
     }
 
     /**
@@ -34,13 +38,12 @@ class RolePermissionController extends Controller
         $style = [
             'badge-danger', 'badge-warning', 'badge-info', 'badge-success'
         ];
-        $prueb = $this->roleRepository->getModel()->find(1);
-
-        $roles = $this->roleRepository->index();
+        $roles = $this->roleRepository->index([]);
+        $modules = $this->moduleRepository->index([]);
         return view('access-control.role_permission', [
             'roles' => $roles,
             'style' => $style,
-            'prueb' => $prueb
+            'modules' => $modules
         ]);
     }
 
@@ -49,15 +52,15 @@ class RolePermissionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function data(Request $request)
+    public function data(Request $request, $id)
     {
         if($request->ajax() && $request->isMethod('GET')){
-            $permissions = $this->permissionRepository->index();
-            return Datatables::of($permissions)
-                ->removeColumn('created_at')
-                ->removeColumn('updated_at')
-                ->addIndexColumn()
-                ->make(true);
+        $roles = $this->roleRepository->show($id, []);
+            return AjaxResponse::success(
+                '¡Bien hecho!',
+                'Datos cargados correctamente.',
+                $roles->perms
+            );
         }else{
             return AjaxResponse::fail(
                 '¡Lo sentimos!',
@@ -85,7 +88,7 @@ class RolePermissionController extends Controller
     public function store(Request $request)
     {
         if($request->ajax() && $request->isMethod('POST')){
-            $this->permissionRepository->store($request->all());
+            $this->roleRepository->store($request->all());
             return AjaxResponse::success(
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'
@@ -130,13 +133,8 @@ class RolePermissionController extends Controller
     public function update(Request $request, $id)
     {
         if($request->ajax() && $request->isMethod('POST')){
-            $permission = [
-                'id' => $id,
-                'name'=> $request->get('name'),
-                'display_name'=> $request->get('display_name'),
-                'description'=> $request->get('description'),
-            ];
-            $this->permissionRepository->update($permission);
+            $role = $this->roleRepository->show($id, []);
+            $role->perms()->sync($request->get('multi_permission'));
             return AjaxResponse::success(
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'

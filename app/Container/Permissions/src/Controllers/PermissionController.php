@@ -9,16 +9,19 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 use App\Container\Permissions\Src\Interfaces\PermissionInterface;
+use App\Container\Permissions\Src\Interfaces\ModuleInterface;
 use App\Container\Overall\Src\Facades\AjaxResponse;
 
 class PermissionController extends Controller
 {
 
     protected $permissionRepository;
+    protected $moduleRepository;
 
-    public function __construct(PermissionInterface $permissionRepository)
+    public function __construct(PermissionInterface $permissionRepository, ModuleInterface $moduleRepository)
     {
         $this->permissionRepository = $permissionRepository;
+        $this->moduleRepository = $moduleRepository;
     }
 
     /**
@@ -28,7 +31,11 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        return view('access-control.permissions');
+        $modules = $this->moduleRepository->index([]);
+        $t = [10 => 'x', 11 => 'y'];
+        return view('access-control.permissions',[
+            'modules' => $t
+        ]);
     }
 
     /**

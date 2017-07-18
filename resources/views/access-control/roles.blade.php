@@ -300,7 +300,7 @@
             $tr = $(this).closest('tr');
             var dataTable = table.row($tr).data();
 
-            var route = '{{ route('permissions.destroy') }}'+'/'+dataTable.id;
+            var route = '{{ route('roles.destroy') }}'+'/'+dataTable.id;
             var type = 'DELETE';
             var async = async || false;
 
@@ -317,7 +317,7 @@
                 },
                 success: function (response, xhr, request) {
                     if (request.status === 200 && xhr === 'success') {
-                        $('#modal-update-permission').modal('hide');
+                        table.ajax.reload();
                         UIToastr.init(xhr , response.title , response.message  );
                     }
                 },
@@ -437,7 +437,7 @@
         var rules_edit = {
             name_edit: {minlength: 5, required: true},
             display_name_edit: {minlength: 5, required: true},
-            descriptión_edit: {minlength: 5},
+            description_edit: {minlength: 5},
         };
         FormValidationMd.init(form_edit,rules_edit,false,updatePermissions());
 
@@ -445,7 +445,7 @@
         var rules_create = {
             name_create: {minlength: 5, required: true},
             display_name_create: {minlength: 5, required: true},
-            descriptión_create: {minlength: 5},
+            description_create: {minlength: 5},
         };
         FormValidationMd.init(form_create,rules_create,false,createPermissions());
 

@@ -21,10 +21,11 @@ class ModuleRepository extends ControllerRepository implements ModuleInterface
         parent::__construct(Module::class);
     }
 
-    protected function process($role, $data)
+    protected function process($module, $data)
     {
-        $role['name'] = $data['name'];
-        $role->save();
-        return $role;
+        $module['name'] = $data['name'];
+        $module['description'] = $data['description'];
+        $module->save();
+        return $module;
     }
 }

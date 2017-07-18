@@ -38,5 +38,11 @@
                 <span class="title">Gestion de Roles</span>
             </a>
         </li>
+        <li class="nav-item {{ active(['access-control.modules'], 'start active open') }}">
+            <a href="{{ route('modules.index') }}" class="nav-link">
+                <i class="icon-frame"></i>
+                <span class="title">Gestion de Modulos</span>
+            </a>
+        </li>
     </ul>
 </li>

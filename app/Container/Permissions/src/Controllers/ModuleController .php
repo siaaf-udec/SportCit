@@ -28,7 +28,7 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        return view('access-control.permissions');
+        return view('access-control.modules');
     }
 
     /**
@@ -39,8 +39,8 @@ class ModuleController extends Controller
     public function data(Request $request)
     {
         if($request->ajax() && $request->isMethod('GET')){
-            $permissions = $this->moduleRepository->index();
-            return Datatables::of($permissions)
+            $modules = $this->moduleRepository->index();
+            return Datatables::of($modules)
                 ->removeColumn('created_at')
                 ->removeColumn('updated_at')
                 ->addIndexColumn()
@@ -117,13 +117,13 @@ class ModuleController extends Controller
     public function update(Request $request, $id)
     {
         if($request->ajax() && $request->isMethod('POST')){
-            $permission = [
+            $module = [
                 'id' => $id,
                 'name'=> $request->get('name'),
                 'display_name'=> $request->get('display_name'),
                 'description'=> $request->get('description'),
             ];
-            $this->moduleRepository->update($permission);
+            $this->moduleRepository->update($module);
             return AjaxResponse::success(
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'

@@ -116,7 +116,6 @@
                             '#' => ['style' => 'width:20px;'],
                             'id',
                             'Nombre',
-                            'Nombre para Mostrar',
                             'Descripción',
                             'Acciones' => ['style' => 'width:90px;']
                         ])
@@ -128,11 +127,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <!-- Modal -->
-                    <div class="modal fade" id="modal-update-permission" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="modal-update-module" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <!-- Modal content-->
                             <div class="modal-content">
-                                {!! Form::open(['id' => 'from_permissions_update', 'class' => '', 'url' => '/forms']) !!}
+                                {!! Form::open(['id' => 'from_module_update', 'class' => '', 'url' => '/forms']) !!}
                                     <div class="modal-header modal-header-success">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                         <h1><i class="glyphicon glyphicon-thumbs-up"></i> Success Modal</h1>
@@ -145,10 +144,6 @@
                                                     'name_edit',
                                                     ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
                                                     ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
-                                                {!! Field::text(
-                                                    'display_name_edit',
-                                                    ['label' => 'Nombre para Mostrar', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
-                                                    ['help' => 'Ingrese el Nombre para Mostrar', 'icon' => 'fa fa-user']) !!}
                                                 {!! Field::textarea(
                                                     'description_edit',
                                                     ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'required', 'auto' => 'off'],
@@ -167,11 +162,11 @@
                 </div>
                 <div class="col-md-12">
                     <!-- Modal -->
-                    <div class="modal fade" id="modal-create-permission" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade" id="modal-create-module" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog">
                             <!-- Modal content-->
                             <div class="modal-content">
-                                {!! Form::open(['id' => 'from_permissions_create', 'class' => '', 'url' => '/forms']) !!}
+                                {!! Form::open(['id' => 'from_module_create', 'class' => '', 'url' => '/forms']) !!}
                                 <div class="modal-header modal-header-success">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                     <h1><i class="glyphicon glyphicon-thumbs-up"></i> Success Modal</h1>
@@ -179,18 +174,10 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            {!! Field::select(
-                                                'Modulo',
-                                                 $modules,
-                                                ['name' => 'module_create']) !!}
                                             {!! Field::text(
                                                 'name_create',
                                                 ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
                                                 ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
-                                            {!! Field::text(
-                                                'display_name_create',
-                                                ['label' => 'Nombre para Mostrar', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
-                                                ['help' => 'Ingrese el Nombre para Mostrar', 'icon' => 'fa fa-user']) !!}
                                             {!! Field::textarea(
                                                 'description_create',
                                                 ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'required', 'auto' => 'off'],
@@ -270,18 +257,16 @@
 <script src="{{ asset('assets/main/scripts/table-datatable.js') }}" type="text/javascript"></script>
 <script>
     jQuery(document).ready(function () {
-        UIToastr.init('success', 'Hola', 'Funcione');
         /*
          * Referencia https://datatables.net/reference/option/
          */
         var table, url, columns;
         table = $('#example-table-ajax');
-        url = "{{ route('permissions.data') }}";
+        url = "{{ route('modules.data') }}";
         columns = [
             {data: 'DT_Row_Index'},
             {data: 'id', "visible": false },
             {data: 'name', name: 'Nombre'},
-            {data: 'display_name', name: 'Nombre para Mostrar'},
             {data: 'description', name: 'Descripción'},
             {
                 defaultContent: '<a href="javascript:;" class="btn btn-simple btn-warning btn-icon edit"><i class="icon-pencil"></i></a><a href="javascript:;" class="btn btn-simple btn-danger btn-icon remove"><i class="icon-trash"></i></a>',
@@ -305,7 +290,7 @@
             $tr = $(this).closest('tr');
             var dataTable = table.row($tr).data();
 
-            var route = '{{ route('permissions.destroy') }}'+'/'+dataTable.id;
+            var route = '{{ route('modules.destroy') }}'+'/'+dataTable.id;
             var type = 'DELETE';
             var async = async || false;
 
@@ -340,15 +325,13 @@
             $tr = $(this).closest('tr');
             var dataTable = table.row($tr).data();
             $('input[name="id_edit"]').val(dataTable.id);
-            $('#name_edit').attr('value', dataTable.name);
-            $('#display_name_edit').attr('value', dataTable.display_name);
             $('#description_edit').val(dataTable.description);
-            $('#modal-update-permission').modal('toggle');
+            $('#modal-update-module').modal('toggle');
         });
 
         $( ".create" ).on('click', function (e) {
             e.preventDefault();
-            $('#modal-create-permission').modal('toggle');
+            $('#modal-create-module').modal('toggle');
         });
 
         /*Editar Permiso*/
@@ -356,13 +339,12 @@
             return{
                 init: function () {
                     var id_edit = $('input[name="id_edit"]').val();
-                    var route = '{{ route('permissions.update') }}'+'/'+id_edit;
+                    var route = '{{ route('modules.update') }}'+'/'+id_edit;
                     var type = 'POST';
                     var async = async || false;
 
                     var formData = new FormData();
                     formData.append('name', $('input:text[name="name_edit"]').val());
-                    formData.append('display_name', $('input:text[name="display_name_edit"]').val());
                     formData.append('description', $('#description_edit').val());
 
                     $.ajax({
@@ -380,8 +362,8 @@
                         success: function (response, xhr, request) {
                             if (request.status === 200 && xhr === 'success') {
                                 table.ajax.reload();
-                                $('#modal-update-permission').modal('hide');
-                                $('#from_permissions_update')[0].reset(); //Limpia formulario
+                                $('#modal-module-module').modal('hide');
+                                $('#from_module_update')[0].reset(); //Limpia formulario
                                 UIToastr.init(xhr , response.title , response.message  );
                             }
                         },
@@ -398,15 +380,13 @@
         var createPermissions = function () {
             return{
                 init: function () {
-                    var route = '{{ route('permissions.store') }}';
+                    var route = '{{ route('modules.store') }}';
                     var type = 'POST';
                     var async = async || false;
 
                     var formData = new FormData();
                     formData.append('name', $('input:text[name="name_create"]').val());
-                    formData.append('display_name', $('input:text[name="display_name_create"]').val());
                     formData.append('description', $('#description_create').val());
-                    formData.append('module_id', 10);
 
                     $.ajax({
                         url: route,
@@ -423,8 +403,8 @@
                         success: function (response, xhr, request) {
                             if (request.status === 200 && xhr === 'success') {
                                 table.ajax.reload();
-                                $('#modal-create-permission').modal('hide');
-                                $('#from_permissions_create')[0].reset(); //Limpia formulario
+                                $('#modal-create-module').modal('hide');
+                                $('#from_module_create')[0].reset(); //Limpia formulario
                                 UIToastr.init(xhr , response.title , response.message  );
                             }
                         },
@@ -439,18 +419,16 @@
         };
 
 
-        var form_edit = $('#from_permissions_update');
+        var form_edit = $('#from_module_update');
         var rules_edit = {
             name_edit: {minlength: 5, required: true},
-            display_name_edit: {minlength: 5, required: true},
             description_edit: {minlength: 5},
         };
         FormValidationMd.init(form_edit,rules_edit,false,updatePermissions());
 
-        var form_create = $('#from_permissions_create');
+        var form_create = $('#from_module_create');
         var rules_create = {
             name_create: {minlength: 5, required: true},
-            display_name_create: {minlength: 5, required: true},
             description_create: {minlength: 5},
         };
         FormValidationMd.init(form_create,rules_create,false,createPermissions());
