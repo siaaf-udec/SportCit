@@ -23,8 +23,8 @@
 @push('styles')
 <link href="{{asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css')}}" rel="stylesheet" type="text/css" />
 <link href="{{asset('assets/pages/css/profile.min.css')}}" rel="stylesheet" type="text/css" />
+
 <link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
-<link href="{{-- asset('assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css') --}}" rel="stylesheet" type="text/css" />
 @endpush
 
 

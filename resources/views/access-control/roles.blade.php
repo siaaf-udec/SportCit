@@ -24,6 +24,8 @@
 <!-- Datatables Styles -->
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 
@@ -132,10 +134,10 @@
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
-                        {!! Form::open(['id' => 'from_permissions_update', 'class' => '', 'url' => '/forms']) !!}
+                        {!! Form::open(['id' => 'from_roles_update', 'class' => '', 'url' => '/forms']) !!}
                         <div class="modal-header modal-header-success">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h1><i class="glyphicon glyphicon-thumbs-up"></i> Success Modal</h1>
+                            <h1><i class="glyphicon glyphicon-thumbs-up"></i> Modificar rol</h1>
                         </div>
                         <div class="modal-body">
                             <div class="row">
@@ -151,7 +153,7 @@
                                         ['help' => 'Ingrese el Nombre para Mostrar', 'icon' => 'fa fa-user']) !!}
                                     {!! Field::textarea(
                                         'description_edit',
-                                        ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'required', 'auto' => 'off'],
+                                        ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off'],
                                         ['help' => 'Ingrese la Descripción']) !!}
                                 </div>
                             </div>
@@ -171,10 +173,10 @@
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
-                        {!! Form::open(['id' => 'from_permissions_create', 'class' => '', 'url' => '/forms']) !!}
+                        {!! Form::open(['id' => 'from_roles_create', 'class' => '', 'url' => '/forms']) !!}
                         <div class="modal-header modal-header-success">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            <h1><i class="glyphicon glyphicon-thumbs-up"></i> Success Modal</h1>
+                            <h1><i class="glyphicon glyphicon-thumbs-up"></i> Crear rol</h1>
                         </div>
                         <div class="modal-body">
                             <div class="row">
@@ -189,7 +191,7 @@
                                         ['help' => 'Ingrese el Nombre para Mostrar', 'icon' => 'fa fa-user']) !!}
                                     {!! Field::textarea(
                                         'description_create',
-                                        ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'required', 'auto' => 'off'],
+                                        ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off'],
                                         ['help' => 'Ingrese la Descripción']) !!}
                                 </div>
                             </div>
@@ -264,7 +266,7 @@
 <script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('assets/main/scripts/table-datatable.js') }}" type="text/javascript"></script>
-<script>
+<script type="text/javascript">
     jQuery(document).ready(function () {
         /*
          * Referencia https://datatables.net/reference/option/
@@ -376,7 +378,7 @@
                             if (request.status === 200 && xhr === 'success') {
                                 table.ajax.reload();
                                 $('#modal-update-permission').modal('hide');
-                                $('#from_permissions_update')[0].reset(); //Limpia formulario
+                                $('#from_roles_update')[0].reset(); //Limpia formulario
                                 UIToastr.init(xhr , response.title , response.message  );
                             }
                         },
@@ -418,7 +420,7 @@
                             if (request.status === 200 && xhr === 'success') {
                                 table.ajax.reload();
                                 $('#modal-create-permission').modal('hide');
-                                $('#from_permissions_create')[0].reset(); //Limpia formulario
+                                $('#from_roles_create')[0].reset(); //Limpia formulario
                                 UIToastr.init(xhr , response.title , response.message  );
                             }
                         },
@@ -433,7 +435,7 @@
         };
 
 
-        var form_edit = $('#from_permissions_update');
+        var form_edit = $('#from_roles_update');
         var rules_edit = {
             name_edit: {minlength: 5, required: true},
             display_name_edit: {minlength: 5, required: true},
@@ -441,7 +443,7 @@
         };
         FormValidationMd.init(form_edit,rules_edit,false,updatePermissions());
 
-        var form_create = $('#from_permissions_create');
+        var form_create = $('#from_roles_create');
         var rules_create = {
             name_create: {minlength: 5, required: true},
             display_name_create: {minlength: 5, required: true},

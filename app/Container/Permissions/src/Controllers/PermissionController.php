@@ -31,11 +31,34 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $modules = $this->moduleRepository->index([]);
-        $t = [10 => 'x', 11 => 'y'];
+        $modules = $this->moduleRepository->index([])->pluck('name', 'id');
+
         return view('access-control.permissions',[
-            'modules' => $t
+            'modules' => $modules->toArray()
         ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Request $request, $id)
+    {
+        if($request->ajax() && $request->isMethod('GET')){
+            $permission = $this->permissionRepository->show($id);
+            return AjaxResponse::success(
+                '¡Bien hecho!',
+                'Datos cargados correctamente.',
+                $permission
+            );
+        }else{
+            return AjaxResponse::fail(
+                '¡Lo sentimos!',
+                'No se pudo completar tu solicitud.'
+            );
+        }
     }
 
     /**
@@ -46,7 +69,7 @@ class PermissionController extends Controller
     public function data(Request $request)
     {
         if($request->ajax() && $request->isMethod('GET')){
-            $permissions = $this->permissionRepository->index();
+            $permissions = $this->permissionRepository->index([]);
             return Datatables::of($permissions)
                 ->removeColumn('created_at')
                 ->removeColumn('updated_at')
@@ -58,16 +81,6 @@ class PermissionController extends Controller
                 'No se pudo completar tu solicitud.'
             );
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -93,28 +106,6 @@ class PermissionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -129,6 +120,7 @@ class PermissionController extends Controller
                 'name'=> $request->get('name'),
                 'display_name'=> $request->get('display_name'),
                 'description'=> $request->get('description'),
+                'module_id'=> $request->get('module_id'),
             ];
             $this->permissionRepository->update($permission);
             return AjaxResponse::success(
@@ -157,7 +149,7 @@ class PermissionController extends Controller
 
             return AjaxResponse::success(
                 '¡Bien hecho!',
-                'Datos modificados correctamente.'
+                'Datos eliminados correctamente.'
             );
         }else{
             return AjaxResponse::fail(

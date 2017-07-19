@@ -22,25 +22,25 @@
     <ul class="sub-menu">
         <li class="nav-item {{ active(['access-control.permissions'], 'start active open') }}">
             <a href="{{ route('roles.permission.index') }}" class="nav-link">
-                <i class="icon-frame"></i>
+                <i class="fa fa-clone"></i>
                 <span class="title">Asignaciones</span>
             </a>
         </li>
         <li class="nav-item {{ active(['access-control.permissions'], 'start active open') }}">
             <a href="{{ route('permissions.index') }}" class="nav-link">
-                <i class="icon-frame"></i>
+                <i class="fa fa-get-pocket"></i>
                 <span class="title">Gestion de Permisos</span>
             </a>
         </li>
         <li class="nav-item {{ active(['access-control.roles'], 'start active open') }}">
             <a href="{{ route('roles.index') }}" class="nav-link">
-                <i class="icon-frame"></i>
+                <i class="fa fa-map-signs"></i>
                 <span class="title">Gestion de Roles</span>
             </a>
         </li>
         <li class="nav-item {{ active(['access-control.modules'], 'start active open') }}">
             <a href="{{ route('modules.index') }}" class="nav-link">
-                <i class="icon-frame"></i>
+                <i class="fa fa-genderless"></i>
                 <span class="title">Gestion de Modulos</span>
             </a>
         </li>

@@ -118,6 +118,12 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller.'PermissionController@data',
             'as' => 'permissions.data'
         ]);
+
+        Route::get('edit/{id?}',[
+            'uses' => $controller.'PermissionController@edit',
+            'as' => 'permissions.edit'
+        ])->where(['id' => '[0-9]+']);
+
         Route::post('store',[
             'uses' => $controller.'PermissionController@store',
             'as' => 'permissions.store'

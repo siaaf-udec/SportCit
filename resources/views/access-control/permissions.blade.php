@@ -24,6 +24,8 @@
 <!-- Datatables Styles -->
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 
@@ -135,12 +137,16 @@
                                 {!! Form::open(['id' => 'from_permissions_update', 'class' => '', 'url' => '/forms']) !!}
                                     <div class="modal-header modal-header-success">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h1><i class="glyphicon glyphicon-thumbs-up"></i> Success Modal</h1>
+                                        <h1><i class="glyphicon glyphicon-thumbs-up"></i> Modificar Permiso</h1>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 {!! Field::hidden('id_edit') !!}
+                                                {!! Field::select(
+                                                'Modulo',
+                                                 $modules,
+                                                ['name' => 'module_edit']) !!}
                                                 {!! Field::text(
                                                     'name_edit',
                                                     ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
@@ -151,7 +157,7 @@
                                                     ['help' => 'Ingrese el Nombre para Mostrar', 'icon' => 'fa fa-user']) !!}
                                                 {!! Field::textarea(
                                                     'description_edit',
-                                                    ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'required', 'auto' => 'off'],
+                                                    ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off'],
                                                     ['help' => 'Ingrese la Descripción']) !!}
                                             </div>
                                         </div>
@@ -174,7 +180,7 @@
                                 {!! Form::open(['id' => 'from_permissions_create', 'class' => '', 'url' => '/forms']) !!}
                                 <div class="modal-header modal-header-success">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h1><i class="glyphicon glyphicon-thumbs-up"></i> Success Modal</h1>
+                                    <h1><i class="glyphicon glyphicon-thumbs-up"></i> Crear Permiso</h1>
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
@@ -193,7 +199,7 @@
                                                 ['help' => 'Ingrese el Nombre para Mostrar', 'icon' => 'fa fa-user']) !!}
                                             {!! Field::textarea(
                                                 'description_create',
-                                                ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'required', 'auto' => 'off'],
+                                                ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off'],
                                                 ['help' => 'Ingrese la Descripción']) !!}
                                         </div>
                                     </div>
@@ -268,9 +274,8 @@
 <script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('assets/main/scripts/table-datatable.js') }}" type="text/javascript"></script>
-<script>
+<script type="text/javascript">
     jQuery(document).ready(function () {
-        UIToastr.init('success', 'Hola', 'Funcione');
         /*
          * Referencia https://datatables.net/reference/option/
          */
@@ -338,12 +343,20 @@
         table.on('click', '.edit', function (e) {
             e.preventDefault();
             $tr = $(this).closest('tr');
-            var dataTable = table.row($tr).data();
-            $('input[name="id_edit"]').val(dataTable.id);
-            $('#name_edit').attr('value', dataTable.name);
-            $('#display_name_edit').attr('value', dataTable.display_name);
-            $('#description_edit').val(dataTable.description);
-            $('#modal-update-permission').modal('toggle');
+
+            var dataTable = table.row($tr).data(),
+                route_edit = '{{ route('permissions.edit') }}'+ '/'+ dataTable.id;
+
+            $.get( route_edit, function( info ) {
+                $('input[name="id_edit"]').val(info.data.id);
+                $('select[name="module_edit"]').val(info.data.module_id);
+                $('#name_edit').attr('value', info.data.name);
+                $('#display_name_edit').attr('value', info.data.display_name);
+                $('#description_edit').val(info.data.description);
+                $('#modal-update-permission').modal('toggle');
+            });
+
+
         });
 
         $( ".create" ).on('click', function (e) {
@@ -364,6 +377,7 @@
                     formData.append('name', $('input:text[name="name_edit"]').val());
                     formData.append('display_name', $('input:text[name="display_name_edit"]').val());
                     formData.append('description', $('#description_edit').val());
+                    formData.append('module_id', $('select[name="module_edit"]').val());
 
                     $.ajax({
                         url: route,
@@ -406,7 +420,7 @@
                     formData.append('name', $('input:text[name="name_create"]').val());
                     formData.append('display_name', $('input:text[name="display_name_create"]').val());
                     formData.append('description', $('#description_create').val());
-                    formData.append('module_id', 10);
+                    formData.append('module_id', $('select[name="module_create"]').val());
 
                     $.ajax({
                         url: route,
@@ -441,17 +455,19 @@
 
         var form_edit = $('#from_permissions_update');
         var rules_edit = {
-            name_edit: {minlength: 5, required: true},
-            display_name_edit: {minlength: 5, required: true},
-            description_edit: {minlength: 5},
+            name_edit: { minlength: 5, required: true },
+            display_name_edit: { minlength: 5, required: true },
+            description_edit: { minlength: 5 },
+            module_edit: { required: true }
         };
         FormValidationMd.init(form_edit,rules_edit,false,updatePermissions());
 
         var form_create = $('#from_permissions_create');
         var rules_create = {
-            name_create: {minlength: 5, required: true},
-            display_name_create: {minlength: 5, required: true},
-            description_create: {minlength: 5},
+            name_create: { minlength: 5, required: true },
+            display_name_create: { minlength: 5, required: true },
+            description_create: { minlength: 5 },
+            module_create: { required: true }
         };
         FormValidationMd.init(form_create,rules_create,false,createPermissions());
 

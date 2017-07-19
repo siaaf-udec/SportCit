@@ -27,6 +27,8 @@
 <link href="{{  asset('assets/global/plugins/jquery-multi-select/css/multi-select.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{  asset('assets/global/plugins/select2/css/select2.min.css" rel="stylesheet') }}" type="text/css" />
 <link href="{{  asset('assets/global/plugins/select2/css/select2-bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 
@@ -109,13 +111,17 @@
             <div class="clearfix"></div><br>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="scroller todo-project-list-content todo-project-list-content-tags" style="height: 240px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="m-heading-1 border-green m-bordered">
+                        <p> <strong>Roles</strong>
+                            <br>Cada roll puede tener diferentes permisos. </p>
+                    </div>
+                        <div class="scroller todo-project-list-content todo-project-list-content-tags" style="height: 150px;" data-always-visible="1" data-rail-visible1="1">
                         <div class="todo-project-list">
                             <ul class="nav nav-pills nav-stacked">
                                 @foreach ($roles as $role)
                                     <li>
                                         <a id="role_iden_{{$role['id']}}" class="nav-role-select" href="javascript:;" >
-                                            <span class="badge {{$style[mt_rand(0, count($style) - 1)]}}"> 6 </span> {{$role['name']}} </a>
+                                            <span class="badge {{$style[mt_rand(0, count($style) - 1)]}}"> {{$role->num_perms}} </span> {{$role['name']}} </a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -193,12 +199,12 @@
 <script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
 
 <script type="text/javascript">
-    //$('#multi_select_permission').find('option').remove().end();
     jQuery(document).ready(function () {
 
-        var $widget_select = $("#multi_select_permission").multiSelect(),
+        var $widget_select = $("#multi_select_permission"),
             state = false;
-        //$widget_select.multiSelect(state ? 'disable' : 'enable');
+
+        $widget_select.attr('disabled', true);
 
         var afterSelect = function(){
             var id_update = $('input[name="id_role_update"]').val().substr(19);
@@ -206,8 +212,10 @@
             var type = 'POST';
             var async = async || false;
 
+            var permission_update = ($widget_select.val()===null) ? [] : $widget_select.val();
+
             var formData = new FormData();
-            formData.append('multi_permission', $widget_select.val());
+            formData.append('multi_permission', permission_update);
 
             $.ajax({
                 url: route,
@@ -290,6 +298,7 @@
                 processData: false,
                 async: async,
                 success: function (response, xhr, request) {
+                    $widget_select.attr('disabled', false);
                     $( response.data ).each(function( key,value ) {
                         element.push(value.id);
                     });

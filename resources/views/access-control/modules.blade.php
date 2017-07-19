@@ -24,6 +24,8 @@
 <!-- Datatables Styles -->
 <link href="{{ asset('assets/global/plugins/datatables/datatables.min.css') }}" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css') }}" rel="stylesheet" type="text/css" />
+
+<link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 
@@ -134,7 +136,7 @@
                                 {!! Form::open(['id' => 'from_module_update', 'class' => '', 'url' => '/forms']) !!}
                                     <div class="modal-header modal-header-success">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                        <h1><i class="glyphicon glyphicon-thumbs-up"></i> Success Modal</h1>
+                                        <h1><i class="glyphicon glyphicon-thumbs-up"></i> Editar Modulo </h1>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
@@ -146,7 +148,7 @@
                                                     ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
                                                 {!! Field::textarea(
                                                     'description_edit',
-                                                    ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'required', 'auto' => 'off'],
+                                                    ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off'],
                                                     ['help' => 'Ingrese la Descripción']) !!}
                                             </div>
                                         </div>
@@ -169,7 +171,7 @@
                                 {!! Form::open(['id' => 'from_module_create', 'class' => '', 'url' => '/forms']) !!}
                                 <div class="modal-header modal-header-success">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h1><i class="glyphicon glyphicon-thumbs-up"></i> Success Modal</h1>
+                                    <h1><i class="glyphicon glyphicon-thumbs-up"></i> Crear Modulo</h1>
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
@@ -180,7 +182,7 @@
                                                 ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
                                             {!! Field::textarea(
                                                 'description_create',
-                                                ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'required', 'auto' => 'off'],
+                                                ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off'],
                                                 ['help' => 'Ingrese la Descripción']) !!}
                                         </div>
                                     </div>
@@ -255,7 +257,7 @@
 <script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('assets/main/scripts/table-datatable.js') }}" type="text/javascript"></script>
-<script>
+<script type="text/javascript">
     jQuery(document).ready(function () {
         /*
          * Referencia https://datatables.net/reference/option/
@@ -325,6 +327,7 @@
             $tr = $(this).closest('tr');
             var dataTable = table.row($tr).data();
             $('input[name="id_edit"]').val(dataTable.id);
+            $('input[name="name_edit"]').val(dataTable.name);
             $('#description_edit').val(dataTable.description);
             $('#modal-update-module').modal('toggle');
         });
@@ -362,7 +365,7 @@
                         success: function (response, xhr, request) {
                             if (request.status === 200 && xhr === 'success') {
                                 table.ajax.reload();
-                                $('#modal-module-module').modal('hide');
+                                $('#modal-update-module').modal('hide');
                                 $('#from_module_update')[0].reset(); //Limpia formulario
                                 UIToastr.init(xhr , response.title , response.message  );
                             }
