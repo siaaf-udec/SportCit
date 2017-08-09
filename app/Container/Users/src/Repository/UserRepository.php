@@ -29,7 +29,15 @@ class UserRepository extends ControllerRepository implements UserInterface
 
     protected function process($user, $data)
     {
-        $user['name'] = $data['name'];
+        $user['type_document'] = $data['type_document'];
+        $user['number_document'] = $data['number_document'];
+        $user['name_user'] = $data['name_user'];
+        $user['lastname_user'] = $data['lastname_user'];
+        $user['birthday'] = $data['birthday'];
+        $user['phone_user'] = $data['phone_user'];
+        $user['website'] = $data['website'];
+        $user['email'] = $data['email'];
+        $user['password'] = bcrypt($data['password']);
         $user->save();
         return $user;
     }

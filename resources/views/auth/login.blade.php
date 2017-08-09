@@ -92,6 +92,7 @@
                                     ¿Se te olvidó tu contraseña?</a>
                             </div>
                         </div>
+
                     </div>
                     {!! Form::close() !!}
                 <!-- END : LOGIN PAGE 5-1 -->

@@ -6,9 +6,9 @@
     </a>
     <ul class="sub-menu">
         <li class="nav-item {{ active(['sportcit.create-organization'], 'start active open') }}">
-            <a href="{{ route('organization.create') }}" class="nav-link">
+            <a href="{{ route('organization.index') }}" class="nav-link">
                 <i class="icon-frame"></i>
-                <span class="title">Crear Organización</span>
+                <span class="title">Organizaciones</span>
             </a>
         </li>
     </ul>

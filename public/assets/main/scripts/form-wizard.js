@@ -71,11 +71,11 @@ var FormWizard = function () {
 
             });
 
-            var displayConfirm = function() {
-                $('#tab4 .form-control-static', form).each(function(){
-                    var input = $('[name="'+$(this).attr("data-display")+'"]', form);
+            var displayConfirm = function () {
+                $('#tab4 .form-control-static', form).each(function () {
+                    var input = $('[name="' + $(this).attr("data-display") + '"]', form);
                     if (input.is(":radio")) {
-                        input = $('[name="'+$(this).attr("data-display")+'"]:checked', form);
+                        input = $('[name="' + $(this).attr("data-display") + '"]:checked', form);
                     }
                     if (input.is(":text") || input.is("textarea")) {
                         $(this).html(input.val());
@@ -85,7 +85,7 @@ var FormWizard = function () {
                         $(this).html(input.attr("data-title"));
                     } else if (input.is(":checkbox")) {
                         var payment = [];
-                        $('[name="'+$(this).attr("data-display")+'"]:checked', form).each(function(){
+                        $('[name="' + $(this).attr("data-display") + '"]:checked', form).each(function () {
                             payment.push($(this).attr('data-title'));
                         });
                         $(this).html(payment.join("<br>"));
@@ -93,7 +93,8 @@ var FormWizard = function () {
                 });
             }
 
-            var handleTitle = function(tab, navigation, index) {
+            var handleTitle = function (tab, navigation, index) {
+
                 var total = navigation.find('li').length;
                 var current = index + 1;
                 // set wizard title
@@ -107,6 +108,7 @@ var FormWizard = function () {
 
                 if (current == 1) {
                     wizard.find('.button-previous').hide();
+
                 } else {
                     wizard.find('.button-previous').show();
                 }
@@ -140,11 +142,9 @@ var FormWizard = function () {
                 onNext: function (tab, navigation, index) {
                     success.hide();
                     error.hide();
-
                     if (form.valid() == false) {
                         return false;
                     }
-
                     handleTitle(tab, navigation, index);
                 },
                 onPrevious: function (tab, navigation, index) {
@@ -162,12 +162,11 @@ var FormWizard = function () {
                     });
                 }
             });
-
             wizard.find('.button-previous').hide();
 
-            form.on('click', '.button-submit', function(e){
+            form.on('click', '.button-submit', function (e) {
                 e.preventDefault();
-                if ( typeof method !== 'undefined' && typeof method === 'object' ) {
+                if (typeof method !== 'undefined' && typeof method === 'object') {
                     method.init();
                 }
                 if (typeof method === 'undefined' || method === false) {

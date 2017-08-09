@@ -204,6 +204,7 @@ return [
         App\Container\Permissions\Src\Providers\PermissionServiceProvider::class,
         App\Container\Permissions\Src\Providers\RoleServiceProvider::class,
         App\Container\Permissions\Src\Providers\ModuleServiceProvider::class,
+        App\Container\SportCit\Src\Providers\OrganizationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -213,7 +214,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        //auditing
+        OwenIt\Auditing\AuditingServiceProvider::class,
     ],
 
     /*

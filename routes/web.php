@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Container\Users\Src\User;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,174 +36,197 @@ Route::group(['middleware' => ['auth']], function () {
 
     $controller = "\\App\\Container\\Users\\Src\\Controllers\\";
     Route::get('/container', [
-        'uses' => $controller.'UserController@index',
+        'uses' => $controller . 'UserController@index',
         'as' => 'sportcit.index'
     ]);
 
     Route::group(['prefix' => 'components'], function () {
         //Submenu 1
-        Route::get('buttons', function ()    {
+        Route::get('buttons', function () {
             return view('examples.buttons');
         })->name('components.buttons');
-        Route::get('icons', function ()    {
+        Route::get('icons', function () {
             return view('examples.icons');
         })->name('components.icons');
 
-        Route::get('portlet', function ()    {
+        Route::get('portlet', function () {
             return view('examples.portlet');
         })->name('components.portlet');
 
-        Route::get('sidebar', function ()    {
+        Route::get('sidebar', function () {
             return view('examples.sidebar');
         })->name('components.sidebar');
 
-        Route::get('datatables', function ()    {
+        Route::get('datatables', function () {
             return view('examples.datatables');
         })->name('components.datatables');
 
-        Route::get('datatables/index',[
+        Route::get('datatables/index', [
             'as' => 'components.datatables.data',
-            'uses' => function (Request $request)    {
-                if($request->ajax()){
+            'uses' => function (Request $request) {
+                if ($request->ajax()) {
                     return Datatables::of(User::all())
                         ->addIndexColumn()
                         ->make(true);
-                }else{
+                } else {
                     return response()->json([
                         'message' => 'Incorrect request',
                         'code' => 412
-                    ],412);
+                    ], 412);
                 }
             }]);
 
     });
 
     Route::group(['prefix' => 'forms'], function () {
-        Route::get('fields', function ()    {
+        Route::get('fields', function () {
             return view('examples.fields');
         })->name('forms.fields');
-        Route::get('validation', function ()    {
+        Route::get('validation', function () {
             return view('examples.validation');
         })->name('forms.validation');
     });
 
     Route::group(['prefix' => 'user'], function () {
         $controller = "\\App\\Container\\Users\\Src\\Controllers\\";
-        Route::get('profile',[
-            'uses' => $controller.'ProfileController@index',
+        Route::get('profile', [
+            'uses' => $controller . 'ProfileController@index',
             'as' => 'user.profile'
         ]);
-        Route::post('profile/update/{id}',[
-            'uses' => $controller.'ProfileController@update',
+        Route::post('profile/update/{id}', [
+            'uses' => $controller . 'ProfileController@update',
             'as' => 'user.profile.update'
         ])->where(['id' => '[0-9]+']);
     });
 
-    Route::group(['prefix' => 'organization'], function () {
-        $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
-        Route::get('create',[
-            'uses' => $controller.'OrganizationController@index',
-            'as' => 'organization.create'
-        ]);
-    });
-
     Route::group(['prefix' => 'permissions'], function () {
         $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
-        Route::get('index',[
-            'uses' => $controller.'PermissionController@index',
+        Route::get('index', [
+            'uses' => $controller . 'PermissionController@index',
             'as' => 'permissions.index'
         ]);
-        Route::get('data',[
-            'uses' => $controller.'PermissionController@data',
+        Route::get('data', [
+            'uses' => $controller . 'PermissionController@data',
             'as' => 'permissions.data'
         ]);
 
-        Route::get('edit/{id?}',[
-            'uses' => $controller.'PermissionController@edit',
+        Route::get('edit/{id?}', [
+            'uses' => $controller . 'PermissionController@edit',
             'as' => 'permissions.edit'
         ])->where(['id' => '[0-9]+']);
 
-        Route::post('store',[
-            'uses' => $controller.'PermissionController@store',
+        Route::post('store', [
+            'uses' => $controller . 'PermissionController@store',
             'as' => 'permissions.store'
         ]);
-        Route::post('update/{id?}',[
-            'uses' => $controller.'PermissionController@update',
+        Route::post('update/{id?}', [
+            'uses' => $controller . 'PermissionController@update',
             'as' => 'permissions.update'
         ])->where(['id' => '[0-9]+']);
-        Route::delete('delete/{id?}',[
-            'uses' => $controller.'PermissionController@destroy',
+        Route::delete('delete/{id?}', [
+            'uses' => $controller . 'PermissionController@destroy',
             'as' => 'permissions.destroy'
         ])->where(['id' => '[0-9]+']);
     });
 
     Route::group(['prefix' => 'roles'], function () {
         $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
-        Route::get('index',[
-            'uses' => $controller.'RoleController@index',
+        Route::get('index', [
+            'uses' => $controller . 'RoleController@index',
             'as' => 'roles.index'
         ]);
-        Route::get('data',[
-            'uses' => $controller.'RoleController@data',
+        Route::get('data', [
+            'uses' => $controller . 'RoleController@data',
             'as' => 'roles.data'
         ]);
-        Route::post('store',[
-            'uses' => $controller.'RoleController@store',
+        Route::post('store', [
+            'uses' => $controller . 'RoleController@store',
             'as' => 'roles.store'
         ]);
-        Route::post('update/{id?}',[
-            'uses' => $controller.'RoleController@update',
+        Route::post('update/{id?}', [
+            'uses' => $controller . 'RoleController@update',
             'as' => 'roles.update'
         ])->where(['id' => '[0-9]+']);
-        Route::delete('delete/{id?}',[
-            'uses' => $controller.'RoleController@destroy',
+        Route::delete('delete/{id?}', [
+            'uses' => $controller . 'RoleController@destroy',
             'as' => 'roles.destroy'
         ])->where(['id' => '[0-9]+']);
     });
 
     Route::group(['prefix' => 'modules'], function () {
         $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
-        Route::get('index',[
-            'uses' => $controller.'ModuleController@index',
+        Route::get('index', [
+            'uses' => $controller . 'ModuleController@index',
             'as' => 'modules.index'
         ]);
-        Route::get('data',[
-            'uses' => $controller.'ModuleController@data',
+        Route::get('data', [
+            'uses' => $controller . 'ModuleController@data',
             'as' => 'modules.data'
         ]);
-        Route::post('store',[
-            'uses' => $controller.'ModuleController@store',
+        Route::post('store', [
+            'uses' => $controller . 'ModuleController@store',
             'as' => 'modules.store'
         ]);
-        Route::post('update/{id?}',[
-            'uses' => $controller.'ModuleController@update',
+        Route::post('update/{id?}', [
+            'uses' => $controller . 'ModuleController@update',
             'as' => 'modules.update'
         ])->where(['id' => '[0-9]+']);
-        Route::delete('delete/{id?}',[
-            'uses' => $controller.'ModuleController@destroy',
+        Route::delete('delete/{id?}', [
+            'uses' => $controller . 'ModuleController@destroy',
             'as' => 'modules.destroy'
         ])->where(['id' => '[0-9]+']);
     });
 
     Route::group(['prefix' => 'role/permission'], function () {
         $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
-        Route::get('index',[
-            'uses' => $controller.'RolePermissionController@index',
+        Route::get('index', [
+            'uses' => $controller . 'RolePermissionController@index',
             'as' => 'roles.permission.index'
         ]);
-        Route::get('data/role/{id?}',[
-            'uses' => $controller.'RolePermissionController@data',
+        Route::get('data/role/{id?}', [
+            'uses' => $controller . 'RolePermissionController@data',
             'as' => 'roles.permission.data'
         ]);
-        Route::post('update/{id?}',[
-            'uses' => $controller.'RolePermissionController@update',
+        Route::post('update/{id?}', [
+            'uses' => $controller . 'RolePermissionController@update',
             'as' => 'role.permission.update'
         ])->where(['id' => '[0-9]+']);
     });
 
+    Route::group(['prefix' => 'forms'], function () {
+        Route::post('dropzone/store', function (Request $request) {
+            $files = $request->file('file');
+            foreach ($files as $file) {
+                $url = Storage::disk('developer')->putFile('avatars', $file);
+            }
+        })->name('forms.dropzone.store');
+    });
+
+    Route::group(['prefix' => 'organization'], function (){
+        $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
+        Route::get('index',[
+            'uses' => $controller.'OrganizationController@index',
+            'as' => 'organization.index'
+        ]);
+        Route::get('create', [
+            'uses' => $controller . 'OrganizationController@create',
+            'as' => 'organization.create'
+        ]);
+        Route::post('store', [
+            'uses' => $controller . 'OrganizationController@store',
+            'as' => 'organization.store'
+        ]);
+        Route::get('data',[
+            'uses' => $controller.'OrganizationController@data',
+            'as' => 'organization.data'
+        ]);
+        Route::get('index/ajax',[
+            'uses' => $controller.'OrganizationController@index_ajax',
+            'as' => 'organization.index.ajax'
+        ]);
+    });
+
 });
-
-
 
 
 /*
