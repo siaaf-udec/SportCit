@@ -45,7 +45,6 @@ var FormDropzone = function () {
                     btnsubmit.on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        console.log(myDropzone.files.length);
                         if (myDropzone.files.length < 1) {
                             UIToastr.init('error', 'Campo Requerido', 'El archivo de legalización es obligatorio.');
                         }
@@ -127,7 +126,8 @@ var FormDropzone = function () {
                     /*Archivo agregado*/
                     myDropzone.on("addedfile", function (file, xhr, formData) {
                         if (!file.type.match(formatfile)) {
-                            myDropzone.emit("thumbnail", file, thumb);
+                            //myDropzone.emit("thumbnail", file, thumb);
+                            UIToastr.init('error', '¡Archivo no Valido!','Solo se permiten archivos pdf');
                         }
                     });
 
