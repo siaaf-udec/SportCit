@@ -167,10 +167,10 @@ class OrganizationController extends Controller
             $organization = $this->organizationRepository->show($id, []);
 
             $archivo = $organization->files->where('type_file', 'Legalidad');
-            foreach ($archivo as $url){
-                $link = Storage::url('sportcit/'.$url->url_file);
-                $name_file = '/public/sportcit/'.$url->url_file;
-                $name = 'public/storage/sportcit/'.$url->url_file;
+            foreach ($archivo as $url) {
+                $link = Storage::url('sportcit/' . $url->url_file);
+                $name_file = '/public/sportcit/' . $url->url_file;
+                $name = 'public/storage/sportcit/' . $url->url_file;
             }
             $size = Storage::size($name_file);
             return view('Sportcit.update-organization', [
@@ -223,13 +223,48 @@ class OrganizationController extends Controller
         //
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update_state(Request $request, $id)
+    {
+        if ($request->ajax() && $request->isMethod('POST')) {
+            $organization = Organization::find($id);
+            $organization->state_organization = $request->state_organization;
+            $organization->save();
+            $user = $this->userRepository->show($request->user_id);
+            $email = $user->email;
+            return AjaxResponse::success(
+                '¡Bien hecho!',
+                'Datos modificados correctamente.'
+            );
+
+        } else {
+            return AjaxResponse::fail(
+                '¡Lo sentimos!',
+                'No se pudo completar tu solicitud.'
+            );
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+
     public function viewfile(Request $request, $id)
     {
         if ($request->ajax() && $request->isMethod('GET')) {
             $organization = Organization::find($id);
             $url = $organization->files->where('type_file', 'Legalidad');
-            foreach ($url as $url){
-                $link = Storage::url('/sportcit/'.$url->url_file);
+            foreach ($url as $url) {
+                $link = Storage::url('/sportcit/' . $url->url_file);
             }
             return AjaxResponse::success(
                 '¡Bien hecho!',

@@ -147,6 +147,7 @@ var FormDropzone = function () {
                         UIToastr.init('success', 'Carga Satisfactoria',
                             'Se ha procesado satisfactoriamente.'
                         );
+                        location.reload();
                     }
                 },
                 error: function (file, xhr, formData) {

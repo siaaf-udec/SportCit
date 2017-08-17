@@ -185,6 +185,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     {!! Field::hidden('id_user') !!}
+                                    {!! Field::hidden('id_organization') !!}
                                     {!! Field::select(
                                                     'type_state',
                                                     ['Aprobado' => 'Aprobado', 'Denegado' => 'Denegado'],null,
@@ -197,7 +198,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            {!! Form::submit('Guardar', ['class' => 'btn blue']) !!}
+                            {!! Form::submit('Guardar', ['class' => 'btn blue up_state']) !!}
                             {!! Form::button('Cancelar', ['class' => 'btn red', 'data-dismiss' => 'modal' ]) !!}
                         </div>
                         {!! Form::close() !!}
@@ -276,7 +277,7 @@
 @push('functions')
 <script src="{{ asset('assets/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
 
-
+<script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/main/scripts/form-wizard.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/main/scripts/table-datatable.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/main/scripts/dropzone.js') }}" type="text/javascript"></script>
@@ -347,8 +348,42 @@
             var dataTable = table.row($tr).data();
             document.getElementById("from_mesanje_state").reset();
             $('input[name="id_user"]').val(dataTable.fk_user_id);
+            $('input[name="id_organization"]').val(dataTable.id);
             $("#Modal-state").modal();
             //$(".content-ajax").load(route_edit);
+        });
+
+        $(".up_state").on('click', function (e) {
+            e.preventDefault();
+            var id = $('input[name="id_organization"]').val();
+            var formData = new FormData();
+            formData.append('state_organization', $('select[name="type_state"]').val());
+            formData.append('id', $('select[name="id_organization"]').val());
+            formData.append('user_id', $('input[name="id_user"]').val());
+            var route = '{{ route('organization.update_state') }}'+'/'+id;
+            var type = 'POST';
+            var async = async || false;
+            $.ajax({
+                url: route,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                cache: false,
+                type: type,
+                contentType: false,
+                data: formData,
+                processData: false,
+                async: async,
+                success: function (response, xhr, request) {
+                    if (request.status === 200 && xhr === 'success') {
+                        UIToastr.init(xhr, response.title, response.message);
+                        location.reload();
+                    }
+                },
+                error: function (response, xhr, request) {
+                    if (request.status === 422 && xhr === 'error') {
+                        UIToastr.init(xhr, response.title, response.message);
+                    }
+                }
+            });
         });
 
         table.on('click', '.edit', function (e) {

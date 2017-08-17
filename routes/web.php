@@ -228,6 +228,10 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller . 'OrganizationController@update',
             'as' => 'organization.update'
         ]);
+        Route::post('update_state/{id?}', [
+            'uses' => $controller . 'OrganizationController@update_state',
+            'as' => 'organization.update_state'
+        ]);
         Route::get('data',[
             'uses' => $controller.'OrganizationController@data',
             'as' => 'organization.data'
