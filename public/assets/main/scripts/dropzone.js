@@ -1,8 +1,9 @@
 var FormDropzone = function () {
     return {
         //main function to initiate the module
-        init: function (route, formatfile, numfile, method, params, fun) {
+        init: function (route, formatfile, numfile, method, params, type_crud, url, tama) {
             Dropzone.options.autoDiscover = false;
+
             Dropzone.options.myDropzone = {
                 url: route,
                 //Texto utilizado antes de que se eliminen los archivos.
@@ -18,7 +19,7 @@ var FormDropzone = function () {
                 //Texto que se usará para eliminar un archivo
                 dictRemoveFile: "Eliminar",
                 //Tamaño del archivo en MB
-                maxFileSize: 1000,
+                maxFileSize: 10,
                 //Si la respuesta del servidor no es válida
                 dictResponseError: "Ha ocurrido un error en el server",
                 //For CORS.
@@ -33,22 +34,78 @@ var FormDropzone = function () {
                 init: function () {
                     var myDropzone = this,
                         btnsubmit = $('.button-submit');
+                    if (type_crud == 'updateff') {
+                        var mockFile = {name: url, size: tama, paramName: url};
+                        //myDropzone.emit('addedfile', mockFile);
+                        //myDropzone.emit('thumbnail', mockFile, url);
+                        myDropzone.options.addedfile.call(myDropzone, mockFile);
 
+                        myDropzone.options.thumbnail.call(myDropzone, mockFile, url);
+                    }
                     btnsubmit.on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
+                        console.log(myDropzone.files.length);
                         if (myDropzone.files.length < 1) {
                             UIToastr.init('error', 'Campo Requerido', 'El archivo de legalización es obligatorio.');
                         }
-                        if (myDropzone.files.length == 1) {
-                            if (typeof method !== 'undefined' && typeof method === 'object') {
+                        if (type_crud == 'create') {
+                            if (myDropzone.files.length == 1) {
+                                if (typeof method !== 'undefined' && typeof method === 'object') {
+                                    params = method.init();
+                                    myDropzone.processQueue();
+                                }
+                                if (typeof method === 'undefined' || method === false) {
+                                    form.submit();
+                                    myDropzone.processQueue();
+                                }
+                            }
+                        }
+                        if (type_crud == 'update') {
+
+                            if (myDropzone.files.length == 1) {
+                                if (typeof method !== 'undefined' && typeof method === 'object') {
+                                    params = method.init();
+                                    myDropzone.processQueue();
+                                }
+                                if (typeof method === 'undefined' || method === false) {
+                                    form.submit();
+                                    myDropzone.processQueue();
+                                }
+                            }
+                            if (myDropzone.files.length < 1) {
+                                var type = 'POST';
+                                var async = async || false;
                                 params = method.init();
-                                myDropzone.processQueue();
+                                var formData = new FormData();
+                                if (typeof params !== 'undefined' && typeof params === 'object') {
+                                    $.each(params, function (key, value) {
+                                        formData.append(key, value)
+                                    });
+                                }
+                                $.ajax({
+                                    url: route,
+                                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                                    cache: false,
+                                    type: type,
+                                    contentType: false,
+                                    data: formData,
+                                    processData: false,
+                                    async: async,
+                                    success: function (response, xhr, request) {
+                                        if (request.status === 200 && xhr === 'success') {
+                                            UIToastr.init(xhr, response.title, response.message);
+                                            location.reload();
+                                        }
+                                    },
+                                    error: function (response, xhr, request) {
+                                        if (request.status === 422 && xhr === 'error') {
+                                            UIToastr.init(xhr, response.title, response.message);
+                                        }
+                                    }
+                                });
                             }
-                            if (typeof method === 'undefined' || method === false) {
-                                form.submit();
-                                myDropzone.processQueue();
-                            }
+
                         }
 
                     });
@@ -81,22 +138,21 @@ var FormDropzone = function () {
 
                     /*Cuando todos los archivos de la cola terminan de subir.*/
                     myDropzone.on("queuecomplete", function (file, xhr, formData) {
-                        UIToastr.init('success', 'Almacenado', 'El archivo se ha cargado satisfactoriamente. Un momento mientras se procesa.');
+                        // UIToastr.init('success', 'Almacenado', 'El archivo se ha cargado satisfactoriamente. Un momento mientras se procesa.');
 
                     });
                 },
                 complete: function (file, xhr, formData) {
                     if (file.status == 'success') {
                         UIToastr.init('success', 'Carga Satisfactoria',
-                            'El archivo se ha procesado satisfactoriamente.'
+                            'Se ha procesado satisfactoriamente.'
                         );
-                        location.reload();
                     }
                 },
                 error: function (file, xhr, formData) {
                     if (file.status == 'error') {
                         UIToastr.init('error', '¡Ocurrió un Error!',
-                            'El archivo no se ha procesado correctamente.'
+                            xhr.email
                         );
                     }
                 }

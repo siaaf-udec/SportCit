@@ -17,7 +17,7 @@ class CreateTBLFilesTable extends Migration
             $table->increments('id');
             $table->string('name_file');
             $table->string('url_file');
-            $table->enum('type_file', ['Perfil', 'Legalidad']);
+            $table->enum('type_file', ['Legalidad', 'Perfil']);
             $table->integer('fileable_id');
             $table->string('fileable_type');
             $table->timestamps();

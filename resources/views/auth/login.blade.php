@@ -23,6 +23,7 @@
 @push('styles')
 <!-- BEGIN PAGE LEVEL STYLES -->
 <link href="{{ asset('assets/pages/css/login-5.min.css') }}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL STYLES -->
 @endpush
 
@@ -69,7 +70,7 @@
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-xs-6">
-                                    {!! Field::email('email', old('email'), ['required', 'max' => 60, 'label' => 'Correo', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-envelope-o', 'help' => 'Digita un correo.']) !!}
+                                    {!! Field::email('email', old('email'), ['max' => 60, 'label' => 'Correo', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-envelope-o', 'help' => 'Digita un correo.']) !!}
                                 </div>
                                 <div class="col-xs-6">
                                     {!! Field::password('password', ['required', 'label' => 'Contraseña'], ['icon' => 'fa fa-key', 'help' => 'Digita la contreaseña.']) !!}
@@ -101,7 +102,7 @@
                     {!! Form::open(['role' => 'form', 'id' => 'form-forget', 'class' => 'forget-form', 'novalidate', 'method' => 'POST', 'url' => route('password.email') ]) !!}
                     <h3 class="font-green">¿Se te olvidó tu contraseña ?</h3>
                     <p>Introduzca su dirección de correo electrónico a continuación para restablecer su contraseña. </p>
-                    {!! Field::email('email', old('email'), ['required', 'max' => 60, 'label' => 'Correo', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-envelope-o', 'help' => 'Digita un correo.']) !!}
+                    {!! Field::email('email', old('email'), ['max' => 60, 'label' => 'Correo', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-envelope-o', 'help' => 'Digita un correo.']) !!}
                     <div class="form-actions">
                         {{ Form::button('Cancelar', ['id' => 'back-btn', 'class' => 'btn green btn-outline']) }}
                         {{ Form::submit('Enviar', ['class' => 'btn btn-success uppercase pull-right']) }}
@@ -176,6 +177,7 @@
 
 <script src="{{ asset('assets/pages/scripts/login-5.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/main/scripts/form-validation-md.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
 @endpush
 
 {{--
@@ -196,6 +198,12 @@
 | @endpush
 --}}
 @push('functions')
+<script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
+@if($errors->has('email') || $errors->has('password'))
+    <script type="text/javascript">
+        UIToastr.init('error', '{{ trans('auth.failed') }}', '');
+    </script>
+@endif
 <script type="text/javascript">
     var rules = {
         email: {email: true, required: true},
@@ -204,6 +212,9 @@
     var form = $('#form-forget');
     jQuery(document).ready(function () {
         FormValidationMd.init(form, rules, messages);
+        function mensaje() {
+            UIToastr.init('error', 'Credenciales incorrectas', '');
+        }
     });
 </script>
 @endpush

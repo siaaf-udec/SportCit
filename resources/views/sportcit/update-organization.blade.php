@@ -1,6 +1,6 @@
 {{-- BEGIN HTML SAMPLE --}}
 <div class="col-md-12">
-    @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'icon-frame', 'title' => 'Crear Organización'])
+    @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'icon-frame', 'title' => 'Actualizar Organización'])
         @slot('actions', [
 
                     'link_upload' => [
@@ -41,17 +41,10 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#tab3" data-toggle="tab" class="step active">
+                                            <a href="#tab4" data-toggle="tab" class="step">
                                                 <span class="number"> 3 </span>
                                                 <span class="desc">
-                                                                <i class="fa fa-check"></i> Configuración de Usuario </span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#tab4" data-toggle="tab" class="step">
-                                                <span class="number"> 4 </span>
-                                                <span class="desc">
-                                                                <i class="fa fa-check"></i> Confirm </span>
+                                                                <i class="fa fa-check"></i> Confirmación </span>
                                             </a>
                                         </li>
                                     </ul>
@@ -71,6 +64,8 @@
                                             <h3 class="block">Ingrese los datos de la Organización</h3>
                                             <div class="form-group">
                                                 <div class="col-md-4 col-lg-offset-3 text-right">
+                                                    {!! Field::hidden('id_organization') !!}
+                                                    {!! Field::hidden('url_view') !!}
                                                     {!! Field::text('username', old('username'), [ 'label' => 'Nombre', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-user', 'help' => 'Ingrese el nombre.']) !!}
                                                 </div>
                                             </div>
@@ -114,64 +109,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="tab-pane" id="tab3">
-                                            <h3 class="block"> Datos Personales del Representante</h3>
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::text('name', old('name'), ['label' => 'Nombre', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-user', 'help' => 'Ingrese el nombre.']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::text('lastname', old('lastname'), ['required', 'label' => 'Apellido', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-user', 'help' => 'Ingrese el apellido.']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::select(
-                                                    'type_document',
-                                                    ['T.I' => 'T.I', 'C.C' => 'C.C'],null,
-                                                    ['label' => 'Tipo de identificación' , 'autofocus', 'auto' => 'off']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::text('number_document', old('number_document'), ['label' => 'Numero de Documento', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-sort-numeric-asc', 'help' => 'Ingrese el numero.']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::text('date_birthday', old('date_birthday'), ['label' => 'Fecha de Cumpleaños', 'autofocus', 'auto' => 'off','class' => 'date-picker','data-date-format' => "yyyy-mm-dd"], ['icon' => 'fa fa-calendar', 'help' => 'Ingrese la fecha de Cumpleaños.']) !!}
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    <h3 class="block"> Datos de contacto y cuenta</h3>
-                                                    {!! Field::text('phone_user', old('phone_user'), ['required', 'max' => 60, 'label' => 'Teléfono', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-mobile', 'help' => 'Ingrese el número del teléfono.']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::text('website', old('website'), ['label' => 'Sitio Web', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-steam', 'help' => 'Ingrese la url del sitio.']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::email('email', old('email'), ['required', 'max' => 80, 'label' => 'E-mail', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-envelope-o', 'help' => 'Ingrese el correo electrónico.']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::password('password',['id' => 'submit_form_password','label' => 'Contraseña', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-unlock-alt', 'help' => 'Ingrese su contraseña.']) !!}
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::password('rpassword',['label' => ' Repita su Contraseña', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-unlock-alt', 'help' => 'Ingrese su contraseña.']) !!}
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="tab-pane" id="tab4">
                                             <h3 class="block">Confirmación</h3>
                                             <h4 class="form-section">Organización</h4>
@@ -198,46 +135,6 @@
                                                 <label class="control-label col-md-3">Teléfono:</label>
                                                 <div class="col-md-4">
                                                     <p class="form-control-static" data-display="phone"></p>
-                                                </div>
-                                            </div>
-                                            <h4 class="form-section">Representante</h4>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Nombre:</label>
-                                                <div class="col-md-4">
-                                                    <p class="form-control-static" data-display="name"></p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Apellido:</label>
-                                                <div class="col-md-4">
-                                                    <p class="form-control-static" data-display="lastname"></p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Tipo Documento:</label>
-                                                <div class="col-md-4">
-                                                    <p class="form-control-static"
-                                                       data-display="type_document"></p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Numero Documento:</label>
-                                                <div class="col-md-4">
-                                                    <p class="form-control-static"
-                                                       data-display="number_document"></p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">Telefono:</label>
-                                                <div class="col-md-4">
-                                                    <p class="form-control-static"
-                                                       data-display="phone_user"></p>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3">E-mail:</label>
-                                                <div class="col-md-4">
-                                                    <p class="form-control-static" data-display="email"></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -294,6 +191,14 @@
 <script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     jQuery(document).ready(function () {
+
+        $('input[name="id_organization"]').val('{{$organization->id }}');
+        $('input[name="username"]').val('{{ $organization->name_organization }}');
+        $('input[name="nit"]').val('{{ $organization->nit }}');
+        $('input[name="address"]').val('{{ $organization->address_organization }}');
+        $('input[name="phone"]').val('{{ $organization->phone_organization }}');
+        $('input[name="date"]').val('{{ $organization->fundation }}');
+        $('input[name="color_organization"]').val('{{ $organization->club_colors }}');
         /*Configuracion de input tipo fecha*/
         $('.date-picker').datepicker({
             rtl: App.isRTL(),
@@ -324,15 +229,7 @@
             address: {required: true},
             phone: {minlength: 5, required: true},
             date: {required: true},
-            color_organization: {required: true},
-            name: {required: true, minlength: 3},
-            lastname: {required: true, minlength: 3},
-            type_document: {required: true},
-            number_document: {minlength: 5, number: true, maxlength: 13, required: true},
-            phone_user: {minlength: 5, required: true},
-            email: {email: true, required: true},
-            password: {minlength: 5, required: true},
-            rpassword: {minlength: 5, required: true, equalTo: "#submit_form_password"}
+            color_organization: {required: true}
         };
         var messages = {};
         var wizard = $('#form_wizard_1');
@@ -355,23 +252,13 @@
                 init: function () {
 
                     return valores = {
+                        'id': $('input[name="id_organization"]').val(),
                         'name_organization': $('input[name="username"]').val(),
                         'nit': $('input[name="nit"]').val(),
                         'address_organization': $('input[name="address"]').val(),
                         'phone_organization': $('input[name="phone"]').val(),
                         'fundation': $('input[name="date"]').val(),
                         'club_colors': $('input[name="color_organization"]').val(),
-                        'name_user': $('input[name="name"]').val(),
-                        'lastname_user': $('input[name="lastname"]').val(),
-                        'type_document': $('select[name="type_document"]').val(),
-                        'number_document': $('input[name="number_document"]').val(),
-                        'birthday': $('input[name="date_birthday"]').val(),
-                        'website': $('input[name="website"]').val(),
-                        'phone_user': $('input[name="phone_user"]').val(),
-                        'email': $('input[name="email"]').val(),
-                        'password': $('input[name="password"]').val(),
-                        'link_organization': $('input[name="username"]').val(),
-                        'type_file':'Legalidad'
                     }
                 }
             };
@@ -386,12 +273,14 @@
                 }
             };
         };
-        var type_crud = 'create';
-
-        var route = '{{route('organization.store')}}';
+        var url = '{{asset($archivo)}}';
+        var tama = '{{$tama}}';
+        var type_crud = 'update';
+        var id_edit = $('input[name="id_organization"]').val();
+        var route = '{{route('organization.update')}}'+'/'+id_edit;
         var formatfile = '.pdf';
         var numfile = 1;
-        $("div#my_dropzone").dropzone(FormDropzone.init(route, formatfile, numfile, datos(), estado,type_crud));
+        $("div#my_dropzone").dropzone(FormDropzone.init(route, formatfile, numfile, datos(), estado, type_crud,url,tama));
 
         $('.button-cancel').on('click', function (e) {
             e.preventDefault();

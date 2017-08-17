@@ -28,13 +28,13 @@ class OrganizationRepository extends ControllerRepository implements Organizatio
      */
     protected  function process($model, $data)
     {
-        $model['name_organization'] = $data['name'];
+        $model['name_organization'] = $data['name_organization'];
         $model['nit'] = $data['nit'];
-        $model['address_organization'] = $data['address'];
-        $model['phone_organization'] = $data['phone'];
+        $model['address_organization'] = $data['address_organization'];
+        $model['phone_organization'] = $data['phone_organization'];
         $model['fundation'] = $data['fundation'];
         $model['club_colors'] = $data['club_colors'];
-        $model['link_organization'] = $data['name'];
+        $model['link_organization'] = $data['name_organization'];
         $model->save();
 
         return $model;

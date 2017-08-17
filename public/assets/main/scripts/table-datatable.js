@@ -41,16 +41,40 @@ var dataTableServer = function () {
             },
             columns: columns,
             buttons: [
-                { extend: 'print', className: 'btn btn-circle btn-icon-only btn-default tooltips t-print', text: '<i class="fa fa-print"></i>' },
-                { extend: 'copy', className: 'btn btn-circle btn-icon-only btn-default tooltips t-copy', text: '<i class="fa fa-files-o"></i>' },
-                { extend: 'pdf', className: 'btn btn-circle btn-icon-only btn-default tooltips t-pdf', text: '<i class="fa fa-file-pdf-o"></i>',},
-                { extend: 'excel', className: 'btn btn-circle btn-icon-only btn-default tooltips t-excel', text: '<i class="fa fa-file-excel-o"></i>',},
-                { extend: 'csv', className: 'btn btn-circle btn-icon-only btn-default tooltips t-csv',  text: '<i class="fa fa-file-text-o"></i>', },
-                { extend: 'colvis', className: 'btn btn-circle btn-icon-only btn-default tooltips t-colvis', text: '<i class="fa fa-bars"></i>'},
+                {
+                    extend: 'print',
+                    className: 'btn btn-circle btn-icon-only btn-default tooltips t-print',
+                    text: '<i class="fa fa-print"></i>'
+                },
+                {
+                    extend: 'copy',
+                    className: 'btn btn-circle btn-icon-only btn-default tooltips t-copy',
+                    text: '<i class="fa fa-files-o"></i>'
+                },
+                {
+                    extend: 'pdf',
+                    className: 'btn btn-circle btn-icon-only btn-default tooltips t-pdf',
+                    text: '<i class="fa fa-file-pdf-o"></i>',
+                },
+                {
+                    extend: 'excel',
+                    className: 'btn btn-circle btn-icon-only btn-default tooltips t-excel',
+                    text: '<i class="fa fa-file-excel-o"></i>',
+                },
+                {
+                    extend: 'csv',
+                    className: 'btn btn-circle btn-icon-only btn-default tooltips t-csv',
+                    text: '<i class="fa fa-file-text-o"></i>',
+                },
+                {
+                    extend: 'colvis',
+                    className: 'btn btn-circle btn-icon-only btn-default tooltips t-colvis',
+                    text: '<i class="fa fa-bars"></i>'
+                },
                 {
                     text: '<i class="fa fa-refresh"></i>',
                     className: 'btn btn-circle btn-icon-only btn-default tooltips t-refresh',
-                    action: function ( e, dt, node, config ) {
+                    action: function (e, dt, node, config) {
                         dt.ajax.reload();
                     }
                 }
@@ -62,14 +86,30 @@ var dataTableServer = function () {
 
     };
     var handleTooltips = function () {
-        $('.t-add').attr({'data-container':"body", 'data-placement':"top", 'data-original-title':"Añadir nuevo registro"});
-        $('.t-print').attr({'data-container':"body", 'data-placement':"top", 'data-original-title':"Imprimir"});
-        $('.t-copy').attr({'data-container':"body", 'data-placement':"top", 'data-original-title':"Cipoar al portapales"});
-        $('.t-pdf').attr({'data-container':"body", 'data-placement':"top", 'data-original-title':"Exportar a PDF"});
-        $('.t-excel').attr({'data-container':"body", 'data-placement':"top", 'data-original-title':"Exportar a EXCEL"});
-        $('.t-csv').attr({'data-container':"body", 'data-placement':"top", 'data-original-title':"Exportar a CSV"});
-        $('.t-colvis').attr({'data-container':"body", 'data-placement':"top", 'data-original-title':"Mostrar/Ocultar Columnas"});
-        $('.t-refresh').attr({'data-container':"body", 'data-placement':"top", 'data-original-title':"Recargar"});
+        $('.t-add').attr({
+            'data-container': "body",
+            'data-placement': "top",
+            'data-original-title': "Añadir nuevo registro"
+        });
+        $('.t-print').attr({'data-container': "body", 'data-placement': "top", 'data-original-title': "Imprimir"});
+        $('.t-copy').attr({
+            'data-container': "body",
+            'data-placement': "top",
+            'data-original-title': "Cipoar al portapales"
+        });
+        $('.t-pdf').attr({'data-container': "body", 'data-placement': "top", 'data-original-title': "Exportar a PDF"});
+        $('.t-excel').attr({
+            'data-container': "body",
+            'data-placement': "top",
+            'data-original-title': "Exportar a EXCEL"
+        });
+        $('.t-csv').attr({'data-container': "body", 'data-placement': "top", 'data-original-title': "Exportar a CSV"});
+        $('.t-colvis').attr({
+            'data-container': "body",
+            'data-placement': "top",
+            'data-original-title': "Mostrar/Ocultar Columnas"
+        });
+        $('.t-refresh').attr({'data-container': "body", 'data-placement': "top", 'data-original-title': "Recargar"});
 
         $('.tooltips').tooltip();
     }

@@ -212,9 +212,21 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller . 'OrganizationController@create',
             'as' => 'organization.create'
         ]);
+        Route::get('edit/{id?}',[
+            'uses' => $controller.'OrganizationController@edit',
+            'as' => 'organization.edit'
+        ]);
+        Route::get('viewfile/{id?}',[
+            'uses' => $controller.'OrganizationController@viewfile',
+            'as' => 'organization.viewfile'
+        ]);
         Route::post('store', [
             'uses' => $controller . 'OrganizationController@store',
             'as' => 'organization.store'
+        ]);
+        Route::post('update/{id?}', [
+            'uses' => $controller . 'OrganizationController@update',
+            'as' => 'organization.update'
         ]);
         Route::get('data',[
             'uses' => $controller.'OrganizationController@data',

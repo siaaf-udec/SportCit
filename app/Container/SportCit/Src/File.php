@@ -12,12 +12,12 @@ class File extends Model
      * @var array
      */
     protected $fillable = [
-        'name_file', 'url_file',
+        'name_file', 'url_file','type_file',
     ];
 
     protected $table = 'TBL_files';
 
-    public function fileable ()
+    public function filable ()
     {
         //transformarse a (morphTo)
         return $this->morphTo();

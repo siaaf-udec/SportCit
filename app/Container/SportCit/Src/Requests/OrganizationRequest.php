@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Container\SportCit\Src\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-class StoreBlogPost extends FormRequest
+use Illuminate\Http\JsonResponse;
+
+class OrganizationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -12,7 +14,7 @@ class StoreBlogPost extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +25,12 @@ class StoreBlogPost extends FormRequest
     public function rules()
     {
         return [
-            //
+            'email' => 'unique:users',
         ];
+    }
+
+    public function response(array $errors) {
+
+        return new JsonResponse($errors, 422);
     }
 }
