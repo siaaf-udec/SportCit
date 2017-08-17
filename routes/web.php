@@ -35,6 +35,10 @@ Route::group(['middleware' => ['auth']], function () {
         return view('material.sample');
     })->name('root');
 
+    Route::get('/mail', function () {
+        return view('mail.index');
+    })->name('root');
+
     $controller = "\\App\\Container\\Users\\Src\\Controllers\\";
     Route::get('/container', [
         'uses' => $controller . 'UserController@index',

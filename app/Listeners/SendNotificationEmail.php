@@ -33,7 +33,7 @@ class SendNotificationEmail implements ShouldQueue
     public function handle(StateOrganizationModified $event)
     {
         $data = ['link' => 'http://styde.net'];
-        $this->mailer->send('welcome', $data, function ($message) {
+        $this->mailer->send('mail.index', $data, function ($message) {
             $message->from('email@styde.net', 'Styde.Net');
             $message->to('user@example.com')->subject('Notificación');
         });
