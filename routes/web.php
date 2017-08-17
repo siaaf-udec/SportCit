@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\StateOrganizationModified;
 use Yajra\Datatables\Datatables;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/', function () {
         return view('material.sample');
+    })->name('root');
+
+    Route::get('/mail', function () {
+        return view('mail.index');
     })->name('root');
 
     $controller = "\\App\\Container\\Users\\Src\\Controllers\\";
@@ -241,6 +246,11 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'organization.index.ajax'
         ]);
     });
+
+    Route::get('emails', function () {
+        $organ = \App\Container\SportCit\Src\Organization::find(1);
+        event(new StateOrganizationModified($organ));
+    })->name('forms.fields');
 
 });
 
