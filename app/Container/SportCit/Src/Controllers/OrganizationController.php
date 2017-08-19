@@ -106,7 +106,7 @@ class OrganizationController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OrganizationRequest $request)
+    public function store(Request $request)
     {
         if ($request->ajax() && $request->isMethod('POST')) {
             //Agregar usuario
@@ -143,6 +143,8 @@ class OrganizationController extends Controller
             );
         }
     }
+
+
 
     /**
      * Display the specified resource.
@@ -233,9 +235,14 @@ class OrganizationController extends Controller
     {
         if ($request->ajax() && $request->isMethod('POST')) {
             $organization = Organization::find($id);
+            $user = $this->userRepository->show($request->user_id);
+            if($organization->state_organization == 'Pendiente' && $request->state_organization == 'Aprobado' ){
+                $user->state_user = 'Activo';
+                $user->save();
+            }
             $organization->state_organization = $request->state_organization;
             $organization->save();
-            $user = $this->userRepository->show($request->user_id);
+
             $email = $user->email;
             return AjaxResponse::success(
                 '¡Bien hecho!',

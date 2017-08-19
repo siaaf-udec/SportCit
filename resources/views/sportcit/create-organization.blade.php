@@ -330,11 +330,21 @@
             type_document: {required: true},
             number_document: {minlength: 5, number: true, maxlength: 13, required: true},
             phone_user: {minlength: 5, required: true},
-            email: {email: true, required: true},
+            email: {
+                email: true, required: true, remote: {
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    url: '{{ route('users.check.email') }}',
+                    type: "POST"
+                }
+            },
             password: {minlength: 5, required: true},
             rpassword: {minlength: 5, required: true, equalTo: "#submit_form_password"}
         };
-        var messages = {};
+        var messages = {
+            email: {
+                remote: "El correo electronico ya ha sido registrado."
+            }
+        };
         var wizard = $('#form_wizard_1');
 
         /*Configuracion de Select*/
@@ -371,7 +381,7 @@
                         'email': $('input[name="email"]').val(),
                         'password': $('input[name="password"]').val(),
                         'link_organization': $('input[name="username"]').val(),
-                        'type_file':'Legalidad'
+                        'type_file': 'Legalidad'
                     }
                 }
             };
@@ -391,7 +401,7 @@
         var route = '{{route('organization.store')}}';
         var formatfile = '.pdf';
         var numfile = 1;
-        $("div#my_dropzone").dropzone(FormDropzone.init(route, formatfile, numfile, datos(), estado,type_crud));
+        $("div#my_dropzone").dropzone(FormDropzone.init(route, formatfile, numfile, datos(), estado, type_crud));
 
         $('.button-cancel').on('click', function (e) {
             e.preventDefault();

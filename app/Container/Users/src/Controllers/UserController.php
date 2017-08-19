@@ -4,7 +4,7 @@ namespace App\Container\Users\Src\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use Validator;
 use App\Container\Users\Src\Interfaces\UserInterface;
 
 class UserController extends Controller
@@ -91,5 +91,33 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function checkEmail(Request $request)
+    {
+        if($request->ajax() && $request->isMethod('POST')){
+
+            $validator = Validator::make($request->all(), [
+                'email' => 'unique:users,email'
+            ]);
+
+            if(empty($validator->errors()->all())){
+                return response('true');
+            }else{
+                return response('false');
+            }
+
+        }else{
+            return AjaxResponse::fail(
+                '¡Lo sentimos!',
+                'No se pudo completar tu solicitud.'
+            );
+        }
     }
 }

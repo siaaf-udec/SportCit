@@ -4,7 +4,7 @@
         {{-- BEGIN LOGO --}}
         <div class="page-logo">
             <a href="javascript:;">
-                <img src="{{ asset('assets/layouts/layout2/img/logo-default.png') }}" alt="Logo SIAAF" class="logo-default" />
+                <img src="{{ asset('assets/layouts/layout2/img/logo-sportcit-1.png') }}" alt="Logo SIAAF" class="logo-default" />
             </a>
             <div class="menu-toggler sidebar-toggler">
                 {{-- DOC: Remove the above "hide" to enable the sidebar toggler button on header --}}

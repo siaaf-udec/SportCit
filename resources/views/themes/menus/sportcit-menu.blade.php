@@ -1,6 +1,6 @@
 <li class="nav-item {{ active(['sportcit.*'], 'start active open') }}">
     <a href="javascript:;" class="nav-link nav-toggle">
-        <i class="fa fa-futbol-o"></i>
+        <i class="fa fa-globe"></i>
         <span class="title">Organización</span>
         <span class="arrow {{ active(['sportcit.*'], 'open') }}"></span>
     </a>
@@ -9,6 +9,36 @@
             <a href="{{ route('organization.index') }}" class="nav-link">
                 <i class="icon-frame"></i>
                 <span class="title">Organizaciones</span>
+            </a>
+        </li>
+    </ul>
+</li>
+<li class="nav-item {{ active(['sportcit.*'], 'start active open') }}">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-futbol-o"></i>
+        <span class="title">Deportistas</span>
+        <span class="arrow {{ active(['sportcit.*'], 'open') }}"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item {{ active(['sportcit.create-organization'], 'start active open') }}">
+            <a href="{{ route('organization.index') }}" class="nav-link">
+                <i class="fa fa-users"></i>
+                <span class="title">Deportista</span>
+            </a>
+        </li>
+    </ul>
+</li>
+<li class="nav-item {{ active(['sportcit.*'], 'start active open') }}">
+    <a href="javascript:;" class="nav-link nav-toggle">
+        <i class="fa fa-book"></i>
+        <span class="title">Test</span>
+        <span class="arrow {{ active(['sportcit.*'], 'open') }}"></span>
+    </a>
+    <ul class="sub-menu">
+        <li class="nav-item {{ active(['sportcit.create-organization'], 'start active open') }}">
+            <a href="{{ route('organization.index') }}" class="nav-link">
+                <i class="fa fa-users"></i>
+                <span class="title">Test</span>
             </a>
         </li>
     </ul>

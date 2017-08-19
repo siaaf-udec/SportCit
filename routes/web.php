@@ -102,6 +102,10 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller . 'ProfileController@update',
             'as' => 'user.profile.update'
         ])->where(['id' => '[0-9]+']);
+        Route::post('check/email',[
+            'uses' => $controller.'UserController@checkEmail',
+            'as' => 'users.check.email'
+        ]);
     });
 
     Route::group(['prefix' => 'permissions'], function () {
