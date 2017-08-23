@@ -24,9 +24,15 @@ class MenuOrganizationController extends Controller
     public function index(Request $request, $id)
     {
         if($request->ajax() && $request->isMethod('GET') ){
-            $organization = $this->organizationRepository->show($id,[]);
+            $organizations = $this->organizationRepository->show($id,[]);
+            $temp = -3;
+            foreach (json_decode($organizations) as $organization) {
+                ($organization) ? $temp += 1 : '';
+            }
+            $temp = round(($temp * 100)/9);
+
             return view('sportcit.organization.menu-organization',[
-                'organization' => $organization
+                'organization' => ['data' => $organizations, 'count' => $temp]
             ]);
         }else{
             return AjaxResponse::fail(
