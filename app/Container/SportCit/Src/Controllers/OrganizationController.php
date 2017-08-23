@@ -31,7 +31,24 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        return view('sportcit.organization');
+        return view('sportcit.organization.organization');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index_ajax(Request $request)
+    {
+        if($request->ajax() && $request->isMethod('GET')){
+            return view('sportcit.organization.content-ajax.ajax-organization');
+        }else{
+            return AjaxResponse::fail(
+                '¡Lo sentimos!',
+                'No se pudo completar tu solicitud.'
+            );
+        }
     }
 
     /**
@@ -42,7 +59,7 @@ class OrganizationController extends Controller
     public function create(Request $request)
     {
         if ($request->ajax() && $request->isMethod('GET')) {
-            return view('sportcit.create-organization');
+            return view('sportcit.organization.content-ajax.ajax-create-organization');
         } else {
             return AjaxResponse::fail(
                 '¡Lo sentimos!',
@@ -167,7 +184,6 @@ class OrganizationController extends Controller
     {
         if ($request->ajax() && $request->isMethod('GET')) {
             $organization = $this->organizationRepository->show($id, []);
-
             $archivo = $organization->files->where('type_file', 'Legalidad');
             foreach ($archivo as $url) {
                 $link = Storage::url('sportcit/' . $url->url_file);
@@ -175,7 +191,7 @@ class OrganizationController extends Controller
                 $name = 'public/storage/sportcit/' . $url->url_file;
             }
             $size = Storage::size($name_file);
-            return view('Sportcit.update-organization', [
+            return view('sportcit.organization.content-ajax.ajax-update-organization', [
                 'organization' => $organization,
                 'archivo' => $link,
                 'name' => $name,

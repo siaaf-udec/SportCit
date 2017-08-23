@@ -213,9 +213,17 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::group(['prefix' => 'organization'], function (){
         $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
+        Route::get('menu/{id?}',[
+            'uses' => $controller.'MenuOrganizationController@index',
+            'as' => 'organization.menu.index'
+        ]);
         Route::get('index',[
             'uses' => $controller.'OrganizationController@index',
             'as' => 'organization.index'
+        ]);
+        Route::get('index/ajax',[
+            'uses' => $controller.'OrganizationController@index_ajax',
+            'as' => 'organization.index.ajax'
         ]);
         Route::get('create', [
             'uses' => $controller . 'OrganizationController@create',

@@ -207,7 +207,6 @@
             </div>
         </div>
     </div>
-    </div>
 @endsection
 
 {{--
@@ -390,7 +389,7 @@
             e.preventDefault();
             $tr = $(this).closest('tr');
             var dataTable = table.row($tr).data(),
-                route_edit = '{{ route('organization.edit') }}' + '/' + dataTable.id;
+                route_edit = '{{ route('organization.menu.index') }}' + '/' + dataTable.id;
 
             $(".content-ajax").load(route_edit);
         });

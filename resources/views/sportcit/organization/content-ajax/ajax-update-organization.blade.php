@@ -284,7 +284,8 @@
 
         $('.button-cancel').on('click', function (e) {
             e.preventDefault();
-            location.reload();
+            var route = '{{ route('organization.index.ajax') }}';
+            $(".content-ajax").load(route);
         });
     });
 

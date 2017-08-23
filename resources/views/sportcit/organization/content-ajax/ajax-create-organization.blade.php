@@ -247,12 +247,12 @@
                             <div class="form-actions">
                                 <div class="row">
                                     <div class="col-md-offset-3 col-md-9">
-                                        <a href="javascript:;" class="btn btn-outline red button-cancel"><i
-                                                    class="fa fa-angle-left"></i>
-                                            Cancelar
-                                        </a>
+                                        <a href="javascript:;" class="btn btn-outline red button-cancel">
+                                            <i class="fa fa-angle-left"></i>
+                                            Cancelar </a>
                                         <a href="javascript:;" class="btn default button-previous">
-                                            <i class="fa fa-angle-left"></i> Anterior </a>
+                                            <i class="fa fa-angle-left"></i>
+                                            Anterior </a>
                                         <a href="javascript:;" class="btn btn-outline green button-next">
                                             Siguiente
                                             <i class="fa fa-angle-right"></i>
@@ -405,7 +405,8 @@
 
         $('.button-cancel').on('click', function (e) {
             e.preventDefault();
-            location.reload();
+            var route = '{{ route('organization.index.ajax') }}';
+            $(".content-ajax").load(route);
         });
     });
 
