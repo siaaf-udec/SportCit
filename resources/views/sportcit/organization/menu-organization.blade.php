@@ -3,9 +3,9 @@
 
         @slot('actions', [
 
-            'link_upload' => [
+            'link_cancel' => [
                 'link' => '',
-                'icon' => 'icon-cloud-upload',
+                'icon' => 'fa fa-chevron-left',
             ],
             'link_wrench' => [
                 'link' => '',
@@ -67,5 +67,12 @@
                 route_edit = route('organization.edit',id_edit);
             $(".content-ajax").load(route_edit);
         });
+        $('#link_cancel').on('click', function (e) {
+            e.preventDefault();
+            var route_edit = route('organization.index.ajax');
+            $(".content-ajax").load(route_edit);
+        });
+
+
     });
 </script>

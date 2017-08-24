@@ -253,10 +253,6 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller.'OrganizationController@data',
             'as' => 'organization.data'
         ]);
-        Route::get('index/ajax',[
-            'uses' => $controller.'OrganizationController@index_ajax',
-            'as' => 'organization.index.ajax'
-        ]);
     });
 
     Route::get('emails', function () {
