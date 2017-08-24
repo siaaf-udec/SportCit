@@ -64,34 +64,34 @@
                                             <h3 class="block">Ingrese los datos de la Organización</h3>
                                             <div class="form-group">
                                                 <div class="col-md-4 col-lg-offset-3 text-right">
-                                                    {!! Field::hidden('id_organization') !!}
-                                                    {!! Field::hidden('url_view') !!}
-                                                    {!! Field::text('username', old('username'), [ 'label' => 'Nombre', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-user', 'help' => 'Ingrese el nombre.']) !!}
+                                                    {!! Field::hidden('id_organization',$organization->id) !!}
+                                                    {!! Field::hidden('name_file',$name ) !!}
+                                                    {!! Field::text('username',$organization->name_organization, [ 'label' => 'Nombre', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-user', 'help' => 'Ingrese el nombre.']) !!}
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::text('nit', old('nit'), [ 'label' => 'Nit', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-address-card-o', 'help' => 'Ingrese el Nit.']) !!}
+                                                    {!! Field::text('nit',$organization->nit , [ 'label' => 'Nit', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-address-card-o', 'help' => 'Ingrese el Nit.']) !!}
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::text('address', old('address'), ['label' => 'Dirección', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-map-marker', 'help' => 'Ingrese la dirección.']) !!}
+                                                    {!! Field::text('address',$organization->address_organization, ['label' => 'Dirección', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-map-marker', 'help' => 'Ingrese la dirección.']) !!}
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::text('phone', old('phone'), [ 'label' => 'Teléfono', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-mobile', 'help' => 'Ingrese el número del teléfono.']) !!}
+                                                    {!! Field::text('phone', $organization->phone_organization, [ 'label' => 'Teléfono', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-mobile', 'help' => 'Ingrese el número del teléfono.']) !!}
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::text('date', old('date'), ['label' => 'Fecha de Fundación', 'autofocus', 'auto' => 'off','class' => 'date-picker','data-date-format' => "yyyy-mm-dd"], ['icon' => 'fa fa-calendar', 'help' => 'Ingrese la fecha de fundación.']) !!}
+                                                    {!! Field::text('date', $organization->fundation, ['label' => 'Fecha de Fundación', 'autofocus', 'auto' => 'off','class' => 'date-picker','data-date-format' => "yyyy-mm-dd"], ['icon' => 'fa fa-calendar', 'help' => 'Ingrese la fecha de fundación.']) !!}
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-4 col-lg-offset-3 text-left">
-                                                    {!! Field::text('color_organization', old('color_organization'), ['class' => 'demo','data-control' => 'hue', 'label' => 'Color', 'autofocus', 'auto' => 'off'], [ 'help' => 'Ingrese o seleccione un color.']) !!}
+                                                    {!! Field::text('color_organization',$organization->club_colors, ['class' => 'demo','data-control' => 'hue', 'label' => 'Color', 'autofocus', 'auto' => 'off'], [ 'help' => 'Ingrese o seleccione un color.']) !!}
                                                 </div>
                                             </div>
                                         </div>
@@ -192,14 +192,7 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
 
-        $('input[name="id_organization"]').val('{{$organization->id }}');
-        $('input[name="username"]').val('{{ $organization->name_organization }}');
-        $('input[name="nit"]').val('{{ $organization->nit }}');
-        $('input[name="address"]').val('{{ $organization->address_organization }}');
-        $('input[name="phone"]').val('{{ $organization->phone_organization }}');
-        $('input[name="date"]').val('{{ $organization->fundation }}');
-        $('input[name="color_organization"]').val('{{ $organization->club_colors }}');
-        /*Configuracion de input tipo fecha*/
+
         $('.date-picker').datepicker({
             rtl: App.isRTL(),
             orientation: "left",
@@ -259,6 +252,7 @@
                         'phone_organization': $('input[name="phone"]').val(),
                         'fundation': $('input[name="date"]').val(),
                         'club_colors': $('input[name="color_organization"]').val(),
+                        'name_file': $('input[name="name_file"]').val(),
                     }
                 }
             };

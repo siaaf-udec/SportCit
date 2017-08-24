@@ -221,10 +221,6 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller.'OrganizationController@index',
             'as' => 'organization.index'
         ]);
-        Route::get('index/ajax',[
-            'uses' => $controller.'OrganizationController@index_ajax',
-            'as' => 'organization.index.ajax'
-        ]);
         Route::get('create', [
             'uses' => $controller . 'OrganizationController@create',
             'as' => 'organization.create'

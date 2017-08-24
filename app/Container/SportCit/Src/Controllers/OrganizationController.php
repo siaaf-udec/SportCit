@@ -188,7 +188,7 @@ class OrganizationController extends Controller
             foreach ($archivo as $url) {
                 $link = Storage::url('sportcit/' . $url->url_file);
                 $name_file = '/public/sportcit/' . $url->url_file;
-                $name = 'public/storage/sportcit/' . $url->url_file;
+                $name = $url->url_file;
             }
             $size = Storage::size($name_file);
             return view('sportcit.organization.content-ajax.ajax-update-organization', [
@@ -216,7 +216,20 @@ class OrganizationController extends Controller
     public function update(Request $request)
     {
         if ($request->ajax() && $request->isMethod('POST')) {
-            $this->organizationRepository->update($request->all());
+           $organization = $this->organizationRepository->update($request->all());
+
+            if(count($request->file('file'))){
+                Storage::disk('sportcit')->delete($request->name_file);
+                $archi = $request->file('file');
+                foreach ($archi as $file) {
+                    $url = Storage::disk('sportcit')->putFile('legal', $file);
+                }
+                $organization->files()->update([
+                    'name_file' => $request['name_organization'],
+                    'url_file' => $url,
+                ]);
+
+            }
             return AjaxResponse::success(
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'

@@ -1,11 +1,11 @@
 var FormDropzone = function () {
     return {
         //main function to initiate the module
-        init: function (route, formatfile, numfile, method, params, type_crud, url, tama) {
+        init: function (routes, formatfile, numfile, method, params, type_crud, url, tama) {
             Dropzone.options.autoDiscover = false;
 
             Dropzone.options.myDropzone = {
-                url: route,
+                url: routes,
                 //Texto utilizado antes de que se eliminen los archivos.
                 dictDefaultMessage: 'Arrastra los archivos aquí para subirlos',
                 //Agregará un enlace a cada vista previa del archivo para eliminar o cancelar
@@ -45,9 +45,7 @@ var FormDropzone = function () {
                     btnsubmit.on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        if (myDropzone.files.length < 1) {
-                            UIToastr.init('error', 'Campo Requerido', 'El archivo de legalización es obligatorio.');
-                        }
+
                         if (type_crud == 'create') {
                             if (myDropzone.files.length == 1) {
                                 if (typeof method !== 'undefined' && typeof method === 'object') {
@@ -58,6 +56,9 @@ var FormDropzone = function () {
                                     form.submit();
                                     myDropzone.processQueue();
                                 }
+                            }
+                            if (myDropzone.files.length < 1) {
+                                UIToastr.init('error', 'Campo Requerido', 'El archivo de legalización es obligatorio.');
                             }
                         }
                         if (type_crud == 'update') {
@@ -83,7 +84,7 @@ var FormDropzone = function () {
                                     });
                                 }
                                 $.ajax({
-                                    url: route,
+                                    url: routes,
                                     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                                     cache: false,
                                     type: type,
@@ -94,7 +95,8 @@ var FormDropzone = function () {
                                     success: function (response, xhr, request) {
                                         if (request.status === 200 && xhr === 'success') {
                                             UIToastr.init(xhr, response.title, response.message);
-                                            location.reload();
+                                            route_edit = route('organization.index.ajax');
+                                            $(".content-ajax").load(route_edit);
                                         }
                                     },
                                     error: function (response, xhr, request) {
@@ -147,7 +149,8 @@ var FormDropzone = function () {
                         UIToastr.init('success', 'Carga Satisfactoria',
                             'Se ha procesado satisfactoriamente.'
                         );
-                        location.reload();
+                        route_edit = route('organization.index.ajax');
+                        $(".content-ajax").load(route_edit);
                     }
                 },
                 error: function (file, xhr, formData) {
