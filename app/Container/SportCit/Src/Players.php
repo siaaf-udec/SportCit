@@ -3,6 +3,8 @@
 namespace App\Container\SportCit\Src;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Container\SportCit\CategoryUser;
+use App\Container\Users\User;
 
 class Players extends Model
 {
@@ -27,11 +29,26 @@ class Players extends Model
     ];
 
     /**
-     * Get the category that owns the comment.
+     * Get the category that owns the player.
      */
     public function category()
     {
-        return $this->belongsTo('App\Container\SportCit\CategoryUser');
+        return $this->belongsTo(CategoryUser::class);
     }
 
+    /**
+     * Get the user that owns the player.
+     */
+    public function userPlayer()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the Organization that owns the player.
+     */
+    public function organizationPlayer()
+    {
+        return $this->belongsTo(Organization::class);
+    }
 }

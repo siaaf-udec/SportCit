@@ -48,6 +48,7 @@ var FormDropzone = function () {
 
                         if (type_crud == 'create') {
                             if (myDropzone.files.length == 1) {
+                                App.blockUI();
                                 if (typeof method !== 'undefined' && typeof method === 'object') {
                                     params = method.init();
                                     myDropzone.processQueue();
@@ -62,6 +63,7 @@ var FormDropzone = function () {
                             }
                         }
                         if (type_crud == 'update') {
+                            App.blockUI();
 
                             if (myDropzone.files.length == 1) {
                                 if (typeof method !== 'undefined' && typeof method === 'object') {
@@ -102,6 +104,7 @@ var FormDropzone = function () {
                                     error: function (response, xhr, request) {
                                         if (request.status === 422 && xhr === 'error') {
                                             UIToastr.init(xhr, response.title, response.message);
+                                            App.unblockUI();
                                         }
                                     }
                                 });
@@ -155,6 +158,7 @@ var FormDropzone = function () {
                 },
                 error: function (file, xhr, formData) {
                     if (file.status == 'error') {
+                        App.unblockUI();
                         UIToastr.init('error', '¡Ocurrió un Error!',
                             xhr.email
                         );

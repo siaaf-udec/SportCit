@@ -398,14 +398,14 @@
         };
         var type_crud = 'create';
 
-        var route = '{{route('organization.store')}}';
+        var route =route('organization.store');
         var formatfile = '.pdf';
         var numfile = 1;
         $("div#my_dropzone").dropzone(FormDropzone.init(route, formatfile, numfile, datos(), estado, type_crud));
 
         $('.button-cancel').on('click', function (e) {
             e.preventDefault();
-            var route = '{{ route('organization.index.ajax') }}';
+            var route = route('organization.index.ajax');
             $(".content-ajax").load(route);
         });
     });

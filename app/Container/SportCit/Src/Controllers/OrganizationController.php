@@ -77,21 +77,6 @@ class OrganizationController extends Controller
     {
 
         $organization = Organization::query();
-        /*$table = [];
-        foreach ($organization as $organizations) {
-            $table = [
-                'id' => $organizations->id,
-                'name_organization' => $organizations->name_organization,
-                'nit' => $organizations->nit,
-                'address_organization' => $organizations->address_organization,
-                'phone_organization' => $organizations->phone_organization,
-                'fundation' => $organizations->fundation,
-                'club_colors' => $organizations->club_colors,
-                'link_organization' => $organizations->link_organization,
-                'state_organization' => $organizations->state_organization,
-                'fk_user_id' => $organizations->fk_user_id
-            ];
-        }*/
 
         return Datatables::of($organization)
             ->addColumn('state_organization', function ($organization) {

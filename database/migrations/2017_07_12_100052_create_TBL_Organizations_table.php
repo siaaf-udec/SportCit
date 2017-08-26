@@ -23,14 +23,10 @@ class CreateTBLOrganizationsTable extends Migration
             $table->string('club_colors');
             $table->string('link_organization');
             $table->enum('state_organization', ['Pendiente', 'Aprobado', 'Denegado'])->default('Pendiente');
-            $table->integer('fk_user_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('fk_user_id')
-                ->references('id')->on('users')
-                ->onDeletes('cascade')//Eliminacion en casacada
-                ->onUpdate('cascade');//Actualización en casacada
+
 
         });
     }

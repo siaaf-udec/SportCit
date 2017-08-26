@@ -13,18 +13,38 @@ class CreateForeignsTable extends Migration
      */
     public function up()
     {
-        Schema::table('TBL_Players', function (Blueprint $table) {
-            $table->integer('category_user_id')->nullable()->unsigned();
 
-            $table->foreign('category_user_id')->references('id')->on('TBL_Category_Player')
-                  ->onUpdate('cascade')->onDelete('cascade');
+        Schema::table('TBL_Category_Player', function (Blueprint $table) {
+            $table->integer('fk_Organization_id')->nullable()->unsigned();
+            $table->foreign('fk_Organization_id')
+                ->references('id')->on('TBL_Organizations')
+                ->onDeletes('cascade')//Eliminacion en casacada
+                ->onUpdate('cascade');//Actualización en casacada
+
         });
-
         Schema::table('TBL_Players', function (Blueprint $table) {
-            $table->integer('user_id')->nullable()->unsigned();
+            $table->integer('fk_cate_player_id')->nullable()->unsigned();
 
-            $table->foreign('user_id')->references('id')->on('users')
+            $table->foreign('fk_cate_player_id')->references('id')->on('TBL_Category_Player')
+                  ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->integer('fk_user_id')->nullable()->unsigned();
+
+            $table->foreign('fk_user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
+
+            $table->integer('fk_organization_id')->nullable()->unsigned();
+
+            $table->foreign('fk_organization_id')->references('id')->on('TBL_Organizations')
+                ->onUpdate('cascade')->onDelete('cascade');
+        });
+        Schema::table('TBL_Organizations', function (Blueprint $table) {
+            $table->integer('fk_user_id')->nullable()->unsigned();
+            $table->foreign('fk_user_id')
+                ->references('id')->on('users')
+                ->onDeletes('cascade')//Eliminacion en casacada
+                ->onUpdate('cascade');//Actualización en casacada
+
         });
     }
     /**

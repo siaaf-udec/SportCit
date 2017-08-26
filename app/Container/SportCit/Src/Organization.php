@@ -3,6 +3,7 @@
 namespace App\Container\SportCit\Src;
 
 use App\Container\Users\Src\User;
+use eloquenAvance\Category;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
@@ -31,5 +32,15 @@ class Organization extends Model implements AuditableContract
     {
         //uno a muchos relacion morfologica
         return $this->morphMany(File::class, 'fileable');
+    }
+
+    public function playersOrganization()
+    {
+        return $this->hasMany(Players::class);
+    }
+
+    public function categoryOrganization()
+    {
+        return $this->hasMany(CategoryPlayer::class);
     }
 }

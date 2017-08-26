@@ -3,6 +3,7 @@
 namespace App\Container\SportCit\Src;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Container\SportCit\Players;
 
 class CategoryPlayer extends Model
 {
@@ -31,7 +32,14 @@ class CategoryPlayer extends Model
      */
     public function players()
     {
-        return $this->hasMany('App\Container\SportCit\Players');
+        return $this->hasMany(Players::class);
     }
 
+    /**
+     * Get the organization that owns the category.
+     */
+    public function organizationCategory()
+    {
+        return $this->belongsTo(Organization::class);
+    }
 }

@@ -11,6 +11,7 @@
 <script src="{{ asset('assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/plugins/jquery-ui/jquery-ui.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/plugins/jquery.blockui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/pages/scripts/portlet-draggable.min.js') }}" type="text/javascript"></script>
 {{-- END CORE PLUGINS --}}
 {{-- BEGIN THEME GLOBAL SCRIPTS --}}

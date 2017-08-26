@@ -283,12 +283,13 @@
 <script type="text/javascript">
 
     jQuery(document).ready(function () {
+        App.unblockUI();
         /*
          * Referencia https://datatables.net/reference/option/
          */
         var table, url, columns;
         table = $('#organization-table-ajax');
-        url = "{{ route('organization.data') }}";
+        url = route('organization.data');
         columns = [
             {data: 'id', name: 'id', "visible": false},
             {data: 'fk_user_id', name: 'fk_user_id', "visible": false, searchable: false,},
@@ -336,7 +337,7 @@
 
         $(".create").on('click', function (e) {
             e.preventDefault();
-            var route = '{{ route('organization.create') }}';
+            var route = route('organization.create');
             $(".content-ajax").load(route);
         });
         table = table.DataTable();
@@ -359,7 +360,7 @@
             formData.append('state_organization', $('select[name="type_state"]').val());
             formData.append('id', $('select[name="id_organization"]').val());
             formData.append('user_id', $('input[name="id_user"]').val());
-            var route = '{{ route('organization.update_state') }}'+'/'+id;
+            var route = route('organization.update_state',id);
             var type = 'POST';
             var async = async || false;
             $.ajax({
@@ -389,16 +390,24 @@
             e.preventDefault();
             $tr = $(this).closest('tr');
             var dataTable = table.row($tr).data(),
-                route_edit = '{{ route('organization.menu.index') }}' + '/' + dataTable.id;
+                route_edit = route('organization.menu.index', dataTable.id);
 
             $(".content-ajax").load(route_edit);
+        });
+
+        table.on('click', '.remove', function (e) {
+            e.preventDefault();
+            $tr = $(this).closest('tr');
+            var dataTable = table.row($tr).data(),
+                route_edit = '{{ route('organization.menu.index') }}' + '/' + dataTable.id;
+
         });
 
         table.on('click', '.viewfile', function (e) {
             e.preventDefault();
             $tr = $(this).closest('tr');
             var dataTable = table.row($tr).data(),
-                route_file = '{{ route('organization.viewfile') }}' + '/' + dataTable.id;
+                route_file = route('organization.viewfile', dataTable.id);
             type = 'GET';
             var async = async || false;
             $.ajax({

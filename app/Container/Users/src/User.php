@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use App\Container\SportCit\Src\Organization;
+use App\Container\SportCit\Src\Players;
 use App\Container\SportCit\Src\File;
 
 class User extends Authenticatable
@@ -62,5 +63,13 @@ class User extends Authenticatable
     {
         //un usuario tiene muchas organizaciones
         return $this->hasMany(Organization::class,'fk_user_id');
+    }
+
+    /**
+     * Get the player record associated with the user.
+     */
+    public function player()
+    {
+        return $this->hasOne(Players::class);
     }
 }
