@@ -91,9 +91,16 @@
                 route_edit = route('organization.edit', id_edit);
             $(".content-ajax").load(route_edit);
         });
+        $('.category-info').on('click', function (e) {
+            e.preventDefault();
+            var id_edit = $('input[name="id_edit_organization"]').val(),
+                route_edit = route('organization.category.index.ajax', id_edit);
+            $(".content-ajax").load(route_edit);
+        });
         $('#link_cancel').on('click', function (e) {
             e.preventDefault();
-            var route_edit = route('organization.index.ajax');
+            var id_edit = $('input[name="id_edit_organization"]').val(),
+                route_edit = route('organization.index.ajax', id_edit);
             $(".content-ajax").load(route_edit);
         });
 

@@ -253,7 +253,16 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller.'OrganizationController@index_ajax',
             'as' => 'organization.index.ajax'
         ]);
+
+        Route::group(['prefix' => 'category'], function (){
+            $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
+            Route::get('index/ajax/{id?}',[
+                'uses' => $controller.'CategoryPlayerController@index_ajax',
+                'as' => 'organization.category.index.ajax'
+            ]);
+        });
     });
+
 
     Route::get('emails', function () {
         $organ = \App\Container\SportCit\Src\Organization::find(1);

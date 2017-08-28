@@ -160,8 +160,8 @@
 
         $(".create").on('click', function (e) {
             e.preventDefault();
-            var route = route('organization.create');
-            $(".content-ajax").load(route);
+            var route_create = route('organization.create');
+            $(".content-ajax").load(route_create);
         });
         table = table.DataTable();
 
