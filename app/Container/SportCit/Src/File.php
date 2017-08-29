@@ -3,7 +3,6 @@
 namespace App\Container\SportCit\Src;
 
 use Illuminate\Database\Eloquent\Model;
-
 class File extends Model
 {
     /**

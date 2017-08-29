@@ -3,15 +3,15 @@
 namespace App\Container\SportCit\Src;
 
 use App\Container\Users\Src\User;
-use eloquenAvance\Category;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 class Organization extends Model implements AuditableContract
 {
 
-    use Auditable;
+    use Auditable, SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *

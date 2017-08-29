@@ -104,14 +104,26 @@ abstract class ControllerRepository implements ControllerInterface
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified resource from storage. Physically
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $model = $this->model->find($id);
+        $model = $this->model->withTrashed()->find($id);
+        return $model->forceDelete();
+    }
+
+    /**
+     * Remove the specified resource from storage. Logically
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy_soft($id)
+    {
+        $model = $this->model->withTrashed()->find($id);
         return $model->delete();
     }
 

@@ -260,21 +260,12 @@
         var estado = {
             'name': 'correcto'
         }
-        var fun = function () {
-            return {
-                init: function () {
-                    location.reload();
-                }
-            };
-        };
-        var url = '{{asset($archivo)}}';
-        var tama = '{{$tama}}';
         var type_crud = 'update';
         var id_edit = $('input[name="id_organization"]').val();
         var route_edit = route('organization.update',id_edit);
         var formatfile = '.pdf';
         var numfile = 1;
-        $("div#my_dropzone").dropzone(FormDropzone.init(route_edit, formatfile, numfile, datos(), estado, type_crud,url,tama));
+        $("div#my_dropzone").dropzone(FormDropzone.init(route_edit, formatfile, numfile, datos(), estado, type_crud));
 
         $('.button-cancel').on('click', function (e) {
             e.preventDefault();

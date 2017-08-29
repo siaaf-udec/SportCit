@@ -253,7 +253,10 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller.'OrganizationController@index_ajax',
             'as' => 'organization.index.ajax'
         ]);
-
+        Route::post('delete/{id?}', [
+            'uses' => $controller . 'OrganizationController@destroy',
+            'as' => 'organization.destroy'
+        ]);
         Route::group(['prefix' => 'category'], function (){
             $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
             Route::get('index/ajax/{id?}',[

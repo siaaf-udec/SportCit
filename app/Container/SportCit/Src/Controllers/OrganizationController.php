@@ -41,9 +41,9 @@ class OrganizationController extends Controller
      */
     public function index_ajax(Request $request)
     {
-        if($request->ajax() && $request->isMethod('GET')){
+        if ($request->ajax() && $request->isMethod('GET')) {
             return view('sportcit.organization.content-ajax.ajax-organization');
-        }else{
+        } else {
             return AjaxResponse::fail(
                 '¡Lo sentimos!',
                 'No se pudo completar tu solicitud.'
@@ -147,7 +147,6 @@ class OrganizationController extends Controller
     }
 
 
-
     /**
      * Display the specified resource.
      *
@@ -172,15 +171,12 @@ class OrganizationController extends Controller
             $archivo = $organization->files->where('type_file', 'Legalidad');
             foreach ($archivo as $url) {
                 $link = Storage::url('sportcit/' . $url->url_file);
-                $name_file = '/public/sportcit/' . $url->url_file;
                 $name = $url->url_file;
             }
-            $size = Storage::size($name_file);
             return view('sportcit.organization.content-ajax.ajax-update-organization', [
                 'organization' => $organization,
                 'archivo' => $link,
-                'name' => $name,
-                'tama' => $size
+                'name' => $name
             ]);
 
         } else {
@@ -201,9 +197,9 @@ class OrganizationController extends Controller
     public function update(Request $request)
     {
         if ($request->ajax() && $request->isMethod('POST')) {
-           $organization = $this->organizationRepository->update($request->all());
+            $organization = $this->organizationRepository->update($request->all());
 
-            if(count($request->file('file'))){
+            if (count($request->file('file'))) {
                 Storage::disk('sportcit')->delete($request->name_file);
                 $archi = $request->file('file');
                 foreach ($archi as $file) {
@@ -234,9 +230,27 @@ class OrganizationController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        if ($request->ajax() && $request->isMethod('POST')) {
+            $state = strip_tags($request->state);
+            if ($state == 'Rechazado' || $state == 'Pendiente') {
+                $this->userRepository->destroy($request->id_user);
+            } elseif ($state == 'Aprobado') {
+                $this->userRepository->destroy_soft($request->id_user);
+                $this->organizationRepository->destroy_soft($id);
+            }
+
+            return AjaxResponse::success(
+                '¡Bien hecho!',
+                'Datos Eliminados correctamente.'
+            );
+        } else {
+            return AjaxResponse::fail(
+                '¡Lo sentimos!',
+                'No se pudo completar tu solicitud.'
+            );
+        }
     }
 
     /**
@@ -250,7 +264,7 @@ class OrganizationController extends Controller
         if ($request->ajax() && $request->isMethod('POST')) {
             $organization = Organization::find($id);
             $user = $this->userRepository->show($request->user_id);
-            if($organization->state_organization == 'Pendiente' && $request->state_organization == 'Aprobado' ){
+            if ($organization->state_organization == 'Pendiente' && $request->state_organization == 'Aprobado') {
                 $user->state_user = 'Activo';
                 $user->save();
             }

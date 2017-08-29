@@ -5,9 +5,11 @@ namespace App\Container\SportCit\Src;
 use Illuminate\Database\Eloquent\Model;
 use App\Container\SportCit\CategoryUser;
 use App\Container\Users\User;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Players extends Model
 {
+    use SoftDeletes;
 
     protected $table = 'TBL_Players';
 

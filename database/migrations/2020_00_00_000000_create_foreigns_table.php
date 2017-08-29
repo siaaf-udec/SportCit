@@ -18,8 +18,8 @@ class CreateForeignsTable extends Migration
             $table->integer('fk_Organization_id')->nullable()->unsigned();
             $table->foreign('fk_Organization_id')
                 ->references('id')->on('TBL_Organizations')
-                ->onDeletes('cascade')//Eliminacion en casacada
-                ->onUpdate('cascade');//Actualización en casacada
+                ->onUpdate('cascade')//Eliminacion en casacada
+                ->onDelete('cascade');//Actualización en casacada
 
         });
         Schema::table('TBL_Players', function (Blueprint $table) {
@@ -42,8 +42,8 @@ class CreateForeignsTable extends Migration
             $table->integer('fk_user_id')->nullable()->unsigned();
             $table->foreign('fk_user_id')
                 ->references('id')->on('users')
-                ->onDeletes('cascade')//Eliminacion en casacada
-                ->onUpdate('cascade');//Actualización en casacada
+                ->onUpdate('cascade')//Eliminacion en casacada
+                ->onDelete('cascade');//Actualización en casacada
 
         });
     }

@@ -43,6 +43,7 @@
 
 <link href="{{asset('assets/global/plugins/dropzone/dropzone.min.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{asset('assets/global/plugins/dropzone/basic.min.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{asset('assets/global/plugins/bootstrap-sweetalert/sweetalert.css')}}" rel="stylesheet" type="text/css"/>
 @endpush
 
 
@@ -245,6 +246,8 @@
 <script src="{{ asset('assets/global/plugins/jquery-minicolors/jquery.minicolors.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/plugins/dropzone/dropzone.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/global/scripts/jquery.media.js') }}" type="text/javascript"></script>
+<script src="{{ asset('assets/global/plugins/bootstrap-sweetalert/sweetalert.min.js') }}"
+        type="text/javascript"></script>
 @endpush
 
 
@@ -272,7 +275,7 @@
 <script src="{{ asset('assets/main/scripts/form-wizard.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/main/scripts/table-datatable.js') }}" type="text/javascript"></script>
 <script src="{{ asset('assets/main/scripts/dropzone.js') }}" type="text/javascript"></script>
-
+<script src="{{ asset('assets/main/scripts/ui-sweetalert.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
 
     jQuery(document).ready(function () {
@@ -314,7 +317,7 @@
                 responsivePriority: 2
             },
             {
-                defaultContent: '<a href="javascript:;" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-bars"></i></a><a href="javascript:;" class="btn btn-simple btn-danger btn-icon remove"><i class="icon-trash"></i></a>',
+                defaultContent: '<a href="javascript:;" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-bars"></i></a><a href="javascript:;" class="btn btn-simple btn-danger btn-icon mt-sweetalert remove"><i class="icon-trash"></i></a>',
                 data: 'action',
                 name: 'action',
                 orderable: false,
@@ -353,11 +356,12 @@
             formData.append('state_organization', $('select[name="type_state"]').val());
             formData.append('id', $('select[name="id_organization"]').val());
             formData.append('user_id', $('input[name="id_user"]').val());
-            var route = route('organization.update_state',id);
+            var route_state = route('organization.update_state', id);
             var type = 'POST';
             var async = async || false;
+            App.blockUI();
             $.ajax({
-                url: route,
+                url: route_state,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 cache: false,
                 type: type,
@@ -368,12 +372,14 @@
                 success: function (response, xhr, request) {
                     if (request.status === 200 && xhr === 'success') {
                         UIToastr.init(xhr, response.title, response.message);
-                        location.reload();
+                        route_index = route('organization.index.ajax');
+                        $(".content-ajax").load(route_index);
                     }
                 },
                 error: function (response, xhr, request) {
                     if (request.status === 422 && xhr === 'error') {
                         UIToastr.init(xhr, response.title, response.message);
+                        App.unblockUI();
                     }
                 }
             });
@@ -392,7 +398,15 @@
             e.preventDefault();
             $tr = $(this).closest('tr');
             var dataTable = table.row($tr).data(),
-                route_edit = '{{ route('organization.menu.index') }}' + '/' + dataTable.id;
+                route_remove = route('organization.destroy', dataTable.id);
+            var title = 'Eliminar';
+            var organization = dataTable.name_organization;
+            var text = 'Esta seguro de eliminar la organización: ' + organization;
+            var type = 'warning';
+            var formData = new FormData();
+            formData.append('state', dataTable.state_organization);
+            formData.append('id_user', dataTable.fk_user_id);
+            SweetAlert.init(title, text, type, route_remove, formData);
 
         });
 

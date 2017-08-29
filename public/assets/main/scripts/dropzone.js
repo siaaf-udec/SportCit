@@ -1,7 +1,7 @@
 var FormDropzone = function () {
     return {
         //main function to initiate the module
-        init: function (routes, formatfile, numfile, method, params, type_crud, url, tama) {
+        init: function (routes, formatfile, numfile, method, params, type_crud) {
             Dropzone.options.autoDiscover = false;
 
             Dropzone.options.myDropzone = {
@@ -34,14 +34,6 @@ var FormDropzone = function () {
                 init: function () {
                     var myDropzone = this,
                         btnsubmit = $('.button-submit');
-                    if (type_crud == 'updateff') {
-                        var mockFile = {name: url, size: tama, paramName: url};
-                        //myDropzone.emit('addedfile', mockFile);
-                        //myDropzone.emit('thumbnail', mockFile, url);
-                        myDropzone.options.addedfile.call(myDropzone, mockFile);
-
-                        myDropzone.options.thumbnail.call(myDropzone, mockFile, url);
-                    }
                     btnsubmit.on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
@@ -97,8 +89,8 @@ var FormDropzone = function () {
                                     success: function (response, xhr, request) {
                                         if (request.status === 200 && xhr === 'success') {
                                             UIToastr.init(xhr, response.title, response.message);
-                                            route_edit = route('organization.index.ajax');
-                                            $(".content-ajax").load(route_edit);
+                                            route_index = route('organization.index.ajax');
+                                            $(".content-ajax").load(route_index);
                                         }
                                     },
                                     error: function (response, xhr, request) {
@@ -132,7 +124,7 @@ var FormDropzone = function () {
                     myDropzone.on("addedfile", function (file, xhr, formData) {
                         if (!file.type.match(formatfile)) {
                             //myDropzone.emit("thumbnail", file, thumb);
-                            UIToastr.init('error', '¡Archivo no Valido!','Solo se permiten archivos pdf');
+                            UIToastr.init('error', '¡Archivo no Valido!', 'Solo se permiten archivos pdf');
                         }
                     });
 
@@ -152,8 +144,8 @@ var FormDropzone = function () {
                         UIToastr.init('success', 'Carga Satisfactoria',
                             'Se ha procesado satisfactoriamente.'
                         );
-                        route_edit = route('organization.index.ajax');
-                        $(".content-ajax").load(route_edit);
+                        route_index = route('organization.index.ajax');
+                        $(".content-ajax").load(route_index);
                     }
                 },
                 error: function (file, xhr, formData) {
