@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CategoryPlayer extends Model
 {
-    use SoftDeletes;
+
     protected $table = 'TBL_Category_Player';
 
     /**
@@ -17,7 +17,7 @@ class CategoryPlayer extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'gender', 'starting-year', 'final-year', 'state_category', 'space'
+        'name', 'description', 'gender', 'starting_year', 'final_year', 'state_category', 'space'
     ];
     /**
      * The attributes that should be hidden for arrays.

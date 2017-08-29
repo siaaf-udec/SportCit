@@ -267,7 +267,6 @@ Route::group(['middleware' => ['auth']], function () {
                 'uses' => $controller.'CategoryPlayerController@data',
                 'as' => 'organization.category.data'
             ]);
-
             Route::get('edit/{id?}', [
                 'uses' => $controller . 'CategoryPlayerController@edit',
                 'as' => 'organization.category.edit'

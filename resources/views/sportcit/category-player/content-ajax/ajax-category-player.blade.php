@@ -63,30 +63,30 @@
                                             {!! Field::text(
                                                 'name_edit',
                                                 ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
-                                                ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
+                                                ['help' => 'Ingrese el Nombre']) !!}
                                             {!! Field::select(
                                                  'state_category_create',
-                                                 ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'],null,
+                                                 ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null,
                                                  [ 'label' => 'Estado']) !!}
                                             {!! Field::select(
                                                 'gender_create',
-                                                ['Femenino' => 'Femenino', 'Masculino' => 'Masculino'],null,
+                                                ['Masculino' => 'Masculino', 'Femenino' => 'Femenino'], null,
                                                 [ 'label' => 'Genero']) !!}
                                             {!! Field::text(
                                                 'space_create',
-                                                ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
-                                                ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
+                                                ['label' => 'Cupos', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
+                                                ['help' => 'Ingrese el numero de cupos']) !!}
                                             {!! Field::date(
                                                 'starting_year_create',
-                                                ['label' => 'Fecha de Expedición', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
-                                                ['help' => 'Digite su fecha de expedición', 'icon' => 'fa fa-calendar']) !!}
+                                                ['label' => 'Fecha de Incio', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
+                                                ['help' => 'Digite su fecha de inicio', 'icon' => 'fa fa-calendar']) !!}
                                             {!! Field::date(
                                                 'final_year_create',
-                                                ['label' => 'Fecha de Expedición', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
-                                                ['help' => 'Digite su fecha de expedición', 'icon' => 'fa fa-calendar']) !!}
+                                                ['label' => 'Fecha de Fin', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
+                                                ['help' => 'Digite su fecha final', 'icon' => 'fa fa-calendar']) !!}
                                             {!! Field::textarea(
                                                 'description_edit',
-                                                ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off'],
+                                                ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off', 'rows' => '4'],
                                                 ['help' => 'Ingrese la Descripción']) !!}
                                         </div>
                                     </div>
@@ -160,8 +160,8 @@
             {data: 'name', name: 'Nombre'},
             {data: 'description', name: 'Descripción'},
             {data: 'gender', name: 'Genero'},
-            {data: 'starting-year', name: 'Fecha Incial'},
-            {data: 'final-year', name: 'Fecha Final'},
+            {data: 'starting_year', name: 'Fecha Incial'},
+            {data: 'final_year', name: 'Fecha Final'},
             {data: 'state_category', name: 'Estado de Categoria'},
             {data: 'space', name: 'Cupo'},
             {
@@ -224,10 +224,15 @@
                 route_edit = '{{ route('organization.category.edit') }}'+ '/'+ dataTable.id;
 
             $.get( route_edit, function( info ) {
-                console.log(info);
+                $('input[name="id_edit"]').val(info.data.id);
+                $('input:text[name="name_edit"]').val(info.data.name);
+                $('select[name="state_category_create"]').val(info.data.state_category);
+                $('select[name="gender_create"]').val(info.data.gender);
+                $('input:text[name="space_create"]').val(info.data.space);
+                $('#starting_year_create').val(info.data.starting_year);
+                $('#final_year_create').val(info.data.final_year);
+                $('textarea[name="description_edit"]').val(info.data.description);
                 $('#modal-create-category-player').modal('toggle');
-                //$('input[name="id_edit"]').val(info.data.id);
-                //$('#modal-update-permission').modal('toggle');
             });
 
 
@@ -325,6 +330,39 @@
                 }
             }
         };
+
+        /*Configuracion de Select*/
+        $.fn.select2.defaults.set("theme", "bootstrap");
+        $(".pmd-select2").select2({
+            placeholder: "Selecccionar",
+            allowClear: true,
+            width: 'auto',
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+
+        /*Configuracion de input tipo fecha*/
+        $('.date-picker').datepicker({
+            rtl: App.isRTL(),
+            orientation: "left",
+            autoclose: true,
+            regional: 'es',
+            closeText: 'Cerrar',
+            prevText: '<Ant',
+            nextText: 'Sig>',
+            currentText: 'Hoy',
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+            dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+            dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+            dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+            weekHeader: 'Sm',
+            dateFormat: 'yyyy-mm-dd',
+            firstDay: 1,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        });
 
 
         var form_edit = $('#from_permissions_update');

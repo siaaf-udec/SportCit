@@ -18,8 +18,8 @@ class CreateTBLCategoryPlayerTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->enum('gender', ['Masculino', 'Femenino']);
-            $table->date('starting-year');
-            $table->date('final-year');
+            $table->date('starting_year');
+            $table->date('final_year');
             $table->enum('state_category', ['Activo', 'Inactivo'])->default('Activo');
             $table->integer('space');
             $table->timestamps();

@@ -41,6 +41,6 @@ class Organization extends Model implements AuditableContract
 
     public function categoryOrganization()
     {
-        return $this->hasMany(CategoryPlayer::class, 'fk_Organization_id');
+        return $this->hasMany(CategoryPlayer::class, 'fk_organization_id');
     }
 }

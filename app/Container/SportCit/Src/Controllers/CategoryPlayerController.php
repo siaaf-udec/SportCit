@@ -61,16 +61,21 @@ class CategoryPlayerController extends Controller
      */
     public function data(Request $request, $id)
     {
-
-        $organization = $this->organizationRepository->show($id, ['categoryOrganization']);
-
-        return Datatables::of($organization->categoryOrganization)
-            ->removeColumn('created_at')
-            ->removeColumn('updated_at')
-            ->removeColumn('deleted_at')
-            ->removeColumn('fk_organization_id')
-            ->addIndexColumn()
-            ->make(true);
+        if($request->ajax() && $request->isMethod('GET')){
+            $organization = $this->organizationRepository->show($id, ['categoryOrganization']);
+            return Datatables::of($organization->categoryOrganization)
+                ->removeColumn('created_at')
+                ->removeColumn('updated_at')
+                ->removeColumn('deleted_at')
+                ->removeColumn('fk_organization_id')
+                ->addIndexColumn()
+                ->make(true);
+        }else{
+            return AjaxResponse::fail(
+                '¡Lo sentimos!',
+                'No se pudo completar tu solicitud.'
+            );
+        }
 
     }
 
