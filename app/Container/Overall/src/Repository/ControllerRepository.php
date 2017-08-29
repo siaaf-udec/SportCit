@@ -11,6 +11,8 @@ use App\Container\Overall\Src\Interfaces\ControllerInterface;
 /*
  * Facades
  */
+
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 
 /*
@@ -31,7 +33,7 @@ abstract class ControllerRepository implements ControllerInterface
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index($relations = [])
     {
@@ -45,7 +47,7 @@ abstract class ControllerRepository implements ControllerInterface
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -56,7 +58,7 @@ abstract class ControllerRepository implements ControllerInterface
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function store($data)
     {
@@ -69,7 +71,7 @@ abstract class ControllerRepository implements ControllerInterface
      * Display the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id, $relations = [])
     {
@@ -83,7 +85,7 @@ abstract class ControllerRepository implements ControllerInterface
      * Show the form for editing the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -95,7 +97,7 @@ abstract class ControllerRepository implements ControllerInterface
      *
      * @param  \Illuminate\Http\Request $request
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update($data)
     {
@@ -107,19 +109,19 @@ abstract class ControllerRepository implements ControllerInterface
      * Remove the specified resource from storage. Physically
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
-        $model = $this->model->withTrashed()->find($id);
-        return $model->forceDelete();
+        $model = $this->model->find($id);
+        return $model->delete();
     }
 
     /**
      * Remove the specified resource from storage. Logically
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy_soft($id)
     {
@@ -130,7 +132,7 @@ abstract class ControllerRepository implements ControllerInterface
     public function getModel()
     {
         return $this->model;
-}
+    }
 
     protected abstract function process($model, $data);
 }

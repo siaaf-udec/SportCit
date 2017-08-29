@@ -267,9 +267,21 @@ Route::group(['middleware' => ['auth']], function () {
                 'uses' => $controller.'CategoryPlayerController@data',
                 'as' => 'organization.category.data'
             ]);
+            Route::post('store', [
+                'uses' => $controller . 'CategoryPlayerController@store',
+                'as' => 'organization.category.store'
+            ]);
             Route::get('edit/{id?}', [
                 'uses' => $controller . 'CategoryPlayerController@edit',
                 'as' => 'organization.category.edit'
+            ])->where(['id' => '[0-9]+']);
+            Route::post('update', [
+                'uses' => $controller . 'CategoryPlayerController@update',
+                'as' => 'organization.category.update'
+            ])->where(['id' => '[0-9]+']);
+            Route::delete('delete/{id?}', [
+                'uses' => $controller . 'CategoryPlayerController@destroy',
+                'as' => 'organization.category.destroy'
             ])->where(['id' => '[0-9]+']);
         });
     });

@@ -47,41 +47,41 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Modal -->
-                <div class="modal fade" id="modal-create-category-player" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="modal-edit-category-player" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
-                            {!! Form::open(['id' => 'from_permissions_update', 'class' => '', 'url' => '/forms']) !!}
+                            {!! Form::open(['id' => 'from_categoty_player_update', 'class' => '', 'url' => '/forms']) !!}
                                 <div class="modal-header modal-header-success">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                    <h1><i class="glyphicon glyphicon-thumbs-up"></i> Modificar Permiso</h1>
+                                    <h1><i class="glyphicon glyphicon-thumbs-up"></i> Modificar Categoria</h1>
                                 </div>
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            {!! Field::hidden('id_create') !!}
+                                            {!! Field::hidden('id_edit') !!}
                                             {!! Field::text(
                                                 'name_edit',
                                                 ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
                                                 ['help' => 'Ingrese el Nombre']) !!}
                                             {!! Field::select(
-                                                 'state_category_create',
-                                                 ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null,
-                                                 [ 'label' => 'Estado']) !!}
+                                                'state_category_edit',
+                                                ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null,
+                                                [ 'label' => 'Estado']) !!}
                                             {!! Field::select(
-                                                'gender_create',
+                                                'gender_edit',
                                                 ['Masculino' => 'Masculino', 'Femenino' => 'Femenino'], null,
                                                 [ 'label' => 'Genero']) !!}
                                             {!! Field::text(
-                                                'space_create',
+                                                'space_edit',
                                                 ['label' => 'Cupos', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
                                                 ['help' => 'Ingrese el numero de cupos']) !!}
                                             {!! Field::date(
-                                                'starting_year_create',
+                                                'starting_year_edit',
                                                 ['label' => 'Fecha de Incio', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
                                                 ['help' => 'Digite su fecha de inicio', 'icon' => 'fa fa-calendar']) !!}
                                             {!! Field::date(
-                                                'final_year_create',
+                                                'final_year_edit',
                                                 ['label' => 'Fecha de Fin', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
                                                 ['help' => 'Digite su fecha final', 'icon' => 'fa fa-calendar']) !!}
                                             {!! Field::textarea(
@@ -102,11 +102,11 @@
             </div>
             <div class="col-md-12">
                 <!-- Modal -->
-                <div class="modal fade" id="modal-create-permission" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="modal-create-category-player" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
-                            {!! Form::open(['id' => 'from_permissions_create', 'class' => '', 'url' => '/forms']) !!}
+                            {!! Form::open(['id' => 'from_category_player_create', 'class' => '', 'url' => '/forms']) !!}
                             <div class="modal-header modal-header-success">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                                 <h1><i class="glyphicon glyphicon-thumbs-up"></i> Crear Permiso</h1>
@@ -114,20 +114,33 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        {!! Field::select(
-                                            'Modulo',
-                                            ['name' => 'module_create']) !!}
                                         {!! Field::text(
                                             'name_create',
                                             ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
-                                            ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
+                                            ['help' => 'Ingrese el Nombre']) !!}
+                                        {!! Field::select(
+                                            'state_category_create',
+                                            ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null,
+                                            [ 'label' => 'Estado']) !!}
+                                        {!! Field::select(
+                                            'gender_create',
+                                            ['Masculino' => 'Masculino', 'Femenino' => 'Femenino'], null,
+                                            [ 'label' => 'Genero']) !!}
                                         {!! Field::text(
-                                            'display_name_create',
-                                            ['label' => 'Nombre para Mostrar', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
-                                            ['help' => 'Ingrese el Nombre para Mostrar', 'icon' => 'fa fa-user']) !!}
+                                            'space_create',
+                                            ['label' => 'Cupos', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
+                                            ['help' => 'Ingrese el numero de cupos']) !!}
+                                        {!! Field::date(
+                                            'starting_year_create',
+                                            ['label' => 'Fecha de Incio', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
+                                            ['help' => 'Digite su fecha de inicio', 'icon' => 'fa fa-calendar']) !!}
+                                        {!! Field::date(
+                                            'final_year_create',
+                                            ['label' => 'Fecha de Fin', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
+                                            ['help' => 'Digite su fecha final', 'icon' => 'fa fa-calendar']) !!}
                                         {!! Field::textarea(
                                             'description_create',
-                                            ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off'],
+                                            ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off', 'rows' => '4'],
                                             ['help' => 'Ingrese la Descripción']) !!}
                                     </div>
                                 </div>
@@ -145,6 +158,7 @@
     @endcomponent
 </div>
 
+<script src="{{ asset('assets/main/scripts/form-validation-md.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     jQuery(document).ready(function () {
         /*
@@ -186,12 +200,12 @@
             $tr = $(this).closest('tr');
             var dataTable = table.row($tr).data();
 
-            var route = '{{ route('permissions.destroy') }}'+'/'+dataTable.id;
+            var route_delete = route('organization.category.destroy', dataTable.id);
             var type = 'DELETE';
             var async = async || false;
 
             $.ajax({
-                url: route,
+                url: route_delete,
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 cache: false,
                 type: type,
@@ -226,13 +240,13 @@
             $.get( route_edit, function( info ) {
                 $('input[name="id_edit"]').val(info.data.id);
                 $('input:text[name="name_edit"]').val(info.data.name);
-                $('select[name="state_category_create"]').val(info.data.state_category);
-                $('select[name="gender_create"]').val(info.data.gender);
-                $('input:text[name="space_create"]').val(info.data.space);
-                $('#starting_year_create').val(info.data.starting_year);
-                $('#final_year_create').val(info.data.final_year);
+                $('select[name="state_category_edit"]').val(info.data.state_category);
+                $('select[name="gender_edit"]').val(info.data.gender);
+                $('input:text[name="space_edit"]').val(info.data.space);
+                $('#starting_year_edit').val(info.data.starting_year);
+                $('#final_year_edit').val(info.data.final_year);
                 $('textarea[name="description_edit"]').val(info.data.description);
-                $('#modal-create-category-player').modal('toggle');
+                $('#modal-edit-category-player').modal('toggle');
             });
 
 
@@ -240,26 +254,31 @@
 
         $( ".create" ).on('click', function (e) {
             e.preventDefault();
-            $('#modal-create-permission').modal('toggle');
+            $('#modal-create-category-player').modal('toggle');
         });
 
-        /*Editar Permiso*/
-        var updatePermissions = function () {
+        /*Editar Categoria*/
+        var updateCategory = function () {
             return{
                 init: function () {
                     var id_edit = $('input[name="id_edit"]').val();
-                    var route = '{{ route('permissions.update') }}'+'/'+id_edit;
+                    var route_update = route('organization.category.update');
                     var type = 'POST';
                     var async = async || false;
 
                     var formData = new FormData();
-                    formData.append('name', $('input:text[name="name_edit"]').val());
-                    formData.append('display_name', $('input:text[name="display_name_edit"]').val());
-                    formData.append('description', $('#description_edit').val());
-                    formData.append('module_id', $('select[name="module_edit"]').val());
+                    formData.append('id', id_edit);
+                    formData.append('name',$('input:text[name="name_edit"]').val());
+                    formData.append('description', $('textarea[name="description_edit"]').val());
+                    formData.append('gender', $('select[name="gender_edit"]').val());
+                    formData.append('starting_year', $('#starting_year_edit').val());
+                    formData.append('final_year', $('#final_year_edit').val());
+                    formData.append('state_category',$('select[name="state_category_edit"]').val());
+                    formData.append('space', $('input:text[name="space_edit"]').val());
+                    formData.append('fk_organization_id',$('input[name="id_organization"]').val());
 
                     $.ajax({
-                        url: route,
+                        url: route_update,
                         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                         cache: false,
                         type: type,
@@ -273,8 +292,8 @@
                         success: function (response, xhr, request) {
                             if (request.status === 200 && xhr === 'success') {
                                 table.ajax.reload();
-                                $('#modal-update-permission').modal('hide');
-                                $('#from_permissions_update')[0].reset(); //Limpia formulario
+                                $('#modal-edit-category-player').modal('hide');
+                                $('#from_categoty_player_update')[0].reset(); //Limpia formulario
                                 UIToastr.init(xhr , response.title , response.message  );
                             }
                         },
@@ -288,21 +307,25 @@
             }
         };
         /*Crear Permissions*/
-        var createPermissions = function () {
+        var createCategory = function () {
             return{
                 init: function () {
-                    var route = '{{ route('permissions.store') }}';
+                    var route_create = route('organization.category.store');
                     var type = 'POST';
                     var async = async || false;
 
                     var formData = new FormData();
-                    formData.append('name', $('input:text[name="name_create"]').val());
-                    formData.append('display_name', $('input:text[name="display_name_create"]').val());
-                    formData.append('description', $('#description_create').val());
-                    formData.append('module_id', $('select[name="module_create"]').val());
+                    formData.append('fk_organization_id', $('input[name="id_organization"]').val());
+                    formData.append('name',$('input:text[name="name_create"]').val());
+                    formData.append('description', $('textarea[name="description_create"]').val());
+                    formData.append('gender', $('select[name="gender_create"]').val());
+                    formData.append('starting_year', $('#starting_year_create').val());
+                    formData.append('final_year', $('#final_year_create').val());
+                    formData.append('state_category',$('select[name="state_category_create"]').val());
+                    formData.append('space', $('input:text[name="space_create"]').val());
 
                     $.ajax({
-                        url: route,
+                        url: route_create,
                         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                         cache: false,
                         type: type,
@@ -316,8 +339,8 @@
                         success: function (response, xhr, request) {
                             if (request.status === 200 && xhr === 'success') {
                                 table.ajax.reload();
-                                $('#modal-create-permission').modal('hide');
-                                $('#from_permissions_create')[0].reset(); //Limpia formulario
+                                $('#modal-create-category-player').modal('hide');
+                                $('#from_category_player_create')[0].reset(); //Limpia formulario
                                 UIToastr.init(xhr , response.title , response.message  );
                             }
                         },
@@ -365,23 +388,29 @@
         });
 
 
-        var form_edit = $('#from_permissions_update');
+        var form_edit = $('#from_categoty_player_update');
         var rules_edit = {
             name_edit: { minlength: 5, required: true },
-            display_name_edit: { minlength: 5, required: true },
-            description_edit: { minlength: 5 },
-            module_edit: { required: true }
+            state_category_edit: {  required: true },
+            gender_edit: {  required: true },
+            space_edit: { number: true, required: true },
+            starting_year_edit: { required: true },
+            final_year_edit: { required: true },
+            description_edit: { minlength: 5 }
         };
-        //FormValidationMd.init(form_edit,rules_edit,false,updatePermissions());
+        FormValidationMd.init(form_edit,rules_edit,false,updateCategory());
 
-        var form_create = $('#from_permissions_create');
+        var form_create = $('#from_category_player_create');
         var rules_create = {
             name_create: { minlength: 5, required: true },
-            display_name_create: { minlength: 5, required: true },
-            description_create: { minlength: 5 },
-            module_create: { required: true }
+            state_category_create: {  required: true },
+            gender_create: {  required: true },
+            space_create: { number: true, required: true },
+            starting_year_create: { required: true },
+            final_year_create: { required: true },
+            description_create: { minlength: 5 }
         };
-        //FormValidationMd.init(form_create,rules_create,false,createPermissions());
+        FormValidationMd.init(form_create,rules_create,false,createCategory());
 
         $('#link_cancel').on('click', function (e) {
             e.preventDefault();

@@ -31,10 +31,11 @@ class CategoryPlayerRepository extends ControllerRepository implements CategoryP
         $model['name'] = $data['name'];
         $model['description'] = $data['description'];
         $model['gender'] = $data['gender'];
-        $model['starting-year'] = $data['starting-year'];
-        $model['final-year'] = $data['final-year'];
+        $model['starting_year'] = $data['starting_year'];
+        $model['final_year'] = $data['final_year'];
         $model['state_category'] = $data['state_category'];
         $model['space'] = $data['space'];
+        $model['fk_organization_id'] = $data['fk_organization_id'];
         $model->save();
 
         return $model;
