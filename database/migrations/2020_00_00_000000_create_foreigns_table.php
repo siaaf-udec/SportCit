@@ -15,8 +15,8 @@ class CreateForeignsTable extends Migration
     {
 
         Schema::table('TBL_Category_Player', function (Blueprint $table) {
-            $table->integer('fk_Organization_id')->nullable()->unsigned();
-            $table->foreign('fk_Organization_id')
+            $table->integer('fk_organization_id')->nullable()->unsigned();
+            $table->foreign('fk_organization_id')
                 ->references('id')->on('TBL_Organizations')
                 ->onUpdate('cascade')//Eliminacion en casacada
                 ->onDelete('cascade');//Actualización en casacada

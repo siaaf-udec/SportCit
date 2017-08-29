@@ -23,7 +23,6 @@ class CreateTBLCategoryPlayerTable extends Migration
             $table->enum('state_category', ['Activo', 'Inactivo'])->default('Activo');
             $table->integer('space');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

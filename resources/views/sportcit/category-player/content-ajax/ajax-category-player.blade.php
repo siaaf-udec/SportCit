@@ -32,8 +32,12 @@
                         '#' => ['style' => 'width:20px;'],
                         'id',
                         'Nombre',
-                        'Nombre para Mostrar',
                         'Descripción',
+                        'Genero',
+                        'Fecha Incial' => ['class' => 'none'],
+                        'Fecha Final' => ['class' => 'none'],
+                        'Estado de Categoria' => ['class' => 'none'],
+                        'Cupo'  => ['class' => 'none'],
                         'Acciones' => ['style' => 'width:90px;']
                     ])
                 @endcomponent
@@ -43,7 +47,7 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- Modal -->
-                <div class="modal fade" id="modal-update-permission" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="modal-create-category-player" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -55,18 +59,31 @@
                                 <div class="modal-body">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            {!! Field::hidden('id_edit') !!}
-                                            {!! Field::select(
-                                            'Modulo',
-                                            ['name' => 'module_edit']) !!}
+                                            {!! Field::hidden('id_create') !!}
                                             {!! Field::text(
                                                 'name_edit',
                                                 ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
                                                 ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
+                                            {!! Field::select(
+                                                 'state_category_create',
+                                                 ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'],null,
+                                                 [ 'label' => 'Estado']) !!}
+                                            {!! Field::select(
+                                                'gender_create',
+                                                ['Femenino' => 'Femenino', 'Masculino' => 'Masculino'],null,
+                                                [ 'label' => 'Genero']) !!}
                                             {!! Field::text(
-                                                'display_name_edit',
-                                                ['label' => 'Nombre para Mostrar', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
-                                                ['help' => 'Ingrese el Nombre para Mostrar', 'icon' => 'fa fa-user']) !!}
+                                                'space_create',
+                                                ['label' => 'Nombre', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
+                                                ['help' => 'Ingrese el Nombre', 'icon' => 'fa fa-user']) !!}
+                                            {!! Field::date(
+                                                'starting_year_create',
+                                                ['label' => 'Fecha de Expedición', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
+                                                ['help' => 'Digite su fecha de expedición', 'icon' => 'fa fa-calendar']) !!}
+                                            {!! Field::date(
+                                                'final_year_create',
+                                                ['label' => 'Fecha de Expedición', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
+                                                ['help' => 'Digite su fecha de expedición', 'icon' => 'fa fa-calendar']) !!}
                                             {!! Field::textarea(
                                                 'description_edit',
                                                 ['label' => 'Descripción', 'max' => '100', 'min' => '2', 'auto' => 'off'],
@@ -133,15 +150,20 @@
         /*
          * Referencia https://datatables.net/reference/option/
          */
-        var table, url, columns;
+        var table, url, columns, id_show;
+        id_show =  $('input[name="id_organization"]').val();
         table = $('#example-table-ajax');
-        url = "{{ route('permissions.data') }}";
+        url = route('organization.category.data', id_show);
         columns = [
             {data: 'DT_Row_Index'},
             {data: 'id', "visible": false },
             {data: 'name', name: 'Nombre'},
-            {data: 'display_name', name: 'Nombre para Mostrar'},
             {data: 'description', name: 'Descripción'},
+            {data: 'gender', name: 'Genero'},
+            {data: 'starting-year', name: 'Fecha Incial'},
+            {data: 'final-year', name: 'Fecha Final'},
+            {data: 'state_category', name: 'Estado de Categoria'},
+            {data: 'space', name: 'Cupo'},
             {
                 defaultContent: '<a href="javascript:;" class="btn btn-simple btn-warning btn-icon edit"><i class="icon-pencil"></i></a><a href="javascript:;" class="btn btn-simple btn-danger btn-icon remove"><i class="icon-trash"></i></a>',
                 data:'action',
@@ -199,15 +221,13 @@
             $tr = $(this).closest('tr');
 
             var dataTable = table.row($tr).data(),
-                route_edit = '{{ route('permissions.edit') }}'+ '/'+ dataTable.id;
+                route_edit = '{{ route('organization.category.edit') }}'+ '/'+ dataTable.id;
 
             $.get( route_edit, function( info ) {
-                $('input[name="id_edit"]').val(info.data.id);
-                $('select[name="module_edit"]').val(info.data.module_id);
-                $('#name_edit').attr('value', info.data.name);
-                $('#display_name_edit').attr('value', info.data.display_name);
-                $('#description_edit').val(info.data.description);
-                $('#modal-update-permission').modal('toggle');
+                console.log(info);
+                $('#modal-create-category-player').modal('toggle');
+                //$('input[name="id_edit"]').val(info.data.id);
+                //$('#modal-update-permission').modal('toggle');
             });
 
 
@@ -325,11 +345,10 @@
         };
         //FormValidationMd.init(form_create,rules_create,false,createPermissions());
 
-        var id_edit = $('input[name="id_organization"]').val();
         $('#link_cancel').on('click', function (e) {
             e.preventDefault();
             var id_edit = $('input[name="id_organization"]').val(),
-                route_edit = route('organization.menu.index',id_edit);
+                route_edit = route('organization.menu.index',id_show);
             $(".content-ajax").load(route_edit);
         });
     });

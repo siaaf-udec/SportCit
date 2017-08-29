@@ -263,6 +263,15 @@ Route::group(['middleware' => ['auth']], function () {
                 'uses' => $controller.'CategoryPlayerController@index_ajax',
                 'as' => 'organization.category.index.ajax'
             ]);
+            Route::get('data/{id?}',[
+                'uses' => $controller.'CategoryPlayerController@data',
+                'as' => 'organization.category.data'
+            ]);
+
+            Route::get('edit/{id?}', [
+                'uses' => $controller . 'CategoryPlayerController@edit',
+                'as' => 'organization.category.edit'
+            ])->where(['id' => '[0-9]+']);
         });
     });
 
