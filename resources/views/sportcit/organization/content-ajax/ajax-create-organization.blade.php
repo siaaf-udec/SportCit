@@ -294,6 +294,10 @@
 <script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     jQuery(document).ready(function () {
+
+        var $form = $('#form_create_organization'),
+            $wizard = $('#form_wizard_1');
+
         /*Configuracion de input tipo fecha*/
         $('.date-picker').datepicker({
             rtl: App.isRTL(),
@@ -315,8 +319,6 @@
             showMonthAfterYear: false,
             yearSuffix: ''
         });
-        //validator
-        var form = $('#form_create_organization');
 
         var rules = {
             username: {minlength: 3, required: true},
@@ -345,7 +347,7 @@
                 remote: "El correo electronico ya ha sido registrado."
             }
         };
-        var wizard = $('#form_wizard_1');
+
 
         /*Configuracion de Select*/
         $.fn.select2.defaults.set("theme", "bootstrap");
@@ -357,13 +359,12 @@
                 return m;
             }
         });
-        $('#form_wizard_1').bootstrapWizard(FormWizard.init(wizard, form, rules, messages, false));
+        $wizard.bootstrapWizard(FormWizard.init($wizard, $form, rules, messages, false));
 
         //dropzone
-        var datos = function () {
+        var method = function () {
             return {
                 init: function () {
-
                     return valores = {
                         'name_organization': $('input[name="username"]').val(),
                         'nit': $('input[name="nit"]').val(),
@@ -386,22 +387,13 @@
                 }
             };
         };
-        var estado = {
-            'name': 'correcto'
-        }
-        var fun = function () {
-            return {
-                init: function () {
-                    location.reload();
-                }
-            };
-        };
-        var type_crud = 'create';
 
-        var route_store =route('organization.store');
-        var formatfile = '.pdf';
-        var numfile = 1;
-        $("div#my_dropzone").dropzone(FormDropzone.init(route_store, formatfile, numfile, datos(), estado, type_crud));
+        var type_crud = 'CREATE',
+            route_store =route('organization.store'),
+            formatfile = '.pdf',
+            numfile = 1;
+
+        $("div#my_dropzone").dropzone(FormDropzone.init(route_store, formatfile, numfile, method(), type_crud));
 
         $('.button-cancel').on('click', function (e) {
             e.preventDefault();
@@ -409,7 +401,6 @@
             $(".content-ajax").load(route_cancel);
         });
     });
-
 
 </script>
 

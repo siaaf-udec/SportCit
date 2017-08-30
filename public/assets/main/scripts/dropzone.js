@@ -1,7 +1,9 @@
 var FormDropzone = function () {
     return {
         //main function to initiate the module
-        init: function (routes, formatfile, numfile, method, params, type_crud) {
+        init: function (routes, formatfile, numfile, method, type_crud) {
+
+            var params;
             Dropzone.options.autoDiscover = false;
 
             Dropzone.options.myDropzone = {
@@ -38,7 +40,7 @@ var FormDropzone = function () {
                         e.preventDefault();
                         e.stopPropagation();
 
-                        if (type_crud == 'create') {
+                        if (type_crud == 'CREATE') {
                             if (myDropzone.files.length == 1) {
                                 App.blockUI();
                                 if (typeof method !== 'undefined' && typeof method === 'object') {
@@ -54,7 +56,7 @@ var FormDropzone = function () {
                                 UIToastr.init('error', 'Campo Requerido', 'El archivo de legalización es obligatorio.');
                             }
                         }
-                        if (type_crud == 'update') {
+                        if (type_crud == 'UPDATE') {
                             App.blockUI();
 
                             if (myDropzone.files.length == 1) {

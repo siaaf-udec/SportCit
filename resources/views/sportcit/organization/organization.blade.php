@@ -282,65 +282,64 @@
         /*
          * Referencia https://datatables.net/reference/option/
          */
-        var table, url, columns;
-        table = $('#organization-table-ajax');
-        url = route('organization.data');
-        columns = [
-            {data: 'id', name: 'id', "visible": false},
-            {data: 'fk_user_id', name: 'fk_user_id', "visible": false, searchable: false,},
-            {data: 'name_organization', name: 'name_organization'},
-            {data: 'nit', name: 'nit'},
-            {data: 'state_organization', name: 'state_organization'},
-            {
-                defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center state"><i class="fa fa-handshake-o"></i></a>',
-                data: 'admision',
-                name: 'admision',
-                orderable: false,
-                searchable: false,
-                exportable: false,
-                printable: false,
-                className: 'text-right',
-                render: null,
-                responsivePriority: 2
-            },
-            {
-                defaultContent: '<a href="javascript:;" class="btn btn-simple btn-info btn-icon btn-center viewfile"><i class="fa fa-file-pdf-o"></i></a>',
-                data: 'archivo',
-                name: 'archivo',
-                orderable: false,
-                searchable: false,
-                exportable: false,
-                printable: false,
-                className: 'text-right',
-                render: null,
-                responsivePriority: 2
-            },
-            {
-                defaultContent: '<a href="javascript:;" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-bars"></i></a><a href="javascript:;" class="btn btn-simple btn-danger btn-icon mt-sweetalert remove"><i class="icon-trash"></i></a>',
-                data: 'action',
-                name: 'action',
-                orderable: false,
-                searchable: false,
-                exportable: false,
-                printable: false,
-                className: 'text-right',
-                render: null,
-                responsivePriority: 2
-            }
-        ];
-        dataTableServer.init(table, url, columns);
+        var $table = $('#organization-table-ajax'),
+            url = route('organization.data'),
+            columns = [
+                {data: 'id', name: 'id', "visible": false},
+                {data: 'fk_user_id', name: 'fk_user_id', "visible": false, searchable: false,},
+                {data: 'name_organization', name: 'name_organization'},
+                {data: 'nit', name: 'nit'},
+                {data: 'state_organization', name: 'state_organization'},
+                {
+                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center state"><i class="fa fa-handshake-o"></i></a>',
+                    data: 'admision',
+                    name: 'admision',
+                    orderable: false,
+                    searchable: false,
+                    exportable: false,
+                    printable: false,
+                    className: 'text-right',
+                    render: null,
+                    responsivePriority: 2
+                },
+                {
+                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-info btn-icon btn-center viewfile"><i class="fa fa-file-pdf-o"></i></a>',
+                    data: 'archivo',
+                    name: 'archivo',
+                    orderable: false,
+                    searchable: false,
+                    exportable: false,
+                    printable: false,
+                    className: 'text-right',
+                    render: null,
+                    responsivePriority: 2
+                },
+                {
+                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-bars"></i></a><a href="javascript:;" class="btn btn-simple btn-danger btn-icon mt-sweetalert remove"><i class="icon-trash"></i></a>',
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false,
+                    exportable: false,
+                    printable: false,
+                    className: 'text-right',
+                    render: null,
+                    responsivePriority: 2
+                }
+            ];
+        dataTableServer.init($table, url, columns);
 
         $(".create").on('click', function (e) {
             e.preventDefault();
             var route_create = route('organization.create');
             $(".content-ajax").load(route_create);
         });
-        table = table.DataTable();
+        $table = $table.DataTable();
 
-        table.on('click', '.state', function (e) {
+        $table.on('click', '.state', function (e) {
             e.preventDefault();
             $tr = $(this).closest('tr');
-            var dataTable = table.row($tr).data();
+            var dataTable = $table.row($tr).data();
             document.getElementById("from_mesanje_state").reset();
             $('input[name="id_user"]').val(dataTable.fk_user_id);
             $('input[name="id_organization"]').val(dataTable.id);
@@ -384,19 +383,19 @@
             });
         });
 
-        table.on('click', '.edit', function (e) {
+        $table.on('click', '.edit', function (e) {
             e.preventDefault();
             $tr = $(this).closest('tr');
-            var dataTable = table.row($tr).data(),
+            var dataTable = $table.row($tr).data(),
                 route_edit = route('organization.menu.index', dataTable.id);
 
             $(".content-ajax").load(route_edit);
         });
 
-        table.on('click', '.remove', function (e) {
+        $table.on('click', '.remove', function (e) {
             e.preventDefault();
             $tr = $(this).closest('tr');
-            var dataTable = table.row($tr).data(),
+            var dataTable = $table.row($tr).data(),
                 route_remove = route('organization.destroy', dataTable.id);
             var title = 'Eliminar';
             var organization = dataTable.name_organization;
@@ -409,10 +408,10 @@
 
         });
 
-        table.on('click', '.viewfile', function (e) {
+        $table.on('click', '.viewfile', function (e) {
             e.preventDefault();
             $tr = $(this).closest('tr');
-            var dataTable = table.row($tr).data(),
+            var dataTable = $table.row($tr).data(),
                 route_file = route('organization.viewfile', dataTable.id);
             type = 'GET';
             var async = async || false;
@@ -440,6 +439,7 @@
                 }
             });
         });
+
         /*Configuracion de Select*/
         $.fn.select2.defaults.set("theme", "bootstrap");
         $(".pmd-select2").select2({
@@ -452,5 +452,6 @@
         });
 
     });
+
 </script>
 @endpush

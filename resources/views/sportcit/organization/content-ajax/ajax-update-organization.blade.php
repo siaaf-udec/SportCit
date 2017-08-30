@@ -192,6 +192,8 @@
 <script type="text/javascript">
     jQuery(document).ready(function () {
 
+        var $form = $('#form_create_organization'),
+            $wizard = $('#form_wizard_1');
 
         $('.date-picker').datepicker({
             rtl: App.isRTL(),
@@ -213,8 +215,6 @@
             showMonthAfterYear: false,
             yearSuffix: ''
         });
-        //validator
-        var form = $('#form_create_organization');
 
         var rules = {
             username: {minlength: 3, required: true},
@@ -225,7 +225,7 @@
             color_organization: {required: true}
         };
         var messages = {};
-        var wizard = $('#form_wizard_1');
+
 
         /*Configuracion de Select*/
         $.fn.select2.defaults.set("theme", "bootstrap");
@@ -237,10 +237,10 @@
                 return m;
             }
         });
-        $('#form_wizard_1').bootstrapWizard(FormWizard.init(wizard, form, rules, messages, false));
+        $wizard.bootstrapWizard(FormWizard.init($wizard, $form, rules, messages, false));
 
         //dropzone
-        var datos = function () {
+        var method = function () {
             return {
                 init: function () {
 
@@ -257,15 +257,14 @@
                 }
             };
         };
-        var estado = {
-            'name': 'correcto'
-        }
-        var type_crud = 'update';
-        var id_edit = $('input[name="id_organization"]').val();
-        var route_edit = route('organization.update',id_edit);
-        var formatfile = '.pdf';
-        var numfile = 1;
-        $("div#my_dropzone").dropzone(FormDropzone.init(route_edit, formatfile, numfile, datos(), estado, type_crud));
+
+        var type_crud = 'UPDATE',
+            id_edit = $('input[name="id_organization"]').val(),
+            route_edit = route('organization.update',id_edit),
+            formatfile = '.pdf',
+            numfile = 1;
+
+        $("div#my_dropzone").dropzone(FormDropzone.init(route_edit, formatfile, numfile, method(), type_crud));
 
         $('.button-cancel').on('click', function (e) {
             e.preventDefault();
@@ -274,7 +273,6 @@
             $(".content-ajax").load(route_edit);
         });
     });
-
 
 </script>
 
