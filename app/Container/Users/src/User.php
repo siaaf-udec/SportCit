@@ -6,9 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+
+/*
+ * Modelos
+ * */
+use App\Container\SportCit\Src\Player;
 use App\Container\SportCit\Src\Organization;
-use App\Container\SportCit\Src\Players;
-use App\Container\SportCit\Src\File;
 
 class User extends Authenticatable
 {
@@ -41,7 +44,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'lastname', 'birthday', 'email', 'password',
+        'identity_type', 'identity_no', 'identity_expe_place','identity_expe_date',
+        'address','gender','phone', 'state', 'website'
     ];
 
     /**
@@ -70,6 +75,6 @@ class User extends Authenticatable
      */
     public function player()
     {
-        return $this->hasOne(Players::class);
+        return $this->hasOne(Player::class, 'fk_user_id');
     }
 }

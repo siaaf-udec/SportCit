@@ -284,6 +284,13 @@ Route::group(['middleware' => ['auth']], function () {
                 'as' => 'organization.category.destroy'
             ])->where(['id' => '[0-9]+']);
         });
+        Route::group(['prefix' => 'player'], function (){
+            $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
+            Route::get('index/ajax/{id?}',[
+                'uses' => $controller.'PlayerController@index_ajax',
+                'as' => 'organization.player.index.ajax'
+            ]);
+        });
     });
 
 

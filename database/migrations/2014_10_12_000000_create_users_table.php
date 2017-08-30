@@ -15,16 +15,22 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('type_document', ['C.C', 'T.I'])->nullable();
-            $table->string('number_document')->nullable();
-            $table->string('name_user');
-            $table->string('lastname_user');
+
+            $table->string('name');
+            $table->string('lastname');
             $table->date('birthday')->nullable();
-            $table->string('phone_user')->nullable();
-            $table->string('website')->nullable();
+            $table->enum('identity_type', ['C.C', 'T.I'])->nullable();
+            $table->integer('identity_no')->nullable()->unsigned();
+            $table->string('identity_expe_place')->nullable();
+            $table->date('identity_expe_date')->nullable();
+            $table->string('address')->nullable();
+            $table->enum('gender', ['Masculino', 'Femenino'])->nullable();
+            $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->string('password');
-            $table->enum('state_user', ['Activo', 'Inactivo'])->default('Inactivo');
+            $table->enum('state', ['Pendiente', 'Aprobado', 'Denegado'])->default('pendiente');
+            $table->string('website')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

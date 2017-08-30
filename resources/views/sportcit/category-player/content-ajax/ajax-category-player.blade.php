@@ -160,7 +160,7 @@
     @endcomponent
 </div>
 
-{-- jquery-validation Scripts --}
+{{-- jquery-validation Scripts --}}
 <script src="{{ asset('assets/main/scripts/form-validation-md.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     jQuery(document).ready(function () {

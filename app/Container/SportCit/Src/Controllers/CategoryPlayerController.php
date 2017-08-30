@@ -36,12 +36,12 @@ class CategoryPlayerController extends Controller
             return view('sportcit.category-player.content-ajax.ajax-category-player', [
                 'organization' => $organization
             ]);
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -70,12 +70,12 @@ class CategoryPlayerController extends Controller
                 ->removeColumn('fk_organization_id')
                 ->addIndexColumn()
                 ->make(true);
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
 
     }
 
@@ -93,12 +93,12 @@ class CategoryPlayerController extends Controller
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'
             );
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -127,20 +127,20 @@ class CategoryPlayerController extends Controller
                 'Datos cargados correctamente.',
                 $category
             );
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @internal param int $id
      */
     public function update(Request $request)
     {
@@ -150,12 +150,12 @@ class CategoryPlayerController extends Controller
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'
             );
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -174,11 +174,11 @@ class CategoryPlayerController extends Controller
                 '¡Bien hecho!',
                 'Datos eliminados correctamente.'
             );
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 }

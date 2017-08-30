@@ -290,11 +290,11 @@
 | @endpush
 --}}
 
-{-- wizard Scripts --}
+{{-- wizard Scripts --}}
 <script src="{{ asset('assets/main/scripts/form-wizard.js') }}" type="text/javascript"></script>
-{-- bootstrap-colorpicker Scripts --}
+{{-- bootstrap-colorpicker Scripts --}}
 <script src="{{ asset('assets/pages/scripts/components-color-pickers.min.js')}}" type="text/javascript"></script>
-{-- dropzone Scripts --}
+{{-- dropzone Scripts --}}
 <script src="{{ asset('assets/main/scripts/dropzone.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     jQuery(document).ready(function () {
@@ -376,13 +376,13 @@
                         'phone_organization': $('input[name="phone"]').val(),
                         'fundation': $('input[name="date"]').val(),
                         'club_colors': $('input[name="color_organization"]').val(),
-                        'name_user': $('input[name="name"]').val(),
-                        'lastname_user': $('input[name="lastname"]').val(),
-                        'type_document': $('select[name="type_document"]').val(),
-                        'number_document': $('input[name="number_document"]').val(),
+                        'name': $('input[name="name"]').val(),
+                        'lastname': $('input[name="lastname"]').val(),
+                        'identity_type': $('select[name="type_document"]').val(),
+                        'identity_no': $('input[name="number_document"]').val(),
                         'birthday': $('input[name="date_birthday"]').val(),
                         'website': $('input[name="website"]').val(),
-                        'phone_user': $('input[name="phone_user"]').val(),
+                        'phone': $('input[name="phone_user"]').val(),
                         'email': $('input[name="email"]').val(),
                         'password': $('input[name="password"]').val(),
                         'link_organization': $('input[name="username"]').val(),

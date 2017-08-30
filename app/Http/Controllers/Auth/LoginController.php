@@ -53,7 +53,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'state_user' => 1])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'state' => 1])) {
             // Authentication passed...
             return redirect()->intended($this->redirectPath());
         }

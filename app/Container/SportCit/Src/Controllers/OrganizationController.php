@@ -43,12 +43,12 @@ class OrganizationController extends Controller
     {
         if ($request->ajax() && $request->isMethod('GET')) {
             return view('sportcit.organization.content-ajax.ajax-organization');
-        } else {
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -60,12 +60,12 @@ class OrganizationController extends Controller
     {
         if ($request->ajax() && $request->isMethod('GET')) {
             return view('sportcit.organization.content-ajax.ajax-create-organization');
-        } else {
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -138,12 +138,12 @@ class OrganizationController extends Controller
             );
 
 
-        } else {
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
 
@@ -179,12 +179,12 @@ class OrganizationController extends Controller
                 'name' => $name
             ]);
 
-        } else {
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -216,12 +216,12 @@ class OrganizationController extends Controller
                 'Datos modificados correctamente.'
             );
 
-        } else {
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -245,12 +245,12 @@ class OrganizationController extends Controller
                 '¡Bien hecho!',
                 'Datos Eliminados correctamente.'
             );
-        } else {
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -277,12 +277,12 @@ class OrganizationController extends Controller
                 'Datos modificados correctamente.'
             );
 
-        } else {
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -305,11 +305,11 @@ class OrganizationController extends Controller
                 '¡Bien hecho!',
                 $link
             );
-        } else {
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 }

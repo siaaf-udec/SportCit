@@ -206,6 +206,8 @@ return [
         App\Container\Permissions\Src\Providers\RoleServiceProvider::class,
         App\Container\Permissions\Src\Providers\ModuleServiceProvider::class,
         App\Container\SportCit\Src\Providers\OrganizationServiceProvider::class,
+        App\Container\SportCit\Src\Providers\PlayerServiceProvider::class,
+        App\Container\SportCit\Src\Providers\CategoryPlayerServiceProvider::class,
 
         /*
          * Application Service Providers...

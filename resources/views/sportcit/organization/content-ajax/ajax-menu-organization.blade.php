@@ -75,23 +75,28 @@
 
 <script type="text/javascript">
     jQuery(document).ready(function () {
+        var $id_organization = $('input[name="id_edit_organization"]').val(),
+            $route_organization;
+
         $('.edit-info').on('click', function (e) {
             e.preventDefault();
-            var id_edit = $('input[name="id_edit_organization"]').val(),
-                route_edit = route('organization.edit', id_edit);
-            $(".content-ajax").load(route_edit);
+            $route_organization = route('organization.edit', $id_organization);
+            $(".content-ajax").load($route_organization);
         });
         $('.category-info').on('click', function (e) {
             e.preventDefault();
-            var id_edit = $('input[name="id_edit_organization"]').val(),
-                route_edit = route('organization.category.index.ajax', id_edit);
-            $(".content-ajax").load(route_edit);
+            $route_organization = route('organization.category.index.ajax', $id_organization);
+            $(".content-ajax").load($route_organization);
+        });
+        $('.player-info').on('click', function (e) {
+            e.preventDefault();
+            $route_organization = route('organization.player.index.ajax', $id_organization);
+            $(".content-ajax").load($route_organization);
         });
         $('#link_cancel').on('click', function (e) {
             e.preventDefault();
-            var id_edit = $('input[name="id_edit_organization"]').val(),
-                route_edit = route('organization.index.ajax', id_edit);
-            $(".content-ajax").load(route_edit);
+            $route_organization = route('organization.index.ajax', $id_organization);
+            $(".content-ajax").load($route_organization);
         });
     });
 </script>

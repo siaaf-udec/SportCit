@@ -2,7 +2,9 @@
 
 namespace App\Container\SportCit\Src\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 
 class SampleController extends Controller
 {

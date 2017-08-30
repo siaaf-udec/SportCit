@@ -34,12 +34,12 @@ class MenuOrganizationController extends Controller
             return view('sportcit.organization.content-ajax.ajax-menu-organization',[
                 'organization' => ['data' => $organizations, 'count' => $temp]
             ]);
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
 
