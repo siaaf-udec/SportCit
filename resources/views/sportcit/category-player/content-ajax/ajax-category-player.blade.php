@@ -94,7 +94,7 @@
                             </div>
                             <div class="modal-footer">
                                 {!! Form::submit('Guardar', ['class' => 'btn blue']) !!}
-                                {!! Form::button('Cancelar', ['class' => 'btn red', 'data-dismiss' => 'modal' ]) !!}
+                                {!! Form::button('Cancelar', ['class' => 'btn red btn-cancel', 'data-dismiss' => 'modal' ]) !!}
                             </div>
                             {!! Form::close() !!}
                         </div>
@@ -111,7 +111,7 @@
                             {!! Form::open(['id' => 'from_category_player_create', 'class' => '', 'url' => '/forms']) !!}
                             <div class="modal-header modal-header-success">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h1><i class="glyphicon glyphicon-thumbs-up"></i> Crear Permiso</h1>
+                                <h1><i class="glyphicon glyphicon-thumbs-up"></i> Crear Categoria</h1>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
@@ -122,11 +122,11 @@
                                             ['help' => 'Ingrese el Nombre']) !!}
                                         {!! Field::select(
                                             'state_category_create',
-                                            ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null,
+                                            ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], 'Inactivo',
                                             [ 'label' => 'Estado']) !!}
                                         {!! Field::select(
                                             'gender_create',
-                                            ['Masculino' => 'Masculino', 'Femenino' => 'Femenino'], null,
+                                            ['Masculino' => 'Masculino', 'Femenino' => 'Femenino'], 'Masculino',
                                             [ 'label' => 'Genero']) !!}
                                         {!! Field::text(
                                             'space_create',
@@ -167,6 +167,8 @@
          * Referencia https://datatables.net/reference/option/
          */
         var $table = $('#example-table-ajax'),
+            $form_create = $('#from_categoty_player_create'),
+            $form_update = $('#from_categoty_player_update'),
             id_show = $('input[name="id_organization"]').val(),
             url = route('organization.category.data', id_show),
             columns = [
@@ -233,6 +235,8 @@
 
         });
 
+
+
         $table.on('click', '.edit', function (e) {
             e.preventDefault();
             $tr = $(this).closest('tr');
@@ -296,7 +300,7 @@
                             if (request.status === 200 && xhr === 'success') {
                                 $table.ajax.reload();
                                 $('#modal-edit-category-player').modal('hide');
-                                $('#from_categoty_player_update')[0].reset(); //Limpia formulario
+                                $form_update[0].reset(); //Limpia formulario
                                 UIToastr.init(xhr, response.title, response.message);
                             }
                         },
@@ -390,8 +394,14 @@
             yearSuffix: ''
         });
 
+        //Aplicar la validación en select2 cambio de valor desplegable, esto sólo es necesario para la integración de lista desplegable elegido.
+        $('.pmd-select2', $form_update).change(function () {
+            $form_update.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
+        });
+        $('.pmd-select2', $form_create).change(function () {
+            $form_create.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
+        });
 
-        var form_edit = $('#from_categoty_player_update');
         var rules_edit = {
             name_edit: {minlength: 5, required: true},
             state_category_edit: {required: true},
@@ -401,9 +411,8 @@
             final_year_edit: {required: true},
             description_edit: {minlength: 5}
         };
-        FormValidationMd.init(form_edit, rules_edit, false, updateCategory());
+        FormValidationMd.init($form_update, rules_edit, false, updateCategory());
 
-        var form_create = $('#from_category_player_create');
         var rules_create = {
             name_create: {minlength: 5, required: true},
             state_category_create: {required: true},
@@ -413,13 +422,17 @@
             final_year_create: {required: true},
             description_create: {minlength: 5}
         };
-        FormValidationMd.init(form_create, rules_create, false, createCategory());
+        FormValidationMd.init($form_create, rules_create, false, createCategory());
 
         $('#link_cancel').on('click', function (e) {
             e.preventDefault();
             var id_edit = $('input[name="id_organization"]').val(),
                 route_edit = route('organization.menu.index', id_edit);
             $(".content-ajax").load(route_edit);
+        });
+
+        $('.btn-cancel').on('click', function () {
+            $form_update[0].reset();
         });
     });
 </script>

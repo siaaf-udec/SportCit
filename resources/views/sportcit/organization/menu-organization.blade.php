@@ -50,7 +50,7 @@
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="1349">{{$organization['count']}}%</span>
+                            <span data-counter="counterup" data-value="1349">{{$organization['data']->num_category_organization}}</span>
                         </div>
                         <div class="desc"> Categorias</div>
                     </div>
@@ -63,19 +63,9 @@
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="1349">{{$organization['count']}}%</span>
+                            <span data-counter="counterup" data-value="1349">{{$organization['data']->num_players_organization}}</span>
                         </div>
                         <div class="desc"> Deportistas</div>
-                        <div class="desc">
-                            <div class="progress-info">
-                                <div class="progress">
-                                        <span style="width: {{$organization['count']}}%;"
-                                              class="progress-bar progress-bar-success grey">
-                                            <span class="sr-only">{{$organization['count']}}% Cambio</span>
-                                        </span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </a>
             </div>
@@ -103,7 +93,5 @@
                 route_edit = route('organization.index.ajax', id_edit);
             $(".content-ajax").load(route_edit);
         });
-
-
     });
 </script>

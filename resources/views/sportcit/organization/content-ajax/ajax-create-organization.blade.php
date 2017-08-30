@@ -342,12 +342,12 @@
             password: {minlength: 5, required: true},
             rpassword: {minlength: 5, required: true, equalTo: "#submit_form_password"}
         };
+
         var messages = {
             email: {
                 remote: "El correo electronico ya ha sido registrado."
             }
         };
-
 
         /*Configuracion de Select*/
         $.fn.select2.defaults.set("theme", "bootstrap");
@@ -387,6 +387,11 @@
                 }
             };
         };
+
+        //Aplicar la validación en select2 cambio de valor desplegable, esto sólo es necesario para la integración de lista desplegable elegido.
+        $('.pmd-select2', $form).change(function () {
+            $form.validate().element($(this)); //revalidate the chosen dropdown value and show error or success message for the input
+        });
 
         var type_crud = 'CREATE',
             route_store =route('organization.store'),
