@@ -290,8 +290,12 @@
 | @endpush
 --}}
 
+{-- wizard Scripts --}
+<script src="{{ asset('assets/main/scripts/form-wizard.js') }}" type="text/javascript"></script>
+{-- bootstrap-colorpicker Scripts --}
 <script src="{{ asset('assets/pages/scripts/components-color-pickers.min.js')}}" type="text/javascript"></script>
-<script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
+{-- dropzone Scripts --}
+<script src="{{ asset('assets/main/scripts/dropzone.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     jQuery(document).ready(function () {
 

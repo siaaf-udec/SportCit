@@ -31,7 +31,7 @@ class MenuOrganizationController extends Controller
             }
             $temp = round(($temp * 100)/9);
 
-            return view('sportcit.organization.menu-organization',[
+            return view('sportcit.organization.content-ajax.ajax-menu-organization',[
                 'organization' => ['data' => $organizations, 'count' => $temp]
             ]);
         }else{

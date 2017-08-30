@@ -3,8 +3,6 @@
 namespace App\Container\SportCit\Src;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Container\SportCit\Players;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CategoryPlayer extends Model
 {

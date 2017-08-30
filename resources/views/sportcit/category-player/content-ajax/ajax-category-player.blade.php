@@ -160,6 +160,7 @@
     @endcomponent
 </div>
 
+{-- jquery-validation Scripts --}
 <script src="{{ asset('assets/main/scripts/form-validation-md.js') }}" type="text/javascript"></script>
 <script type="text/javascript">
     jQuery(document).ready(function () {
@@ -167,7 +168,7 @@
          * Referencia https://datatables.net/reference/option/
          */
         var $table = $('#example-table-ajax'),
-            $form_create = $('#from_categoty_player_create'),
+            $form_create = $('#from_category_player_create'),
             $form_update = $('#from_categoty_player_update'),
             id_show = $('input[name="id_organization"]').val(),
             url = route('organization.category.data', id_show),

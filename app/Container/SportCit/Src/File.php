@@ -3,8 +3,12 @@
 namespace App\Container\SportCit\Src;
 
 use Illuminate\Database\Eloquent\Model;
+
 class File extends Model
 {
+
+    protected $table = 'TBL_files';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -14,7 +18,6 @@ class File extends Model
         'name_file', 'url_file','type_file',
     ];
 
-    protected $table = 'TBL_files';
 
     public function filable ()
     {
