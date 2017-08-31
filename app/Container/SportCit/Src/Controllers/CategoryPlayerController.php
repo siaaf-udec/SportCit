@@ -31,10 +31,8 @@ class CategoryPlayerController extends Controller
     public function index_ajax(Request $request, $id)
     {
         if($request->ajax() && $request->isMethod('GET')){
-            $organization = $this->organizationRepository->show($id, []);
-
             return view('sportcit.category-player.content-ajax.ajax-category-player', [
-                'organization' => $organization
+                'organization' => $id
             ]);
         }
 

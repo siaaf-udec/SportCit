@@ -208,6 +208,7 @@ return [
         App\Container\SportCit\Src\Providers\OrganizationServiceProvider::class,
         App\Container\SportCit\Src\Providers\PlayerServiceProvider::class,
         App\Container\SportCit\Src\Providers\CategoryPlayerServiceProvider::class,
+        App\Container\SportCit\Src\Providers\TeamServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -27,7 +27,7 @@
             <div class="clearfix"></div>
             <br>
             <div class="col-md-12">
-                {!! Field::hidden('id_organization', $organization->id) !!}
+                {!! Field::hidden('id_organization', $organization) !!}
                 @component('themes.bootstrap.elements.tables.datatables', ['id' => 'example-table-ajax'])
                     @slot('columns', [
                         '#' => ['style' => 'width:20px;'],

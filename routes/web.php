@@ -291,6 +291,17 @@ Route::group(['middleware' => ['auth']], function () {
                 'as' => 'organization.player.index.ajax'
             ]);
         });
+        Route::group(['prefix' => 'team'], function (){
+           $controller =  "\\App\\Container\\SportCit\\Src\\Controllers\\";
+           Route::get('index/ajax/{id?}',[
+              'uses' => $controller.'TeamController@index_ajax',
+               'as' => 'organization.team.index.ajax'
+           ]);
+            Route::get('data/{id?}',[
+                'uses' => $controller.'TeamController@data',
+                'as' => 'organization.team.data'
+            ]);
+        });
     });
 
 

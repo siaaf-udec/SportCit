@@ -70,7 +70,7 @@
                 </a>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <a class="dashboard-stat dashboard-stat-v2 player-info blue" href="#">
+                <a class="dashboard-stat dashboard-stat-v2 team-info blue" href="#">
                     <div class="visual">
                         <i class="fa fa-users"></i>
                     </div>
@@ -104,6 +104,11 @@
         $('.player-info').on('click', function (e) {
             e.preventDefault();
             $route_organization = route('organization.player.index.ajax', $id_organization);
+            $(".content-ajax").load($route_organization);
+        });
+        $('.team-info').on('click', function (e) {
+            e.preventDefault();
+            $route_organization = route('organization.team.index.ajax', $id_organization);
             $(".content-ajax").load($route_organization);
         });
         $('#link_cancel').on('click', function (e) {

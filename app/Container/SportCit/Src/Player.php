@@ -50,5 +50,8 @@ class Player extends Model
         return $this->belongsTo(Organization::class, 'fk_organization_id');
     }
 
+    public function teamPlayer(){
+        return $this->belongsTo(Team::class);
+    }
 
 }

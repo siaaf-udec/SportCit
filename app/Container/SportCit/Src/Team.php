@@ -17,11 +17,19 @@ class Team extends Model implements AuditableContract
      * @var array
      */
     protected $fillable = [
-        'name','season','city',
+        'id','name','season','city',
     ];
     protected $table = 'TBL_Teams';
 
     public function organizationTeam(){
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Organization::class, 'id');
+    }
+
+    public function playerTeam(){
+        return $this->hasMany(Player::class,'fk_team_id');
+    }
+
+    public function getNumPlayersTeamAttribute(){
+        return count($this->playerTeam);
     }
 }
