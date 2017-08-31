@@ -69,6 +69,19 @@
                     </div>
                 </a>
             </div>
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2 player-info blue" href="#">
+                    <div class="visual">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup" data-value="1349">{{$organization['data']->num_teams_organization}}</span>
+                        </div>
+                        <div class="desc"> Equipos</div>
+                    </div>
+                </a>
+            </div>
         </div>
     @endcomponent
 </div>

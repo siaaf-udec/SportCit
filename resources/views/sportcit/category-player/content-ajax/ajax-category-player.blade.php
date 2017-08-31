@@ -77,13 +77,13 @@
                                             'space_edit',
                                             ['label' => 'Cupos', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
                                             ['help' => 'Ingrese el numero de cupos']) !!}
-                                        {!! Field::date(
+                                        {!! Field::text(
                                             'starting_year_edit',
-                                            ['label' => 'Fecha de Incio', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
+                                            ['label' => 'Fecha de Incio', 'auto' => 'off', 'class' => 'date-picker','data-date-format' => "yyyy-mm-dd"],
                                             ['help' => 'Digite su fecha de inicio', 'icon' => 'fa fa-calendar']) !!}
-                                        {!! Field::date(
+                                        {!! Field::text(
                                             'final_year_edit',
-                                            ['label' => 'Fecha de Fin', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
+                                            ['label' => 'Fecha de Fin', 'auto' => 'off', 'class' => 'date-picker','data-date-format' => "yyyy-mm-dd"],
                                             ['help' => 'Digite su fecha final', 'icon' => 'fa fa-calendar']) !!}
                                         {!! Field::textarea(
                                             'description_edit',
@@ -132,13 +132,13 @@
                                             'space_create',
                                             ['label' => 'Cupos', 'max' => '15', 'min' => '2', 'required', 'auto' => 'off'],
                                             ['help' => 'Ingrese el numero de cupos']) !!}
-                                        {!! Field::date(
+                                        {!! Field::text(
                                             'starting_year_create',
-                                            ['label' => 'Fecha de Incio', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
+                                            ['label' => 'Fecha de Incio', 'auto' => 'off', 'class' => 'date-picker','data-date-format' => "yyyy-mm-dd"],
                                             ['help' => 'Digite su fecha de inicio', 'icon' => 'fa fa-calendar']) !!}
-                                        {!! Field::date(
+                                        {!! Field::text(
                                             'final_year_create',
-                                            ['label' => 'Fecha de Fin', 'auto' => 'off', 'data-date-format' => "yyyy-mm-dd", 'data-date-start-date' => "+0d"],
+                                            ['label' => 'Fecha de Fin', 'auto' => 'off', 'class' => 'date-picker','data-date-format' => "yyyy-mm-dd"],
                                             ['help' => 'Digite su fecha final', 'icon' => 'fa fa-calendar']) !!}
                                         {!! Field::textarea(
                                             'description_create',

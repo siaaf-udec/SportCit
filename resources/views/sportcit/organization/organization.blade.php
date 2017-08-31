@@ -287,180 +287,180 @@
     <script src="{{ asset('assets/main/scripts/ui-sweetalert.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
 
-        jQuery(document).ready(function () {
-            App.unblockUI();
-            /*
-             * Referencia https://datatables.net/reference/option/
-             */
-            var $table = $('#organization-table-ajax'),
-                url = route('organization.data'),
-                columns = [
-                    {data: 'id', name: 'id', "visible": false},
-                    {data: 'fk_user_id', name: 'fk_user_id', "visible": false, searchable: false,},
-                    {data: 'name_organization', name: 'name_organization'},
-                    {data: 'nit', name: 'nit'},
-                    {data: 'state_organization', name: 'state_organization'},
-                    {
-                        defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center state"><i class="fa fa-handshake-o"></i></a>',
-                        data: 'admision',
-                        name: 'admision',
-                        orderable: false,
-                        searchable: false,
-                        exportable: false,
-                        printable: false,
-                        className: 'text-right',
-                        render: null,
-                        responsivePriority: 2
-                    },
-                    {
-                        defaultContent: '<a href="javascript:;" class="btn btn-simple btn-info btn-icon btn-center viewfile"><i class="fa fa-file-pdf-o"></i></a>',
-                        data: 'archivo',
-                        name: 'archivo',
-                        orderable: false,
-                        searchable: false,
-                        exportable: false,
-                        printable: false,
-                        className: 'text-right',
-                        render: null,
-                        responsivePriority: 2
-                    },
-                    {
-                        defaultContent: '<a href="javascript:;" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-bars"></i></a><a href="javascript:;" class="btn btn-simple btn-danger btn-icon mt-sweetalert remove"><i class="icon-trash"></i></a>',
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        exportable: false,
-                        printable: false,
-                        className: 'text-right',
-                        render: null,
-                        responsivePriority: 2
+    jQuery(document).ready(function () {
+        App.unblockUI();
+        /*
+         * Referencia https://datatables.net/reference/option/
+         */
+        var $table = $('#organization-table-ajax'),
+            url = route('organization.data'),
+            columns = [
+                {data: 'id', name: 'id', "visible": false},
+                {data: 'fk_user_id', name: 'fk_user_id', "visible": false, searchable: false,},
+                {data: 'name_organization', name: 'name_organization'},
+                {data: 'nit', name: 'nit'},
+                {data: 'state_organization', name: 'state_organization'},
+                {
+                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center state"><i class="fa fa-handshake-o"></i></a>',
+                    data: 'admision',
+                    name: 'admision',
+                    orderable: false,
+                    searchable: false,
+                    exportable: false,
+                    printable: false,
+                    className: 'text-right',
+                    render: null,
+                    responsivePriority: 2
+                },
+                {
+                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-info btn-icon btn-center viewfile"><i class="fa fa-file-pdf-o"></i></a>',
+                    data: 'archivo',
+                    name: 'archivo',
+                    orderable: false,
+                    searchable: false,
+                    exportable: false,
+                    printable: false,
+                    className: 'text-right',
+                    render: null,
+                    responsivePriority: 2
+                },
+                {
+                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-bars"></i></a><a href="javascript:;" class="btn btn-simple btn-danger btn-icon mt-sweetalert remove"><i class="icon-trash"></i></a>',
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false,
+                    exportable: false,
+                    printable: false,
+                    className: 'text-right',
+                    render: null,
+                    responsivePriority: 2
+                }
+            ];
+        dataTableServer.init($table, url, columns);
+
+        $(".create").on('click', function (e) {
+            e.preventDefault();
+            var route_create = route('organization.create');
+            $(".content-ajax").load(route_create);
+        });
+        $table = $table.DataTable();
+
+        $table.on('click', '.state', function (e) {
+            e.preventDefault();
+            $tr = $(this).closest('tr');
+            var dataTable = $table.row($tr).data();
+            document.getElementById("from_mesanje_state").reset();
+            $('input[name="id_user"]').val(dataTable.fk_user_id);
+            $('input[name="id_organization"]').val(dataTable.id);
+            $("#Modal-state").modal();
+            //$(".content-ajax").load(route_edit);
+        });
+
+        $(".up_state").on('click', function (e) {
+            e.preventDefault();
+            var id = $('input[name="id_organization"]').val();
+            var formData = new FormData();
+            formData.append('state_organization', $('select[name="type_state"]').val());
+            formData.append('id', $('select[name="id_organization"]').val());
+            formData.append('user_id', $('input[name="id_user"]').val());
+            var route_state = route('organization.update_state', id);
+            var type = 'POST';
+            var async = async || false;
+            App.blockUI();
+            $.ajax({
+                url: route_state,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                cache: false,
+                type: type,
+                contentType: false,
+                data: formData,
+                processData: false,
+                async: async,
+                success: function (response, xhr, request) {
+                    if (request.status === 200 && xhr === 'success') {
+                        UIToastr.init(xhr, response.title, response.message);
+                        route_index = route('organization.index.ajax');
+                        $(".content-ajax").load(route_index);
                     }
-                ];
-            dataTableServer.init($table, url, columns);
-
-            $(".create").on('click', function (e) {
-                e.preventDefault();
-                var route_create = route('organization.create');
-                $(".content-ajax").load(route_create);
-            });
-            $table = $table.DataTable();
-
-            $table.on('click', '.state', function (e) {
-                e.preventDefault();
-                $tr = $(this).closest('tr');
-                var dataTable = $table.row($tr).data();
-                document.getElementById("from_mesanje_state").reset();
-                $('input[name="id_user"]').val(dataTable.fk_user_id);
-                $('input[name="id_organization"]').val(dataTable.id);
-                $("#Modal-state").modal();
-                //$(".content-ajax").load(route_edit);
-            });
-
-            $(".up_state").on('click', function (e) {
-                e.preventDefault();
-                var id = $('input[name="id_organization"]').val();
-                var formData = new FormData();
-                formData.append('state_organization', $('select[name="type_state"]').val());
-                formData.append('id', $('select[name="id_organization"]').val());
-                formData.append('user_id', $('input[name="id_user"]').val());
-                var route_state = route('organization.update_state', id);
-                var type = 'POST';
-                var async = async || false;
-                App.blockUI();
-                $.ajax({
-                    url: route_state,
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    cache: false,
-                    type: type,
-                    contentType: false,
-                    data: formData,
-                    processData: false,
-                    async: async,
-                    success: function (response, xhr, request) {
-                        if (request.status === 200 && xhr === 'success') {
-                            UIToastr.init(xhr, response.title, response.message);
-                            route_index = route('organization.index.ajax');
-                            $(".content-ajax").load(route_index);
-                        }
-                    },
-                    error: function (response, xhr, request) {
-                        if (request.status === 422 && xhr === 'error') {
-                            UIToastr.init(xhr, response.title, response.message);
-                            App.unblockUI();
-                        }
+                },
+                error: function (response, xhr, request) {
+                    if (request.status === 422 && xhr === 'error') {
+                        UIToastr.init(xhr, response.title, response.message);
+                        App.unblockUI();
                     }
-                });
-            });
-
-            $table.on('click', '.edit', function (e) {
-                e.preventDefault();
-                $tr = $(this).closest('tr');
-                var dataTable = $table.row($tr).data(),
-                    route_edit = route('organization.menu.index', dataTable.id);
-
-                $(".content-ajax").load(route_edit);
-            });
-
-            $table.on('click', '.remove', function (e) {
-                e.preventDefault();
-                $tr = $(this).closest('tr');
-                var dataTable = $table.row($tr).data(),
-                    route_remove = route('organization.destroy', dataTable.id);
-                var title = 'Eliminar';
-                var organization = dataTable.name_organization;
-                var text = 'Esta seguro de eliminar la organización: ' + organization;
-                var type = 'warning';
-                var formData = new FormData();
-                formData.append('state', dataTable.state_organization);
-                formData.append('id_user', dataTable.fk_user_id);
-                SweetAlert.init(title, text, type, route_remove, formData);
-
-            });
-
-            $table.on('click', '.viewfile', function (e) {
-                e.preventDefault();
-                $tr = $(this).closest('tr');
-                var dataTable = $table.row($tr).data(),
-                    route_file = route('organization.viewfile', dataTable.id);
-                type = 'GET';
-                var async = async || false;
-                $.ajax({
-                    url: route_file,
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    cache: false,
-                    type: type,
-                    contentType: false,
-                    data: 'viewfile',
-                    processData: false,
-                    async: async,
-                    success: function (response, xhr, request) {
-                        if (request.status === 200 && xhr === 'success') {
-                            document.getElementById('texto').innerHTML = '';
-                            $('.body-viewpdf').prepend('<center><a class="media" href=' + response.message + '>Legalidad</a></center>');
-                            $("#Modal-viewpdf").modal();
-                            $('a.media').media({width: 500, height: 400});
-                        }
-                    },
-                    error: function (response, xhr, request) {
-                        if (request.status === 422 && xhr === 'error') {
-                            UIToastr.init(xhr, response.title, response.message);
-                        }
-                    }
-                });
-            });
-
-            /*Configuracion de Select*/
-            $.fn.select2.defaults.set("theme", "bootstrap");
-            $(".pmd-select2").select2({
-                placeholder: "Selecccionar",
-                allowClear: true,
-                width: 'auto',
-                escapeMarkup: function (m) {
-                    return m;
                 }
             });
+        });
+
+        $table.on('click', '.edit', function (e) {
+            e.preventDefault();
+            $tr = $(this).closest('tr');
+            var dataTable = $table.row($tr).data(),
+                route_edit = route('organization.menu.index', dataTable.id);
+
+            $(".content-ajax").load(route_edit);
+        });
+
+        $table.on('click', '.remove', function (e) {
+            e.preventDefault();
+            $tr = $(this).closest('tr');
+            var dataTable = $table.row($tr).data(),
+                route_remove = route('organization.destroy', dataTable.id);
+            var title = 'Eliminar';
+            var organization = dataTable.name_organization;
+            var text = 'Esta seguro de eliminar la organización: ' + organization;
+            var type = 'warning';
+            var formData = new FormData();
+            formData.append('state', dataTable.state_organization);
+            formData.append('id_user', dataTable.fk_user_id);
+            SweetAlert.init(title, text, type, route_remove, formData);
 
         });
-    </script>
+
+        $table.on('click', '.viewfile', function (e) {
+            e.preventDefault();
+            $tr = $(this).closest('tr');
+            var dataTable = $table.row($tr).data(),
+                route_file = route('organization.viewfile', dataTable.id);
+            type = 'GET';
+            var async = async || false;
+            $.ajax({
+                url: route_file,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                cache: false,
+                type: type,
+                contentType: false,
+                data: 'viewfile',
+                processData: false,
+                async: async,
+                success: function (response, xhr, request) {
+                    if (request.status === 200 && xhr === 'success') {
+                        document.getElementById('texto').innerHTML = '';
+                        $('.body-viewpdf').prepend('<center><a class="media" href=' + response.message + '>Legalidad</a></center>');
+                        $("#Modal-viewpdf").modal();
+                        $('a.media').media({width: 500, height: 400});
+                    }
+                },
+                error: function (response, xhr, request) {
+                    if (request.status === 422 && xhr === 'error') {
+                        UIToastr.init(xhr, response.title, response.message);
+                    }
+                }
+            });
+        });
+
+        /*Configuracion de Select*/
+        $.fn.select2.defaults.set("theme", "bootstrap");
+        $(".pmd-select2").select2({
+            placeholder: "Selecccionar",
+            allowClear: true,
+            width: 'auto',
+            escapeMarkup: function (m) {
+                return m;
+            }
+        });
+
+    });
+</script>
 @endpush

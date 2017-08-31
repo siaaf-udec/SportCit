@@ -13,23 +13,19 @@ class CreateTBLTeamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('TBL_Teams',function (Blueprint $table){
+        Schema::create('TBL_Teams', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('club');
-            $table->date('season');
-            $table->string('street');
-            $table->string('zip_code');
-            $table->string('city');
-            $table->string('phone');
-            $table->string('home_field');
-            $table->integer('fk_org_id')->unsigned();
+            $table->string('name')
+                ->nullable()
+                ->comment('Nombre');
+            $table->date('season')
+                ->nullable()
+                ->comment('Temporada');
+            $table->string('city')
+                ->nullable()
+                ->comment('Ciudad');
             $table->timestamps();
-            $table->softDeletes();
 
-            $table->foreign('fk_org_id')
-                ->references('id')->on('TBL_Organizations')
-                ->onDelete('cascade')
-                ->onUpdate('cascade');
 
         });
     }
