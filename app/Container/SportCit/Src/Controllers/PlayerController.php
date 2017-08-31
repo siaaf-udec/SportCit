@@ -5,20 +5,26 @@ namespace App\Container\SportCit\Src\Controllers;
 use App\Container\Overall\Src\Facades\AjaxResponse;
 use App\Container\SportCit\Src\Interfaces\OrganizationInterface;
 use App\Container\SportCit\Src\Interfaces\PlayerInterface;
+use App\Container\Users\Src\Interfaces\UserInterface;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use Yajra\Datatables\Datatables;
 
 class PlayerController extends Controller
 {
 
     protected $playerInterface;
     protected $organizationInterface;
+    protected $userInterface;
 
-    public function __construct(PlayerInterface $playerInterface, OrganizationInterface $organizationInterface)
+
+    public function __construct(PlayerInterface $playerInterface, OrganizationInterface $organizationInterface, UserInterface $userInterface)
     {
         $this->playerInterface = $playerInterface;
         $this->organizationInterface = $organizationInterface;
+        $this->userInterface = $userInterface;
     }
 
     /**
@@ -39,6 +45,17 @@ class PlayerController extends Controller
     public function index_ajax(Request $request, $id)
     {
         if($request->ajax() && $request->isMethod('GET')){
+
+
+            $organization = $this->organizationInterface->show($id, [
+                'playersOrganization' => function($query){
+                   return $query->where('user', '==', function ($query){
+
+                   });
+                }
+            ]);
+
+            return $organization;
             return view('sportcit.player.content-ajax.ajax-player');
         }
 
@@ -66,9 +83,15 @@ class PlayerController extends Controller
     public function data(Request $request, $id)
     {
         if($request->ajax() && $request->isMethod('GET')){
-            $organization = $this->organizationInterface->show($id, ['categoryOrganization']);
-            return Datatables::of($organization->categoryOrganization)
-                ->removeColumn('created_at')
+            $organization = $this->organizationInterface->show($id, ['playersOrganization', 'userOrganization']);
+            return Datatables::of($organization->userOrganization)
+                ->removeColumn('identity_type')
+                ->removeColumn('identity_no')
+                ->removeColumn('identity_expe_place')
+                ->removeColumn('identity_expe_date')
+                ->removeColumn('address')
+                ->removeColumn('phone')
+                ->removeColumn('website')
                 ->removeColumn('updated_at')
                 ->removeColumn('deleted_at')
                 ->removeColumn('fk_organization_id')

@@ -39,7 +39,15 @@ class Player extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'fk_user_id');
+    }
+
+    /**
+     * Get the player record associated with the user.
+     */
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'fk_organization_id');
     }
 
 

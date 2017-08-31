@@ -2,11 +2,16 @@
 
 namespace App\Container\SportCit\Src;
 
-use App\Container\Users\Src\User;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
+
+/*
+ * Modelos
+ * */
+use App\Container\Users\Src\User;
 
 class Organization extends Model implements AuditableContract
 {
@@ -22,7 +27,7 @@ class Organization extends Model implements AuditableContract
     ];
     protected $table = 'TBL_Organizations';
 
-    public function user_organization()
+    public function userOrganization()
     {
         //la organizacion pertenece a un usuario
         return $this->belongsTo(User::class,'fk_user_id');
