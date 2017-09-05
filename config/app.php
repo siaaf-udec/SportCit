@@ -190,11 +190,8 @@ return [
         /*
          * Package Service Providers...
          */
-        Laravel\Tinker\TinkerServiceProvider::class,
         Styde\Html\HtmlServiceProvider::class,
-        Yajra\DataTables\DataTablesServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
         Watson\Active\ActiveServiceProvider::class,
         Tightenco\Ziggy\ZiggyServiceProvider::class,
 
@@ -273,9 +270,7 @@ return [
          * Package Aliases...
          */
         'Access' => Styde\Html\Facades\Access::class,
-        'Datatables' => Yajra\DataTables\Facades\DataTables::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Active' => Watson\Active\Facades\Active::class,
 
         /*
