@@ -6,7 +6,7 @@ use App\Container\Overall\Src\Facades\AjaxResponse;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Yajra\Datatables\Datatables;
+use Yajra\DataTables\DataTables;
 use App\Container\SportCit\Src\Interfaces\TeamInterface;
 use App\Container\SportCit\Src\Interfaces\OrganizationInterface;
 
@@ -51,7 +51,7 @@ class TeamController extends Controller
                 'num_player' => $teams->num_players_team
             ];
         }
-        return Datatables::of($table)
+        return DataTables::of($table)
             ->addIndexColumn()
             ->make(true);
     }

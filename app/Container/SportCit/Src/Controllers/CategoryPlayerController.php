@@ -7,7 +7,7 @@ use App\Container\SportCit\Src\Interfaces\OrganizationInterface;
 use App\Container\SportCit\Src\Repository\CategoryPlayerRepository;
 use App\Http\Controllers\Controller;
 
-use Yajra\Datatables\Datatables;
+use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
 
@@ -61,7 +61,7 @@ class CategoryPlayerController extends Controller
     {
         if($request->ajax() && $request->isMethod('GET')){
             $organization = $this->organizationRepository->show($id, ['categoryOrganization']);
-            return Datatables::of($organization->categoryOrganization)
+            return DataTables::of($organization->categoryOrganization)
                 ->removeColumn('created_at')
                 ->removeColumn('updated_at')
                 ->removeColumn('deleted_at')

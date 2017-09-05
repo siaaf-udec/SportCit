@@ -2,7 +2,7 @@
 
 namespace App\Container\Permissions\Src\Controllers;
 
-use Yajra\Datatables\Datatables;
+use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +40,7 @@ class RoleController extends Controller
     {
         if($request->ajax() && $request->isMethod('GET')){
             $roles = $this->roleRepository->index();
-            return Datatables::of($roles)
+            return DataTables::of($roles)
                 ->removeColumn('created_at')
                 ->removeColumn('updated_at')
                 ->addIndexColumn()

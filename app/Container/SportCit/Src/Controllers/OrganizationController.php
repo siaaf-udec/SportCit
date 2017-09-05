@@ -4,7 +4,7 @@ namespace App\Container\SportCit\Src\Controllers;
 
 use App\Container\SportCit\Src\Organization;
 use App\Container\SportCit\Src\Requests\OrganizationRequest;
-use Yajra\Datatables\Datatables;
+use Yajra\DataTables\DataTables;
 use App\Container\SportCit\Src\Interfaces\OrganizationInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -78,7 +78,7 @@ class OrganizationController extends Controller
 
         $organization = Organization::query();
 
-        return Datatables::of($organization)
+        return DataTables::of($organization)
             ->addColumn('state_organization', function ($organization) {
                 if (!strcmp($organization->state_organization, 'Aprobado')) {
                     return "<span class='label label-sm label-success'>" . $organization->state_organization . "</span>";

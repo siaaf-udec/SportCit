@@ -10,7 +10,7 @@ use App\Container\Users\Src\Interfaces\UserInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use Yajra\Datatables\Datatables;
+use Yajra\DataTables\DataTables;
 
 class PlayerController extends Controller
 {
@@ -49,13 +49,15 @@ class PlayerController extends Controller
 
             $organization = $this->organizationInterface->show($id, [
                 'playersOrganization' => function($query){
-                   return $query->where('user', '==', function ($query){
-
-                   });
+                   return $query->with(['user' => function ($query){
+                        return $query;
+                   }, '']);
                 }
             ]);
+            dd(DataTables::of($organization->playersOrganization)
+                           //->addColumn('')
+                           ->make(true));
 
-            return $organization;
             return view('sportcit.player.content-ajax.ajax-player');
         }
 
@@ -84,7 +86,7 @@ class PlayerController extends Controller
     {
         if($request->ajax() && $request->isMethod('GET')){
             $organization = $this->organizationInterface->show($id, ['playersOrganization', 'userOrganization']);
-            return Datatables::of($organization->userOrganization)
+            return DataTables::of($organization->userOrganization)
                 ->removeColumn('identity_type')
                 ->removeColumn('identity_no')
                 ->removeColumn('identity_expe_place')
