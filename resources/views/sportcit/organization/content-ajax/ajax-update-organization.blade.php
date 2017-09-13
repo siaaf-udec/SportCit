@@ -264,7 +264,7 @@
 
         var type_crud = 'UPDATE',
             id_edit = $('input[name="id_organization"]').val(),
-            route_edit = route('organization.update',id_edit),
+            route_edit = route('organization.update', id_edit),
             formatfile = '.pdf',
             numfile = 1;
 
@@ -273,7 +273,7 @@
         $('.button-cancel').on('click', function (e) {
             e.preventDefault();
             var id_edit = '{{$organization->id }}',
-                route_edit = route('organization.menu.index',id_edit) ;
+                route_edit = route('organization.menu.index', id_edit);
             $(".content-ajax").load(route_edit);
         });
     });

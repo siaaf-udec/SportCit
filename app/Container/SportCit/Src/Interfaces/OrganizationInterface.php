@@ -4,6 +4,7 @@ namespace App\Container\SportCit\Src\Interfaces;
 
 use App\Container\Overall\Src\Interfaces\ControllerInterface;
 
-interface OrganizationInterface extends ControllerInterface{
+interface OrganizationInterface extends ControllerInterface
+{
 
 }

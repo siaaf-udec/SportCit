@@ -50,7 +50,8 @@
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="1349">{{$organization['data']->num_category_organization}}</span>
+                            <span data-counter="counterup"
+                                  data-value="1349">{{$organization['data']->num_category_organization}}</span>
                         </div>
                         <div class="desc"> Categorias</div>
                     </div>
@@ -63,7 +64,8 @@
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="1349">{{$organization['data']->num_players_organization}}</span>
+                            <span data-counter="counterup"
+                                  data-value="1349">{{$organization['data']->num_players_organization}}</span>
                         </div>
                         <div class="desc"> Deportistas</div>
                     </div>
@@ -76,7 +78,8 @@
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="1349">{{$organization['data']->num_teams_organization}}</span>
+                            <span data-counter="counterup"
+                                  data-value="1349">{{$organization['data']->num_teams_organization}}</span>
                         </div>
                         <div class="desc"> Equipos</div>
                     </div>

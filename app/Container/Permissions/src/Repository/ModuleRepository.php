@@ -12,6 +12,7 @@ use App\Container\Permissions\Src\Interfaces\ModuleInterface;
 /*
  * Modelos
  */
+
 use App\Container\Permissions\Src\Module;
 
 class ModuleRepository extends ControllerRepository implements ModuleInterface

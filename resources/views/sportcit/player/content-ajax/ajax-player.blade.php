@@ -17,13 +17,15 @@
             ],
 
         ])
-        <div class="clearfix"> </div><br><br><br>
+        <div class="clearfix"></div><br><br><br>
         <div class="row">
             <div class="col-md-12">
                 <div class="actions">
-                    <a href="javascript:;" class="btn btn-simple btn-success btn-icon create"><i class="fa fa-plus"></i></a></div>
+                    <a href="javascript:;" class="btn btn-simple btn-success btn-icon create"><i class="fa fa-plus"></i></a>
+                </div>
             </div>
-            <div class="clearfix"> </div><br>
+            <div class="clearfix"></div>
+            <br>
             <div class="col-md-12">
                 @component('themes.bootstrap.elements.tables.datatables', ['id' => 'example-table-ajax'])
                     @slot('columns', [
@@ -51,25 +53,27 @@
         url = "";
         columns = [
             {data: 'DT_Row_Index'},
-            {data: 'id', "visible": false },
-            {data: function (data, type, dataToSet) {
-                return data.name + " " + data.lastname;
-            }, name: 'Nombre'},
+            {data: 'id', "visible": false},
+            {
+                data: function (data, type, dataToSet) {
+                    return data.name + " " + data.lastname;
+                }, name: 'Nombre'
+            },
             {data: 'email', name: 'Descripción'},
             {data: 'roles', name: 'Roles'},
             {data: 'state', name: 'Estado'},
             {
                 defaultContent: '<a href="javascript:;" class="btn btn-simple btn-warning btn-icon edit"><i class="icon-pencil"></i></a><a href="javascript:;" class="btn btn-simple btn-danger btn-icon remove"><i class="icon-trash"></i></a>',
-                data:'action',
-                name:'action',
-                title:'Acciones',
+                data: 'action',
+                name: 'action',
+                title: 'Acciones',
                 orderable: false,
                 searchable: false,
                 exportable: false,
                 printable: false,
                 className: 'text-right',
                 render: null,
-                responsivePriority:2
+                responsivePriority: 2
             }
         ];
         dataTableServer.init(table, url, columns);
@@ -86,7 +90,7 @@
 
             $.ajax({
                 url: route,
-                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 cache: false,
                 type: type,
                 contentType: false,
@@ -98,11 +102,11 @@
                 success: function (response, xhr, request) {
                     if (request.status === 200 && xhr === 'success') {
                         table.ajax.reload();
-                        UIToastr.init(xhr , response.title , response.message  );
+                        UIToastr.init(xhr, response.title, response.message);
                     }
                 },
                 error: function (response, xhr, request) {
-                    if (request.status === 422 &&  xhr === 'success') {
+                    if (request.status === 422 && xhr === 'success') {
                         UIToastr.init(xhr, response.title, response.message);
                     }
                 }
@@ -119,7 +123,7 @@
             $(".content-ajax").load(route_edit);
         });
 
-        $( ".create" ).on('click', function (e) {
+        $(".create").on('click', function (e) {
             e.preventDefault();
             var route = '';
             $(".content-ajax").load(route);
@@ -127,7 +131,7 @@
 
         /*Editar Permiso*/
         var updatePermissions = function () {
-            return{
+            return {
                 init: function () {
                     var id_edit = $('input[name="id_edit"]').val();
                     var route = '';
@@ -140,7 +144,7 @@
 
                     $.ajax({
                         url: route,
-                        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                         cache: false,
                         type: type,
                         contentType: false,
@@ -155,11 +159,11 @@
                                 table.ajax.reload();
                                 $('#modal-update-module').modal('hide');
                                 $('#from_module_update')[0].reset(); //Limpia formulario
-                                UIToastr.init(xhr , response.title , response.message  );
+                                UIToastr.init(xhr, response.title, response.message);
                             }
                         },
                         error: function (response, xhr, request) {
-                            if (request.status === 422 &&  xhr === 'success') {
+                            if (request.status === 422 && xhr === 'success') {
                                 UIToastr.init(xhr, response.title, response.message);
                             }
                         }
@@ -169,7 +173,7 @@
         };
         /*Crear Permissions*/
         var createPermissions = function () {
-            return{
+            return {
                 init: function () {
                     var route = '';
                     var type = 'POST';
@@ -181,7 +185,7 @@
 
                     $.ajax({
                         url: route,
-                        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                         cache: false,
                         type: type,
                         contentType: false,
@@ -196,11 +200,11 @@
                                 table.ajax.reload();
                                 $('#modal-create-module').modal('hide');
                                 $('#from_module_create')[0].reset(); //Limpia formulario
-                                UIToastr.init(xhr , response.title , response.message  );
+                                UIToastr.init(xhr, response.title, response.message);
                             }
                         },
                         error: function (response, xhr, request) {
-                            if (request.status === 422 &&  xhr === 'success') {
+                            if (request.status === 422 && xhr === 'success') {
                                 UIToastr.init(xhr, response.title, response.message);
                             }
                         }
@@ -215,14 +219,14 @@
             name_edit: {minlength: 5, required: true},
             description_edit: {minlength: 5},
         };
-        FormValidationMd.init(form_edit,rules_edit,false,updatePermissions());
+        FormValidationMd.init(form_edit, rules_edit, false, updatePermissions());
 
         var form_create = $('#from_module_create');
         var rules_create = {
             name_create: {minlength: 5, required: true},
             description_create: {minlength: 5},
         };
-        FormValidationMd.init(form_create,rules_create,false,createPermissions());
+        FormValidationMd.init(form_create, rules_create, false, createPermissions());
 
     });
 </script>

@@ -4,7 +4,8 @@
         {{-- BEGIN LOGO --}}
         <div class="page-logo">
             <a href="javascript:;">
-                <img src="{{ asset('assets/layouts/layout2/img/logo-sportcit-1.png') }}" alt="Logo SIAAF" class="logo-default" />
+                <img src="{{ asset('assets/layouts/layout2/img/logo-sportcit-1.png') }}" alt="Logo SIAAF"
+                     class="logo-default"/>
             </a>
             <div class="menu-toggler sidebar-toggler">
                 {{-- DOC: Remove the above "hide" to enable the sidebar toggler button on header --}}
@@ -12,7 +13,8 @@
         </div>
         {{-- END LOGO --}}
         {{-- BEGIN RESPONSIVE MENU TOGGLER --}}
-        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse"
+           data-target=".navbar-collapse"> </a>
         {{-- END RESPONSIVE MENU TOGGLER --}}
         {{-- BEGIN PAGE ACTIONS --}}
         {{-- DOC: Remove "hide" class to enable the page header actions --}}
@@ -77,7 +79,8 @@
                     {{-- DOC: Apply "dropdown-hoverable" class after below "dropdown" and remove data-toggle="dropdown" data-hover="dropdown" data-close-others="true" attributes to enable hover dropdown mode --}}
                     {{-- DOC: Remove "dropdown-hoverable" and add data-toggle="dropdown" data-hover="dropdown" data-close-others="true" attributes to the below A element with dropdown-toggle class --}}
                     <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-close-others="true">
                             <i class="icon-bell"></i>
                             <span class="badge badge-default"> 7 </span>
                         </a>
@@ -87,7 +90,8 @@
                                 <a href="javascript:;">view all</a>
                             </li>
                             <li>
-                                <ul class="dropdown-menu-list scroller" style="height: 250px;" data-handle-color="#637283">
+                                <ul class="dropdown-menu-list scroller" style="height: 250px;"
+                                    data-handle-color="#637283">
                                     <li>
                                         <a href="javascript:;">
                                             <span class="time">just now</span>
@@ -177,7 +181,8 @@
                     {{-- BEGIN INBOX DROPDOWN --}}
                     {{-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte --}}
                     <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-close-others="true">
                             <i class="icon-envelope-open"></i>
                             <span class="badge badge-default"> 4 </span>
                         </a>
@@ -188,10 +193,13 @@
                                 <a href="javascript:;">view all</a>
                             </li>
                             <li>
-                                <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                <ul class="dropdown-menu-list scroller" style="height: 275px;"
+                                    data-handle-color="#637283">
                                     <li>
                                         <a href="javascript:;">
-                                            <span class="photo"><img src="{{ asset('assets/layouts/layout2/img/avatar2.jpg')}}" class="img-circle" alt=""> </span>
+                                            <span class="photo"><img
+                                                        src="{{ asset('assets/layouts/layout2/img/avatar2.jpg')}}"
+                                                        class="img-circle" alt=""> </span>
                                             <span class="subject">
                                                 <span class="from"> Lisa Wong </span>
                                                 <span class="time">Just Now </span>
@@ -201,7 +209,9 @@
                                     </li>
                                     <li>
                                         <a href="javascript:;">
-                                            <span class="photo"><img src="{{ asset('assets/layouts/layout2/img/avatar3.jpg')}}" class="img-circle" alt=""> </span>
+                                            <span class="photo"><img
+                                                        src="{{ asset('assets/layouts/layout2/img/avatar3.jpg')}}"
+                                                        class="img-circle" alt=""> </span>
                                             <span class="subject">
                                                 <span class="from"> Richard Doe </span>
                                                 <span class="time">16 mins </span>
@@ -211,7 +221,9 @@
                                     </li>
                                     <li>
                                         <a href="javascript:;">
-                                            <span class="photo"><img src="{{ asset('assets/layouts/layout2/img/avatar1.jpg')}}" class="img-circle" alt=""> </span>
+                                            <span class="photo"><img
+                                                        src="{{ asset('assets/layouts/layout2/img/avatar1.jpg')}}"
+                                                        class="img-circle" alt=""> </span>
                                             <span class="subject">
                                                 <span class="from"> Bob Nilson </span>
                                                 <span class="time">2 hrs </span>
@@ -221,7 +233,9 @@
                                     </li>
                                     <li>
                                         <a href="javascript:;">
-                                            <span class="photo"><img src="{{ asset('assets/layouts/layout2/img/avatar2.jpg')}}" class="img-circle" alt=""> </span>
+                                            <span class="photo"><img
+                                                        src="{{ asset('assets/layouts/layout2/img/avatar2.jpg')}}"
+                                                        class="img-circle" alt=""> </span>
                                             <span class="subject">
                                                 <span class="from"> Lisa Wong </span>
                                                 <span class="time">40 mins </span>
@@ -232,7 +246,8 @@
                                     <li>
                                         <a href="javascript:;">
                                                     <span class="photo">
-                                                        <img src="{{ asset('assets/layouts/layout2/img/avatar3.jpg')}}" class="img-circle" alt=""> </span>
+                                                        <img src="{{ asset('assets/layouts/layout2/img/avatar3.jpg')}}"
+                                                             class="img-circle" alt=""> </span>
                                             <span class="subject">
                                                         <span class="from"> Richard Doe </span>
                                                         <span class="time">46 mins </span>
@@ -248,7 +263,8 @@
                     {{-- BEGIN TODO DROPDOWN --}}
                     {{-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte --}}
                     <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-close-others="true">
                             <i class="icon-calendar"></i>
                             <span class="badge badge-default"> 3 </span>
                         </a>
@@ -259,7 +275,8 @@
                                 <a href="javascript:;">view all</a>
                             </li>
                             <li>
-                                <ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
+                                <ul class="dropdown-menu-list scroller" style="height: 275px;"
+                                    data-handle-color="#637283">
                                     <li>
                                         <a href="javascript:;">
                                             <span class="task">
@@ -267,7 +284,8 @@
                                                 <span class="percent">30%</span>
                                             </span>
                                             <span class="progress">
-                                                <span style="width: 40%;" class="progress-bar progress-bar-success" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+                                                <span style="width: 40%;" class="progress-bar progress-bar-success"
+                                                      aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">40% Complete</span>
                                                 </span>
                                             </span>
@@ -280,7 +298,8 @@
                                                 <span class="percent">65%</span>
                                             </span>
                                             <span class="progress">
-                                                <span style="width: 65%;" class="progress-bar progress-bar-danger" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+                                                <span style="width: 65%;" class="progress-bar progress-bar-danger"
+                                                      aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">65% Complete</span>
                                                 </span>
                                             </span>
@@ -293,7 +312,8 @@
                                                 <span class="percent">98%</span>
                                             </span>
                                             <span class="progress">
-                                                <span style="width: 98%;" class="progress-bar progress-bar-success" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
+                                                <span style="width: 98%;" class="progress-bar progress-bar-success"
+                                                      aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">98% Complete</span>
                                                 </span>
                                             </span>
@@ -306,7 +326,8 @@
                                                 <span class="percent">10%</span>
                                             </span>
                                             <span class="progress">
-                                                <span style="width: 10%;" class="progress-bar progress-bar-warning" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
+                                                <span style="width: 10%;" class="progress-bar progress-bar-warning"
+                                                      aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">10% Complete</span>
                                                 </span>
                                             </span>
@@ -319,7 +340,8 @@
                                                 <span class="percent">58%</span>
                                             </span>
                                             <span class="progress">
-                                                <span style="width: 58%;" class="progress-bar progress-bar-info" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100">
+                                                <span style="width: 58%;" class="progress-bar progress-bar-info"
+                                                      aria-valuenow="58" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">58% Complete</span>
                                                 </span>
                                             </span>
@@ -332,7 +354,8 @@
                                                 <span class="percent">85%</span>
                                             </span>
                                             <span class="progress">
-                                                <span style="width: 85%;" class="progress-bar progress-bar-success" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                                                <span style="width: 85%;" class="progress-bar progress-bar-success"
+                                                      aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">85% Complete</span>
                                                 </span>
                                             </span>
@@ -345,7 +368,8 @@
                                                 <span class="percent">38%</span>
                                             </span>
                                             <span class="progress progress-striped">
-                                                <span style="width: 38%;" class="progress-bar progress-bar-important" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
+                                                <span style="width: 38%;" class="progress-bar progress-bar-important"
+                                                      aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">
                                                     <span class="sr-only">38% Complete</span>
                                                 </span>
                                             </span>
@@ -359,8 +383,10 @@
                     {{-- BEGIN USER LOGIN DROPDOWN --}}
                     {{-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte --}}
                     <li class="dropdown dropdown-user">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                            <img alt="" class="img-circle" src="{{ asset('assets/layouts/layout2/img/avatar3_small.jpg')}}" />
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-close-others="true">
+                            <img alt="" class="img-circle"
+                                 src="{{ asset('assets/layouts/layout2/img/avatar3_small.jpg')}}"/>
                             <span class="username username-hide-on-mobile"> {{ Auth::user()->name }} </span>
                             <i class="fa fa-angle-down"></i>
                         </a>
@@ -383,12 +409,13 @@
                                     <span class="badge badge-success"> 7 </span>
                                 </a>
                             </li>
-                            <li class="divider"> </li>
+                            <li class="divider"></li>
                             <li>
                                 <a href="javascript:;"><i class="icon-lock"></i> Lock Screen </a>
                             </li>
                             <li>
-                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <a href="{{ route('logout') }}"
+                                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="icon-key"></i> Salir </a>
                                 </a>
                                 {!! Form::open(['id' => 'logout-form', 'method' => 'POST', 'url' => route('logout')]) !!}

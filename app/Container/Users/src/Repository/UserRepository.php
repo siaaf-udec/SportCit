@@ -13,11 +13,13 @@ use App\Container\Users\Src\Interfaces\UserInterface;
 /*
  * Facades
  */
+
 use Illuminate\Support\Facades\App;
 
 /*
  * Modelos
  */
+
 use App\Container\Users\Src\User;
 
 class UserRepository extends ControllerRepository implements UserInterface

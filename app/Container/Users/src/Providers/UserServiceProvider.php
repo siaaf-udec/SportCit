@@ -25,8 +25,7 @@ class UserServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Container\Users\Src\Interfaces\UserInterface', function($app)
-        {
+        $this->app->bind('App\Container\Users\Src\Interfaces\UserInterface', function ($app) {
             return new UserRepository;
         });
     }

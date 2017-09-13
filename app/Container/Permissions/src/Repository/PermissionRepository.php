@@ -12,6 +12,7 @@ use App\Container\Permissions\Src\Interfaces\PermissionInterface;
 /*
  * Modelos
  */
+
 use App\Container\Permissions\Src\Permission;
 
 class PermissionRepository extends ControllerRepository implements PermissionInterface

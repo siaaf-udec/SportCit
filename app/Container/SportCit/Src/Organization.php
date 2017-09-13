@@ -11,6 +11,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 /*
  * Modelos
  * */
+
 use App\Container\Users\Src\User;
 
 class Organization extends Model implements AuditableContract
@@ -23,14 +24,14 @@ class Organization extends Model implements AuditableContract
      * @var array
      */
     protected $fillable = [
-        'id','name_organization', 'nit', 'address_organization', 'phone_organization', 'fundation', 'club_colors', 'link_organization', 'state_organization',
+        'id', 'name_organization', 'nit', 'address_organization', 'phone_organization', 'fundation', 'club_colors', 'link_organization', 'state_organization',
     ];
     protected $table = 'TBL_Organizations';
 
     public function userOrganization()
     {
         //la organizacion pertenece a un usuario
-        return $this->belongsTo(User::class,'fk_user_id');
+        return $this->belongsTo(User::class, 'fk_user_id');
     }
 
     public function files()
@@ -49,7 +50,8 @@ class Organization extends Model implements AuditableContract
         return $this->hasMany(CategoryPlayer::class, 'fk_organization_id');
     }
 
-    public function teamOrganization(){
+    public function teamOrganization()
+    {
         return $this->hasMany(Team::class, 'fk_org_id');
     }
 
@@ -63,7 +65,8 @@ class Organization extends Model implements AuditableContract
         return count($this->playersOrganization);
     }
 
-    public function getNumTeamsOrganizationAttribute(){
+    public function getNumTeamsOrganizationAttribute()
+    {
         return count($this->teamOrganization);
     }
 }

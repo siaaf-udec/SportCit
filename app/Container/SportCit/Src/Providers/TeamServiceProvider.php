@@ -25,8 +25,7 @@ class TeamServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Container\SportCit\Src\Interfaces\TeamInterface', function($app)
-        {
+        $this->app->bind('App\Container\SportCit\Src\Interfaces\TeamInterface', function ($app) {
             return new TeamRepository;
         });
     }

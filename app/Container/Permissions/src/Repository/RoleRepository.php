@@ -12,6 +12,7 @@ use App\Container\Permissions\Src\Interfaces\RoleInterface;
 /*
  * Modelos
  */
+
 use App\Container\Permissions\Src\Role;
 
 class RoleRepository extends ControllerRepository implements RoleInterface

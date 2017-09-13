@@ -14,7 +14,8 @@ class Role extends EntrustRole
      */
 
 
-    public function getNumPermsAttribute(){
+    public function getNumPermsAttribute()
+    {
         return count($this->perms);
     }
 }

@@ -398,7 +398,7 @@
         });
 
         var type_crud = 'CREATE',
-            route_store =route('organization.store'),
+            route_store = route('organization.store'),
             formatfile = '.pdf',
             numfile = 1;
 

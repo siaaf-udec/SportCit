@@ -15,11 +15,11 @@ class File extends Model
      * @var array
      */
     protected $fillable = [
-        'name_file', 'url_file','type_file',
+        'name_file', 'url_file', 'type_file',
     ];
 
 
-    public function filable ()
+    public function filable()
     {
         //transformarse a (morphTo)
         return $this->morphTo();

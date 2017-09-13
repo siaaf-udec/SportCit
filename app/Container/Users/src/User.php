@@ -10,6 +10,7 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 /*
  * Modelos
  * */
+
 use App\Container\SportCit\Src\Player;
 use App\Container\SportCit\Src\Organization;
 
@@ -45,8 +46,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'lastname', 'birthday', 'email', 'password',
-        'identity_type', 'identity_no', 'identity_expe_place','identity_expe_date',
-        'address','gender','phone', 'state', 'website'
+        'identity_type', 'identity_no', 'identity_expe_place', 'identity_expe_date',
+        'address', 'gender', 'phone', 'state', 'website'
     ];
 
     /**
@@ -67,7 +68,7 @@ class User extends Authenticatable
     public function organizations()
     {
         //un usuario tiene muchas organizaciones
-        return $this->hasMany(Organization::class,'fk_user_id');
+        return $this->hasMany(Organization::class, 'fk_user_id');
     }
 
     /**

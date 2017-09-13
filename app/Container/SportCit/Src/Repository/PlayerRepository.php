@@ -15,7 +15,8 @@ use App\Container\SportCit\Src\Interfaces\PlayerInterface;
 
 use App\Container\SportCit\Src\Player;
 
-class PlayerRepository extends ControllerRepository implements PlayerInterface {
+class PlayerRepository extends ControllerRepository implements PlayerInterface
+{
 
     public function __construct()
     {
@@ -25,8 +26,9 @@ class PlayerRepository extends ControllerRepository implements PlayerInterface {
     /**
      * @param $model
      * @param $data
+     * @return mixed
      */
-    protected  function process($model, $data)
+    protected function process($model, $data)
     {
         $model['name'] = $data['name'];
         $model['description'] = $data['description'];

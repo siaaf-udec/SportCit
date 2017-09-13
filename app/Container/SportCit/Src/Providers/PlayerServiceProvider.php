@@ -25,8 +25,7 @@ class PlayerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Container\SportCit\Src\Interfaces\PlayerInterface', function($app)
-        {
+        $this->app->bind('App\Container\SportCit\Src\Interfaces\PlayerInterface', function ($app) {
             return new PlayerRepository;
         });
     }

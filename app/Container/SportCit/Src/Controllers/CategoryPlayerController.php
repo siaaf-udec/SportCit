@@ -26,11 +26,13 @@ class CategoryPlayerController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\Response
      */
     public function index_ajax(Request $request, $id)
     {
-        if($request->ajax() && $request->isMethod('GET')){
+        if ($request->ajax() && $request->isMethod('GET')) {
             return view('sportcit.category-player.content-ajax.ajax-category-player', [
                 'organization' => $id
             ]);
@@ -43,23 +45,15 @@ class CategoryPlayerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\Response
      */
     public function data(Request $request, $id)
     {
-        if($request->ajax() && $request->isMethod('GET')){
+        if ($request->ajax() && $request->isMethod('GET')) {
             $organization = $this->organizationRepository->show($id, ['categoryOrganization']);
             return DataTables::of($organization->categoryOrganization)
                 ->removeColumn('created_at')
@@ -80,12 +74,12 @@ class CategoryPlayerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        if($request->ajax() && $request->isMethod('POST')){
+        if ($request->ajax() && $request->isMethod('POST')) {
             $this->categoryPlayerRepository->store($request->all());
             return AjaxResponse::success(
                 '¡Bien hecho!',
@@ -100,25 +94,15 @@ class CategoryPlayerController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Request $request, $id)
     {
-        if($request->ajax() && $request->isMethod('GET')){
+        if ($request->ajax() && $request->isMethod('GET')) {
             $category = $this->categoryPlayerRepository->show($id);
             return AjaxResponse::success(
                 '¡Bien hecho!',
@@ -142,7 +126,7 @@ class CategoryPlayerController extends Controller
      */
     public function update(Request $request)
     {
-        if($request->ajax() && $request->isMethod('POST')){
+        if ($request->ajax() && $request->isMethod('POST')) {
             $this->categoryPlayerRepository->update($request->all());
             return AjaxResponse::success(
                 '¡Bien hecho!',
@@ -159,12 +143,12 @@ class CategoryPlayerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
-        if($request->ajax() && $request->isMethod('DELETE')){
+        if ($request->ajax() && $request->isMethod('DELETE')) {
 
             $this->categoryPlayerRepository->destroy($id);
 

@@ -21,14 +21,17 @@
 | @endpush
 --}}
 @push('styles')
-<link href="{{  asset('assets/apps/css/todo-2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{  asset('assets/apps/css/todo-2.min.css') }}" rel="stylesheet" type="text/css"/>
 
-<link href="{{  asset('assets/global/plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{  asset('assets/global/plugins/jquery-multi-select/css/multi-select.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{  asset('assets/global/plugins/select2/css/select2.min.css" rel="stylesheet') }}" type="text/css" />
-<link href="{{  asset('assets/global/plugins/select2/css/select2-bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{  asset('assets/global/plugins/bootstrap-select/css/bootstrap-select.css') }}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{{  asset('assets/global/plugins/jquery-multi-select/css/multi-select.css') }}" rel="stylesheet"
+          type="text/css"/>
+    <link href="{{  asset('assets/global/plugins/select2/css/select2.min.css" rel="stylesheet') }}" type="text/css"/>
+    <link href="{{  asset('assets/global/plugins/select2/css/select2-bootstrap.min.css') }}" rel="stylesheet"
+          type="text/css"/>
 
-<link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css"/>
 @endpush
 
 
@@ -112,16 +115,18 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="m-heading-1 border-green m-bordered">
-                        <p> <strong>Roles</strong>
+                        <p><strong>Roles</strong>
                             <br>Cada roll puede tener diferentes permisos. </p>
                     </div>
-                        <div class="scroller todo-project-list-content todo-project-list-content-tags" style="height: 150px;" data-always-visible="1" data-rail-visible1="1">
+                    <div class="scroller todo-project-list-content todo-project-list-content-tags"
+                         style="height: 150px;" data-always-visible="1" data-rail-visible1="1">
                         <div class="todo-project-list">
                             <ul class="nav nav-pills nav-stacked">
                                 @foreach ($roles as $role)
                                     <li>
-                                        <a id="role_iden_{{$role['id']}}" class="nav-role-select" href="javascript:;" >
-                                            <span class="badge {{$style[mt_rand(0, count($style) - 1)]}}"> {{$role->num_perms}} </span> {{$role['name']}} </a>
+                                        <a id="role_iden_{{$role['id']}}" class="nav-role-select" href="javascript:;">
+                                            <span class="badge {{$style[mt_rand(0, count($style) - 1)]}}"> {{$role->num_perms}} </span> {{$role['name']}}
+                                        </a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -133,11 +138,12 @@
                         <div class="form-group">
                             <div class="col-md-9">
                                 {!! Field::hidden('id_role_update') !!}
-                                <select multiple="multiple" class="multi-select" id="multi_select_permission" name="multi_select_permission[]">
+                                <select multiple="multiple" class="multi-select" id="multi_select_permission"
+                                        name="multi_select_permission[]">
                                     @foreach($modules as $module)
                                         <optgroup label="{{$module->name}}">
                                             @foreach($module->permissions as $permission)
-                                            <option value="{{$permission->id}}">{{$permission->name}}</option>
+                                                <option value="{{$permission->id}}">{{$permission->name}}</option>
                                             @endforeach
                                         </optgroup>
                                     @endforeach
@@ -170,12 +176,15 @@
 --}}
 
 @push('plugins')
-<script src="{{ asset('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/global/plugins/jquery-multi-select/js/jquery.quicksearch.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-multi-select/js/jquery.multi-select.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-multi-select/js/jquery.quicksearch.js') }}"
+            type="text/javascript"></script>
 
-<script src="{{ asset('assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
 @endpush
 
 {{--
@@ -196,123 +205,123 @@
 | @endpush
 --}}
 @push('functions')
-<script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
 
-<script type="text/javascript">
-    jQuery(document).ready(function () {
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
 
-        var $widget_select = $("#multi_select_permission"),
-            state = false;
+            var $widget_select = $("#multi_select_permission"),
+                state = false;
 
-        $widget_select.attr('disabled', true);
+            $widget_select.attr('disabled', true);
 
-        var afterSelect = function(){
-            var id_update = $('input[name="id_role_update"]').val().substr(19);
-            var route = '{{ route('role.permission.update') }}'+'/'+id_update;
-            var type = 'POST';
-            var async = async || false;
+            var afterSelect = function () {
+                var id_update = $('input[name="id_role_update"]').val().substr(19);
+                var route = '{{ route('role.permission.update') }}' + '/' + id_update;
+                var type = 'POST';
+                var async = async || false;
 
-            var permission_update = ($widget_select.val()===null) ? [] : $widget_select.val();
+                var permission_update = ($widget_select.val() === null) ? [] : $widget_select.val();
 
-            var formData = new FormData();
-            formData.append('multi_permission', permission_update);
+                var formData = new FormData();
+                formData.append('multi_permission', permission_update);
 
-            $.ajax({
-                url: route,
-                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                cache: false,
-                type: type,
-                contentType: false,
-                data: formData,
-                processData: false,
-                async: async,
-                beforeSend: function () {
+                $.ajax({
+                    url: route,
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    cache: false,
+                    type: type,
+                    contentType: false,
+                    data: formData,
+                    processData: false,
+                    async: async,
+                    beforeSend: function () {
 
-                },
-                success: function (response, xhr, request) {
-                    if (request.status === 200 && xhr === 'success') {
-                        UIToastr.init(xhr , response.title , response.message  );
+                    },
+                    success: function (response, xhr, request) {
+                        if (request.status === 200 && xhr === 'success') {
+                            UIToastr.init(xhr, response.title, response.message);
+                        }
+                    },
+                    error: function (response, xhr, request) {
+                        if (request.status === 422 && xhr === 'success') {
+                            UIToastr.init(xhr, response.title, response.message);
+                        }
                     }
+                });
+
+            };
+
+            $widget_select.multiSelect({
+                selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' '>",
+                selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' '>",
+                afterInit: function (ms) {
+                    var that = this,
+                        $selectableSearch = that.$selectableUl.prev(),
+                        $selectionSearch = that.$selectionUl.prev(),
+                        selectableSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selectable:not(.ms-selected)',
+                        selectionSearchString = '#' + that.$container.attr('id') + ' .ms-elem-selection.ms-selected';
+
+                    that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                        .on('keydown', function (e) {
+                            if (e.which === 40) {
+                                that.$selectableUl.focus();
+                                return false;
+                            }
+                        });
+
+                    that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                        .on('keydown', function (e) {
+                            if (e.which == 40) {
+                                that.$selectionUl.focus();
+                                return false;
+                            }
+                        });
                 },
-                error: function (response, xhr, request) {
-                    if (request.status === 422 &&  xhr === 'success') {
-                        UIToastr.init(xhr, response.title, response.message);
-                    }
-                }
+                afterSelect: function () {
+                    this.qs1.cache();
+                    this.qs2.cache();
+                    afterSelect();
+                },
+                afterDeselect: function () {
+                    this.qs1.cache();
+                    this.qs2.cache();
+                    afterSelect();
+                },
+                selectableOptgroup: true
             });
 
-        };
+            $("a.nav-role-select").on('click', function (e) {
+                var route = '{{ route('roles.permission.data') }}' + '/' + this.id.substr(10);
+                var type = 'GET';
+                var async = false;
 
-        $widget_select.multiSelect({
-            selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' '>",
-            selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' '>",
-            afterInit: function(ms){
-                var that = this,
-                    $selectableSearch = that.$selectableUl.prev(),
-                    $selectionSearch = that.$selectionUl.prev(),
-                    selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
-                    selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+                var element = [];
 
-                that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
-                    .on('keydown', function(e){
-                        if (e.which === 40){
-                            that.$selectableUl.focus();
-                            return false;
-                        }
-                    });
+                $.ajax({
+                    url: route,
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    cache: false,
+                    type: type,
+                    contentType: false,
+                    processData: false,
+                    async: async,
+                    success: function (response, xhr, request) {
+                        $widget_select.attr('disabled', false);
+                        $(response.data).each(function (key, value) {
+                            element.push(value.id);
+                        });
+                    }
+                });
 
-                that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
-                    .on('keydown', function(e){
-                        if (e.which == 40){
-                            that.$selectionUl.focus();
-                            return false;
-                        }
-                    });
-            },
-            afterSelect: function(){
-                this.qs1.cache();
-                this.qs2.cache();
-                afterSelect();
-            },
-            afterDeselect: function(){
-                this.qs1.cache();
-                this.qs2.cache();
-                afterSelect();
-            },
-            selectableOptgroup: true
-        });
+                $('input[name="id_role_update"]').val('id_role_permission_' + this.id.substr(10));
+                $widget_select.val(element);
 
-        $( "a.nav-role-select" ).on('click', function (e) {
-            var route = '{{ route('roles.permission.data') }}'+'/'+this.id.substr(10);
-            var type = 'GET';
-            var async = false;
-
-            var element = [];
-
-            $.ajax({
-                url: route,
-                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-                cache: false,
-                type: type,
-                contentType: false,
-                processData: false,
-                async: async,
-                success: function (response, xhr, request) {
-                    $widget_select.attr('disabled', false);
-                    $( response.data ).each(function( key,value ) {
-                        element.push(value.id);
-                    });
-                }
+                $widget_select.multiSelect("refresh");
             });
 
-            $('input[name="id_role_update"]').val('id_role_permission_'+ this.id.substr(10));
-            $widget_select.val(element);
 
-            $widget_select.multiSelect("refresh");
         });
-
-
-    });
-</script>
+    </script>
 
 @endpush

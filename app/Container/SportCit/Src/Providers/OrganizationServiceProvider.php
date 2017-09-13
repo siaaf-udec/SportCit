@@ -25,8 +25,7 @@ class OrganizationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Container\SportCit\Src\Interfaces\OrganizationInterface', function($app)
-        {
+        $this->app->bind('App\Container\SportCit\Src\Interfaces\OrganizationInterface', function ($app) {
             return new OrganizationRepository;
         });
     }

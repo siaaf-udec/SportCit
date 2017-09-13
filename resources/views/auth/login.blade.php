@@ -21,10 +21,10 @@
 | @endpush
 --}}
 @push('styles')
-<!-- BEGIN PAGE LEVEL STYLES -->
-<link href="{{ asset('assets/pages/css/login-5.min.css') }}" rel="stylesheet" type="text/css"/>
-<link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css"/>
-<!-- END PAGE LEVEL STYLES -->
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="{{ asset('assets/pages/css/login-5.min.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css"/>
+    <!-- END PAGE LEVEL STYLES -->
 @endpush
 
 
@@ -162,22 +162,22 @@
 --}}
 
 @push('plugins')
-<script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"
-        type="text/javascript"></script>
-<script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"
-        type="text/javascript"></script>
-<script src="{{ asset('assets/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/global/plugins/backstretch/jquery.backstretch.min.js') }}"
-        type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-validation/js/jquery.validate.min.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-validation/js/additional-methods.min.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/select2/js/select2.full.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/backstretch/jquery.backstretch.min.js') }}"
+            type="text/javascript"></script>
 
-<script src="{{ asset('assets/global/plugins/jquery-validation/js/localization/messages_es.js') }}"
-        type="text/javascript"></script>
-<script src="{{ asset('assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"
-        type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/jquery-validation/js/localization/messages_es.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"
+            type="text/javascript"></script>
 
-<script src="{{ asset('assets/pages/scripts/login-5.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/main/scripts/form-validation-md.js') }}" type="text/javascript"></script>
-<script src="{{ asset('assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/pages/scripts/login-5.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/main/scripts/form-validation-md.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
 @endpush
 
 {{--
@@ -198,23 +198,24 @@
 | @endpush
 --}}
 @push('functions')
-<script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
-@if($errors->has('email') || $errors->has('password'))
+    <script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
+    @if($errors->has('email') || $errors->has('password'))
+        <script type="text/javascript">
+            UIToastr.init('error', '{{ trans('auth.failed') }}', '');
+        </script>
+    @endif
     <script type="text/javascript">
-        UIToastr.init('error', '{{ trans('auth.failed') }}', '');
+        var rules = {
+            email: {email: true, required: true},
+        };
+        var messages = {};
+        var form = $('#form-forget');
+        jQuery(document).ready(function () {
+            FormValidationMd.init(form, rules, messages);
+
+            function mensaje() {
+                UIToastr.init('error', 'Credenciales incorrectas', '');
+            }
+        });
     </script>
-@endif
-<script type="text/javascript">
-    var rules = {
-        email: {email: true, required: true},
-    };
-    var messages = {};
-    var form = $('#form-forget');
-    jQuery(document).ready(function () {
-        FormValidationMd.init(form, rules, messages);
-        function mensaje() {
-            UIToastr.init('error', 'Credenciales incorrectas', '');
-        }
-    });
-</script>
 @endpush

@@ -2,15 +2,15 @@
 
 namespace App\Container\SportCit\Src\Controllers;
 
-use App\Container\Overall\Src\Facades\AjaxResponse;
-use App\Container\SportCit\Src\Interfaces\OrganizationInterface;
-use App\Container\SportCit\Src\Interfaces\PlayerInterface;
-use App\Container\Users\Src\Interfaces\UserInterface;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use Yajra\DataTables\DataTables;
+
+use App\Container\Overall\Src\Facades\AjaxResponse;
+use App\Container\SportCit\Src\Interfaces\OrganizationInterface;
+use App\Container\SportCit\Src\Interfaces\PlayerInterface;
+use App\Container\Users\Src\Interfaces\UserInterface;
 
 class PlayerController extends Controller
 {
@@ -32,31 +32,21 @@ class PlayerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index_ajax(Request $request, $id)
     {
-        if($request->ajax() && $request->isMethod('GET')){
+        if ($request->ajax() && $request->isMethod('GET')) {
 
 
             $organization = $this->organizationInterface->show($id, [
-                'playersOrganization' => function($query){
-                   return $query->with(['user' => function ($query){
+                'playersOrganization' => function ($query) {
+                    return $query->with(['user' => function ($query) {
                         return $query;
-                   }, '']);
+                    }, '']);
                 }
             ]);
             dd(DataTables::of($organization->playersOrganization)
-                           //->addColumn('')
-                           ->make(true));
+                //->addColumn('')
+                ->make(true));
 
             return view('sportcit.player.content-ajax.ajax-player');
         }
@@ -84,7 +74,7 @@ class PlayerController extends Controller
      */
     public function data(Request $request, $id)
     {
-        if($request->ajax() && $request->isMethod('GET')){
+        if ($request->ajax() && $request->isMethod('GET')) {
             $organization = $this->organizationInterface->show($id, ['playersOrganization', 'userOrganization']);
             return DataTables::of($organization->userOrganization)
                 ->removeColumn('identity_type')
@@ -112,7 +102,7 @@ class PlayerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -125,7 +115,7 @@ class PlayerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -136,7 +126,7 @@ class PlayerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -147,8 +137,8 @@ class PlayerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -159,7 +149,7 @@ class PlayerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

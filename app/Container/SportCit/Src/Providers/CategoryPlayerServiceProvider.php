@@ -25,8 +25,7 @@ class CategoryPlayerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('App\Container\SportCit\Src\Interfaces\CategoryPlayerInterface', function($app)
-        {
+        $this->app->bind('App\Container\SportCit\Src\Interfaces\CategoryPlayerInterface', function ($app) {
             return new CategoryPlayerRepository;
         });
     }

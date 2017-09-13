@@ -23,9 +23,9 @@ use Illuminate\Support\Facades\App;
 abstract class ControllerRepository implements ControllerInterface
 {
 
-    private $model = null;
+    private $model;
 
-    public function __construct($model = '')
+    public function __construct($model = null)
     {
         $this->model = App::make($model);
     }
@@ -33,6 +33,7 @@ abstract class ControllerRepository implements ControllerInterface
     /**
      * Display a listing of the resource.
      *
+     * @param array $relations
      * @return Response
      */
     public function index($relations = [])
@@ -45,20 +46,11 @@ abstract class ControllerRepository implements ControllerInterface
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        // TODO: Implement create() method.
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param $data
      * @return Response
+     * @internal param \Illuminate\Http\Request $request
      */
     public function store($data)
     {
@@ -71,6 +63,7 @@ abstract class ControllerRepository implements ControllerInterface
      * Display the specified resource.
      *
      * @param  int $id
+     * @param array $relations
      * @return Response
      */
     public function show($id, $relations = [])
@@ -82,22 +75,12 @@ abstract class ControllerRepository implements ControllerInterface
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function edit($id)
-    {
-        // TODO: Implement edit() method.
-    }
-
-    /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param $data
      * @return Response
+     * @internal param \Illuminate\Http\Request $request
+     * @internal param int $id
      */
     public function update($data)
     {
@@ -129,10 +112,29 @@ abstract class ControllerRepository implements ControllerInterface
         return $model->delete();
     }
 
+    /**
+     * @return Response
+     */
     public function getModel()
     {
         return $this->model;
     }
 
-    protected abstract function process($model, $data);
+    /**
+     * @param null $model
+     * @return ControllerRepository
+     */
+    public function setModel($model)
+    {
+        $this->model = App::make($model);
+        return $this;
+    }
+
+    /**
+     * @param $model
+     * @param $data
+     * @return mixed
+     */
+    abstract protected function process($model, $data);
+
 }

@@ -15,7 +15,8 @@ use App\Container\SportCit\Src\Interfaces\OrganizationInterface;
 
 use App\Container\SportCit\Src\Organization;
 
-class OrganizationRepository extends ControllerRepository implements OrganizationInterface{
+class OrganizationRepository extends ControllerRepository implements OrganizationInterface
+{
 
     public function __construct()
     {
@@ -25,8 +26,9 @@ class OrganizationRepository extends ControllerRepository implements Organizatio
     /**
      * @param $model
      * @param $data
+     * @return mixed
      */
-    protected  function process($model, $data)
+    protected function process($model, $data)
     {
         $model['name_organization'] = $data['name_organization'];
         $model['nit'] = $data['nit'];

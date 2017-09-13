@@ -9,15 +9,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailer;
 
 /*Eventos*/
+
 use App\Events\StateOrganizationModified;
 
 class SendNotificationEmail implements ShouldQueue
 {
     private $mailer;
+
     /**
      * Create the event listener.
      *
-     * @return void
+     * @param Mailer $mailer
      */
     public function __construct(Mailer $mailer)
     {
@@ -27,7 +29,7 @@ class SendNotificationEmail implements ShouldQueue
     /**
      * Handle the event.
      *
-     * @param  StateOrganizationModified  $event
+     * @param  StateOrganizationModified $event
      * @return void
      */
     public function handle(StateOrganizationModified $event)
@@ -38,10 +40,11 @@ class SendNotificationEmail implements ShouldQueue
             $message->to('user@example.com')->subject('Notificación');
         });
     }
+
     /**
      * The job failed to process.
      *
-     * @param  Exception  $exception
+     * @param  Exception $exception
      * @return void
      */
     public function failed(Exception $exception)

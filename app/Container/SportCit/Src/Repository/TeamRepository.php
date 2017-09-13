@@ -16,7 +16,8 @@ use App\Container\SportCit\Src\Interfaces\TeamInterface;
 
 use App\Container\SportCit\Src\Team;
 
-class TeamRepository extends ControllerRepository implements TeamInterface{
+class TeamRepository extends ControllerRepository implements TeamInterface
+{
 
     public function __construct()
     {
@@ -26,8 +27,9 @@ class TeamRepository extends ControllerRepository implements TeamInterface{
     /**
      * @param $model
      * @param $data
+     * @return mixed
      */
-    protected  function process($model, $data)
+    protected function process($model, $data)
     {
         $model['name'] = $data['name_team'];
         $model['season'] = $data['season'];

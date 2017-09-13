@@ -29,7 +29,8 @@ class OrganizationRequest extends FormRequest
         ];
     }
 
-    public function response(array $errors) {
+    public function response(array $errors)
+    {
 
         return new JsonResponse($errors, 422);
     }

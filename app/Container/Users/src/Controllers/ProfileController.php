@@ -26,7 +26,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $user = $this->userRepository->show(Auth::id());
+        $user = $this->userRepository->show(Auth::id(), []);
         return view('sportcit.profile', ['user' => $user]);
     }
 
@@ -43,7 +43,7 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -54,7 +54,7 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -65,7 +65,7 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -76,25 +76,25 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        if($request->ajax()){
-            if($request->isMethod('POST')){
-               $user = [
-                   'id' => $id,
-                   'name'=> $request->get('name')
-               ];
+        if ($request->ajax()) {
+            if ($request->isMethod('POST')) {
+                $user = [
+                    'id' => $id,
+                    'name' => $request->get('name')
+                ];
                 $this->userRepository->update($user);
                 return AjaxResponse::success(
                     '¡Bien hecho!',
                     'Datos modificados correctamente.'
                 );
             }
-        }else{
+        } else {
             return AjaxResponse::fail(
                 '¡Lo sentimos!',
                 'No se pudo completar tu solicitud.'
@@ -105,7 +105,7 @@ class ProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

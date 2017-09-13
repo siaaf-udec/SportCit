@@ -11,6 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /*Modelos*/
+
 use App\Container\SportCit\Src\Organization;
 
 class StateOrganizationModified

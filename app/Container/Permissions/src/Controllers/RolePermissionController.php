@@ -5,7 +5,6 @@ namespace App\Container\Permissions\Src\Controllers;
 use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 use App\Container\Permissions\Src\Interfaces\PermissionInterface;
@@ -50,57 +49,59 @@ class RolePermissionController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\Response
      */
     public function data(Request $request, $id)
     {
-        if($request->ajax() && $request->isMethod('GET')){
-        $roles = $this->roleRepository->show($id, []);
+        if ($request->ajax() && $request->isMethod('GET')) {
+            $roles = $this->roleRepository->show($id, []);
             return AjaxResponse::success(
                 '¡Bien hecho!',
                 'Datos cargados correctamente.',
                 $roles->perms
             );
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        if($request->ajax() && $request->isMethod('POST')){
+        if ($request->ajax() && $request->isMethod('POST')) {
             $this->roleRepository->store($request->all());
             return AjaxResponse::success(
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'
             );
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        if($request->ajax() && $request->isMethod('POST')){
+        if ($request->ajax() && $request->isMethod('POST')) {
             $role = $this->roleRepository->show($id, []);
             $role->perms()->sync(
                 ($request->get('multi_permission') !== null) ? explode(',', $request->get('multi_permission')) : []
@@ -109,23 +110,24 @@ class RolePermissionController extends Controller
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'
             );
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
     {
-        if($request->ajax() && $request->isMethod('DELETE')){
+        if ($request->ajax() && $request->isMethod('DELETE')) {
 
             $this->permissionRepository->destroy($id);
 
@@ -133,7 +135,7 @@ class RolePermissionController extends Controller
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'
             );
-        }else{
+        } else {
             return AjaxResponse::fail(
                 '¡Lo sentimos!',
                 'No se pudo completar tu solicitud.'

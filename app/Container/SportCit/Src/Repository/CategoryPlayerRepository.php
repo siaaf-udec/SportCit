@@ -15,7 +15,8 @@ use App\Container\SportCit\Src\Interfaces\CategoryPlayerInterface;
 
 use App\Container\SportCit\Src\CategoryPlayer;
 
-class CategoryPlayerRepository extends ControllerRepository implements CategoryPlayerInterface {
+class CategoryPlayerRepository extends ControllerRepository implements CategoryPlayerInterface
+{
 
     public function __construct()
     {
@@ -25,8 +26,9 @@ class CategoryPlayerRepository extends ControllerRepository implements CategoryP
     /**
      * @param $model
      * @param $data
+     * @return mixed
      */
-    protected  function process($model, $data)
+    protected function process($model, $data)
     {
         $model['name'] = $data['name'];
         $model['description'] = $data['description'];

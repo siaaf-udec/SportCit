@@ -5,7 +5,6 @@ namespace App\Container\Permissions\Src\Controllers;
 use Yajra\DataTables\DataTables;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 
 use App\Container\Permissions\Src\Interfaces\RoleInterface;
@@ -35,22 +34,23 @@ class RoleController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function data(Request $request)
     {
         if($request->ajax() && $request->isMethod('GET')){
-            $roles = $this->roleRepository->index();
+            $roles = $this->roleRepository->index([]);
             return DataTables::of($roles)
                 ->removeColumn('created_at')
                 ->removeColumn('updated_at')
                 ->addIndexColumn()
                 ->make(true);
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -67,12 +67,12 @@ class RoleController extends Controller
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'
             );
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -96,18 +96,19 @@ class RoleController extends Controller
                 '¡Bien hecho!',
                 'Datos modificados correctamente.'
             );
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request, $id)
@@ -120,11 +121,11 @@ class RoleController extends Controller
                 '¡Bien hecho!',
                 'Datos eliminados correctamente.'
             );
-        }else{
-            return AjaxResponse::fail(
-                '¡Lo sentimos!',
-                'No se pudo completar tu solicitud.'
-            );
         }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 }

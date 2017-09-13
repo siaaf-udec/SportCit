@@ -15,7 +15,7 @@ class TeamController extends Controller
     protected $teamRepository;
     protected $organizationRepository;
 
-    public function __construct(TeamInterface $teamRepository,OrganizationInterface $organizationRepository)
+    public function __construct(TeamInterface $teamRepository, OrganizationInterface $organizationRepository)
     {
         $this->teamRepository = $teamRepository;
         $this->organizationRepository = $organizationRepository;
@@ -36,23 +36,33 @@ class TeamController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
     public function data(Request $request, $id)
     {
-        $team = $this->organizationRepository->show($id,['teamOrganization']);
-        $table = [];
-        foreach ($team->teamOrganization as $teams){
-            $table[] =[
-                'id' => $teams->id,
-                'name_team' => $teams->name,
-                'city' => $teams->city,
-                'season' => $teams->season,
-                'num_player' => $teams->num_players_team
-            ];
+        if ($request->ajax() && $request->isMethod('GET')) {
+            $team = $this->organizationRepository->show($id, ['teamOrganization']);
+            $table = [];
+            foreach ($team->teamOrganization as $teams) {
+                $table[] = [
+                    'id' => $teams->id,
+                    'name_team' => $teams->name,
+                    'city' => $teams->city,
+                    'season' => $teams->season,
+                    'num_player' => $teams->num_players_team
+                ];
+            }
+            return DataTables::of($table)
+                ->addIndexColumn()
+                ->make(true);
         }
-        return DataTables::of($table)
-            ->addIndexColumn()
-            ->make(true);
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 }
