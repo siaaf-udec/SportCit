@@ -54,8 +54,8 @@ class CategoryPlayerController extends Controller
     public function data(Request $request, $id)
     {
         if ($request->ajax() && $request->isMethod('GET')) {
-            $organization = $this->organizationRepository->show($id, ['categoryOrganization']);
-            return DataTables::of($organization->categoryOrganization)
+            $organization = $this->organizationRepository->show($id, ['categories']);
+            return DataTables::of($organization->categories)
                 ->removeColumn('created_at')
                 ->removeColumn('updated_at')
                 ->removeColumn('deleted_at')

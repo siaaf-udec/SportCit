@@ -38,13 +38,13 @@ class PlayerController extends Controller
 
 
             $organization = $this->organizationInterface->show($id, [
-                'playersOrganization' => function ($query) {
+                'players' => function ($query) {
                     return $query->with(['user' => function ($query) {
                         return $query;
-                    }, '']);
+                    }]);
                 }
             ]);
-            dd(DataTables::of($organization->playersOrganization)
+            dd(DataTables::of($organization->players)
                 //->addColumn('')
                 ->make(true));
 
@@ -75,8 +75,8 @@ class PlayerController extends Controller
     public function data(Request $request, $id)
     {
         if ($request->ajax() && $request->isMethod('GET')) {
-            $organization = $this->organizationInterface->show($id, ['playersOrganization', 'userOrganization']);
-            return DataTables::of($organization->userOrganization)
+            $organization = $this->organizationInterface->show($id, ['players', 'user']);
+            return DataTables::of($organization->user)
                 ->removeColumn('identity_type')
                 ->removeColumn('identity_no')
                 ->removeColumn('identity_expe_place')

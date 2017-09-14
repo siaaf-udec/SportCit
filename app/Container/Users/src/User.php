@@ -61,13 +61,13 @@ class User extends Authenticatable
 
     public function files()
     {
-        //uno a muchos relacion morfologica
+        //Uno a muchos relacion morfologica
         return $this->morphMany(File::class, 'fileable');
     }
 
     public function organizations()
     {
-        //un usuario tiene muchas organizaciones
+        //Un usuario tiene muchas organizaciones
         return $this->hasMany(Organization::class, 'fk_user_id');
     }
 

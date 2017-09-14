@@ -28,7 +28,7 @@ class Organization extends Model implements AuditableContract
     ];
     protected $table = 'TBL_Organizations';
 
-    public function userOrganization()
+    public function user()
     {
         //la organizacion pertenece a un usuario
         return $this->belongsTo(User::class, 'fk_user_id');
@@ -40,33 +40,33 @@ class Organization extends Model implements AuditableContract
         return $this->morphMany(File::class, 'fileable');
     }
 
-    public function playersOrganization()
+    public function players()
     {
         return $this->hasMany(Player::class, 'fk_organization_id');
     }
 
-    public function categoryOrganization()
+    public function categories()
     {
         return $this->hasMany(CategoryPlayer::class, 'fk_organization_id');
     }
 
-    public function teamOrganization()
+    public function teams()
     {
         return $this->hasMany(Team::class, 'fk_org_id');
     }
 
-    public function getNumCategoryOrganizationAttribute()
+    public function getNumCategoriesAttribute()
     {
-        return count($this->categoryOrganization);
+        return count($this->categories);
     }
 
-    public function getNumPlayersOrganizationAttribute()
+    public function getNumPlayersAttribute()
     {
-        return count($this->playersOrganization);
+        return count($this->players);
     }
 
-    public function getNumTeamsOrganizationAttribute()
+    public function getNumTeamsAttribute()
     {
-        return count($this->teamOrganization);
+        return count($this->teams);
     }
 }

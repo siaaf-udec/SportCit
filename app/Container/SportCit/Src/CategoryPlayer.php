@@ -31,14 +31,14 @@ class CategoryPlayer extends Model
      */
     public function players()
     {
-        return $this->hasMany(Players::class);
+        return $this->hasMany(Player::class, 'fk_cate_player_id');
     }
 
     /**
      * Get the organization that owns the category.
      */
-    public function organizationCategory()
+    public function organization()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Organization::class, 'fk_organization_id');
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Container\SportCit\Src;
 
-use App\Container\SportCit\Src\organization;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
@@ -11,6 +10,9 @@ class Team extends Model implements AuditableContract
 {
 
     use Auditable;
+
+    protected $table = 'TBL_Teams';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -19,20 +21,19 @@ class Team extends Model implements AuditableContract
     protected $fillable = [
         'id', 'name', 'season', 'city',
     ];
-    protected $table = 'TBL_Teams';
 
-    public function organizationTeam()
+    public function organization()
     {
-        return $this->belongsTo(Organization::class, 'id');
+        return $this->belongsTo(Organization::class, 'fk_org_id');
     }
 
-    public function playerTeam()
+    public function players()
     {
         return $this->hasMany(Player::class, 'fk_team_id');
     }
 
-    public function getNumPlayersTeamAttribute()
+    public function getNumPlayersAttribute()
     {
-        return count($this->playerTeam);
+        return count($this->players);
     }
 }

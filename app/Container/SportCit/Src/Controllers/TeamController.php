@@ -44,9 +44,9 @@ class TeamController extends Controller
     public function data(Request $request, $id)
     {
         if ($request->ajax() && $request->isMethod('GET')) {
-            $team = $this->organizationRepository->show($id, ['teamOrganization']);
+            $team = $this->organizationRepository->show($id, ['teams']);
             $table = [];
-            foreach ($team->teamOrganization as $teams) {
+            foreach ($team->teams as $teams) {
                 $table[] = [
                     'id' => $teams->id,
                     'name_team' => $teams->name,

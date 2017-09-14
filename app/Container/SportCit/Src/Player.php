@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 /*
  * Modelos
  * */
-
 use App\Container\Users\Src\User;
 
 class Player extends Model
@@ -51,9 +50,14 @@ class Player extends Model
         return $this->belongsTo(Organization::class, 'fk_organization_id');
     }
 
-    public function teamPlayer()
+    public function team()
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Team::class, 'fk_team_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(CategoryPlayer::class, 'fk_cate_player_id');
     }
 
 }

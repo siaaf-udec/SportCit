@@ -122,11 +122,11 @@
                                             ['help' => 'Ingrese el Nombre']) !!}
                                         {!! Field::select(
                                             'state_category_create',
-                                            ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], 'Inactivo',
+                                            ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null,
                                             [ 'label' => 'Estado']) !!}
                                         {!! Field::select(
                                             'gender_create',
-                                            ['Masculino' => 'Masculino', 'Femenino' => 'Femenino'], 'Masculino',
+                                            ['Masculino' => 'Masculino', 'Femenino' => 'Femenino'],  null,
                                             [ 'label' => 'Genero']) !!}
                                         {!! Field::text(
                                             'space_create',

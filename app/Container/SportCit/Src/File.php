@@ -21,7 +21,7 @@ class File extends Model
 
     public function filable()
     {
-        //transformarse a (morphTo)
+        //Transformarse a (morphTo)
         return $this->morphTo();
     }
 }
