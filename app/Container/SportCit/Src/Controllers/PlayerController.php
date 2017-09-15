@@ -35,20 +35,9 @@ class PlayerController extends Controller
     public function index_ajax(Request $request, $id)
     {
         if ($request->ajax() && $request->isMethod('GET')) {
-
-
-            $organization = $this->organizationInterface->show($id, [
-                'players' => function ($query) {
-                    return $query->with(['user' => function ($query) {
-                        return $query;
-                    }]);
-                }
+            return view('sportcit.player.content-ajax.ajax-player', [
+                'organization' => $id
             ]);
-            dd(DataTables::of($organization->players)
-                //->addColumn('')
-                ->make(true));
-
-            return view('sportcit.player.content-ajax.ajax-player');
         }
 
         return AjaxResponse::fail(
@@ -75,18 +64,38 @@ class PlayerController extends Controller
     public function data(Request $request, $id)
     {
         if ($request->ajax() && $request->isMethod('GET')) {
-            $organization = $this->organizationInterface->show($id, ['players', 'user']);
-            return DataTables::of($organization->user)
-                ->removeColumn('identity_type')
-                ->removeColumn('identity_no')
-                ->removeColumn('identity_expe_place')
-                ->removeColumn('identity_expe_date')
-                ->removeColumn('address')
-                ->removeColumn('phone')
-                ->removeColumn('website')
+            $organization = $this->organizationInterface
+                ->show($id, ['players' => function ($query) {
+                    return $query->select('fk_organization_id', 'fk_user_id', 'fk_cate_player_id', 'id', 'state')
+                        ->with(['user' => function ($query) {
+                            return $query->select('id', 'name', 'lastname', 'email');
+                        }, 'category' => function ($query) {
+                            return $query->select('id', 'name');
+                        }]);
+                }
+                ]);
+            return DataTables::of($organization->players)
+                ->addColumn('state', function ($query) {
+                    if (!strcmp($query->state, 'Activo')) {
+                        return "<span class='label label-sm label-success'>" . $query->state . "</span>";
+                    }
+                    return "<span class='label label-sm label-danger'>" . $query->state . "</span>";
+                })
+                ->rawColumns(['state'])
+                ->removeColumn('fk_organization_id')
+                ->removeColumn('fk_cate_player_id')
+                ->removeColumn('name_organization')
+                ->removeColumn('nit')
+                ->removeColumn('address_organization')
+                ->removeColumn('phone_organization')
+                ->removeColumn('fundation')
+                ->removeColumn('club_colors')
+                ->removeColumn('link_organization')
+                ->removeColumn('state_organization')
+                ->removeColumn('created_at')
                 ->removeColumn('updated_at')
                 ->removeColumn('deleted_at')
-                ->removeColumn('fk_organization_id')
+                ->removeColumn('fk_user_id')
                 ->addIndexColumn()
                 ->make(true);
         }

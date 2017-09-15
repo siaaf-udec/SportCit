@@ -290,6 +290,10 @@ Route::group(['middleware' => ['auth']], function () {
                 'uses' => $controller.'PlayerController@index_ajax',
                 'as' => 'organization.player.index.ajax'
             ]);
+            Route::get('data/{id?}',[
+                'uses' => $controller.'PlayerController@data',
+                'as' => 'organization.player.data'
+            ]);
         });
         Route::group(['prefix' => 'team'], function (){
            $controller =  "\\App\\Container\\SportCit\\Src\\Controllers\\";

@@ -58,7 +58,6 @@ class CategoryPlayerController extends Controller
             return DataTables::of($organization->categories)
                 ->removeColumn('created_at')
                 ->removeColumn('updated_at')
-                ->removeColumn('deleted_at')
                 ->removeColumn('fk_organization_id')
                 ->addIndexColumn()
                 ->make(true);

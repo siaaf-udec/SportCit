@@ -19,6 +19,11 @@ class OrganizationController extends Controller
     protected $userRepository;
     protected $organizationRepository;
 
+    /**
+     * OrganizationController constructor.
+     * @param UserInterface $userRepository
+     * @param OrganizationInterface $organizationRepository
+     */
     public function __construct(UserInterface $userRepository, OrganizationInterface $organizationRepository)
     {
         $this->userRepository = $userRepository;
