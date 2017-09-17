@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'icon-frame', 'title' => 'Datatable Ajax'])
+    @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'icon-frame', 'title' => 'Categorias'])
 
         @slot('actions', [
 
@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="actions">
-                    <a href="javascript:;" class="btn btn-simple btn-success btn-icon create"><i class="fa fa-plus"></i></a>
+                    <a href="javascript:;" class="btn btn-simple btn-success btn-icon create"><i class="fa fa-plus"></i>Nueva Categoría</a>
                 </div>
             </div>
             <div class="clearfix"></div>
@@ -37,7 +37,7 @@
                         'Genero',
                         'Fecha Incial' => ['class' => 'none'],
                         'Fecha Final' => ['class' => 'none'],
-                        'Estado de Categoria' => ['class' => 'none'],
+                        'Estado de Categoría' => ['class' => 'none'],
                         'Cupo'  => ['class' => 'none'],
                         'Acciones' => ['style' => 'width:90px;']
                     ])
@@ -55,7 +55,7 @@
                             {!! Form::open(['id' => 'from_categoty_player_update', 'class' => '', 'url' => '/forms']) !!}
                             <div class="modal-header modal-header-success">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h1><i class="glyphicon glyphicon-thumbs-up"></i> Modificar Categoria</h1>
+                                <h1><i class="glyphicon glyphicon-thumbs-up"></i> Modificar Categoría</h1>
                             </div>
                             <div class="modal-body">
                                 <div class="row">
@@ -111,7 +111,7 @@
                             {!! Form::open(['id' => 'from_category_player_create', 'class' => '', 'url' => '/forms']) !!}
                             <div class="modal-header modal-header-success">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                <h1><i class="glyphicon glyphicon-thumbs-up"></i> Crear Categoria</h1>
+                                <h1><i class="glyphicon glyphicon-thumbs-up"></i> Crear Categoría</h1>
                             </div>
                             <div class="modal-body">
                                 <div class="row">

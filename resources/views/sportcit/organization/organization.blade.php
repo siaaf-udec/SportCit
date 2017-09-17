@@ -108,7 +108,7 @@
 --}}
 @section('content')
     <div class="col-md-12">
-        @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'icon-frame', 'title' => 'Datatable Ajax'])
+        @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'icon-frame', 'title' => 'Organizaciones'])
 
             @slot('actions', [
 
@@ -131,7 +131,7 @@
                 <div class="col-md-12">
                     <div class="actions">
                         <a href="javascript:;" class="btn btn-simple btn-success btn-icon create"><i
-                                    class="fa fa-plus"></i></a></div>
+                                    class="fa fa-plus"></i>Nueva Organización</a></div>
                 </div>
                 <div class="clearfix"></div>
                 <br>

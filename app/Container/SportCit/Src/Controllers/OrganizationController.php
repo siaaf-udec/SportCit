@@ -266,7 +266,7 @@ class OrganizationController extends Controller
             $organization = Organization::find($id);
             $user = $this->userRepository->show($request->user_id);
             if ($organization->state_organization == 'Pendiente' && $request->state_organization == 'Aprobado') {
-                $user->state_user = 'Activo';
+                $user->state = 'Activo';
                 $user->save();
             }
             $organization->state_organization = $request->state_organization;

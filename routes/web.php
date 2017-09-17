@@ -316,7 +316,11 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-
+/*Route::get('ensayo',[
+    $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\",
+    'uses' => $controller.'SampleController@index',
+    'as' => 'ensayo'
+]);*/
 /*
  * Fin de las rutas de ejemplo.
  */

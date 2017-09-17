@@ -53,7 +53,7 @@
                             <span data-counter="counterup"
                                   data-value="1349">{{$organization['data']->num_categories}}</span>
                         </div>
-                        <div class="desc"> Categorias</div>
+                        <div class="desc"> Categorías</div>
                     </div>
                 </a>
             </div>

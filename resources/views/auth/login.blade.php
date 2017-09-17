@@ -199,9 +199,9 @@
 --}}
 @push('functions')
     <script src="{{ asset('assets/main/scripts/ui-toastr.js') }}" type="text/javascript"></script>
-    @if($errors->has('email') || $errors->has('password'))
+    @if($errors->has('read'))
         <script type="text/javascript">
-            UIToastr.init('error', '{{ trans('auth.failed') }}', '');
+            UIToastr.init('error', '{{$errors->first('read')}}', '');
         </script>
     @endif
     <script type="text/javascript">
