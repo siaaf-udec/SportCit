@@ -13,50 +13,44 @@ class CreateTBLPlayersTable extends Migration
      */
     public function up()
     {
-        Schema::create('TBL_Players',function (Blueprint $table){
+        Schema::create('TBL_Players', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('favorite_club')
-                  ->nullable()
-                  ->comment('Club favorito');
+                ->nullable()
+                ->comment('Club favorito');
             $table->string('height')
-                  ->nullable()
-                  ->comment('Altura');
+                ->nullable()
+                ->comment('Altura');
             $table->string('weight')
-                  ->nullable()
-                  ->comment('Peso');
-            $table->string('position')
-                  ->nullable()
-                  ->comment('Posición');
+                ->nullable()
+                ->comment('Peso');
+            $table->enum('foot', ['Zurdo', 'Diestro', 'Ambos'])
+                ->nullable()
+                ->comment('Pie');
             $table->string('motto')
-                  ->nullable()
-                  ->comment('Lema');
-            $table->string('current_position')
-                  ->nullable()
-                  ->comment('Posición actual');
-            $table->string('current_club')
-                  ->nullable()
-                  ->comment('Club actual');
-            $table->string('favorite_player')
-                  ->nullable()
-                  ->comment('Jugador favorito');
-            $table->string('strengths')
-                  ->nullable()
-                  ->comment('Fortalezas');
-            $table->string('weakness')
-                  ->nullable()
-                  ->comment('Debilidades');
-            $table->string('training_target')
-                  ->nullable()
-                  ->comment('Objetivo de entrenamiento');
-            $table->string('other')
-                  ->nullable()
-                  ->comment('Otros');
-            $table->string('eps')
-                  ->nullable()
-                  ->comment('EPS');
+                ->nullable()
+                ->comment('Lema');
             $table->enum('state', ['Activo', 'Inactivo'])
-                  ->default('Activo');
+                ->default('Inactivo');
+            $table->string('current_club')
+                ->nullable()
+                ->comment('Club actual');
+            $table->string('favorite_player')
+                ->nullable()
+                ->comment('Jugador favorito');
+            $table->text('strengths')
+                ->nullable()
+                ->comment('Fortalezas');
+            $table->text('weakness')
+                ->nullable()
+                ->comment('Debilidades');
+            $table->text('training_target')
+                ->nullable()
+                ->comment('Objetivos de entrenamiento');
+            $table->text('other')
+                ->nullable()
+                ->comment('Otros');
 
             $table->timestamps();
         });

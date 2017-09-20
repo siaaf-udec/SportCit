@@ -53,8 +53,8 @@
          * Referencia https://datatables.net/reference/option/
          */
         var $table = $('#players-table-ajax'),
-            id_show = $('input[name="id_organization"]').val(),
-            url = route('organization.player.data', id_show),
+            $id_show = $('input[name="id_organization"]').val(),
+            url = route('organization.player.data', $id_show),
             columns = [
                 {data: 'DT_Row_Index'},
                 {data: 'id', "visible": false},
@@ -81,5 +81,16 @@
 
         dataTableServer.init($table, url, columns);
 
+        $(".create").on('click', function (e) {
+            e.preventDefault();
+            var route_create = route('organization.player.create',{id: $id_show});
+            $(".content-ajax").load(route_create);
+        });
+
+        $('#link_cancel').on('click', function (e) {
+            e.preventDefault();
+             var route_edit = route('organization.menu.index', $id_show);
+            $(".content-ajax").load(route_edit);
+        });
     });
 </script>

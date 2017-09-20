@@ -23,12 +23,6 @@ class CreateForeignsTable extends Migration
 
         });
         Schema::table('TBL_Players', function (Blueprint $table) {
-            $table->integer('fk_cate_player_id')->unsigned();
-            $table->foreign('fk_cate_player_id')
-                ->references('id')->on('TBL_Category_Player')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-
             $table->integer('fk_user_id')->unsigned();
             $table->foreign('fk_user_id')
                 ->references('id')->on('users')
@@ -41,11 +35,24 @@ class CreateForeignsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
+            $table->integer('fk_cate_player_id')->nullable()->unsigned();
+            $table->foreign('fk_cate_player_id')
+                ->references('id')->on('TBL_Category_Player')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
             $table->integer('fk_team_id')->nullable()->unsigned();
             $table->foreign('fk_team_id')
                 ->references('id')->on('TBL_Teams')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+
+            $table->integer('fk_position_id')->nullable()->unsigned()->comment('Posición actual');
+            $table->foreign('fk_position_id')
+                ->references('id')->on('TBL_Positions')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
         });
         Schema::table('TBL_Organizations', function (Blueprint $table) {
             $table->integer('fk_user_id')->unsigned();

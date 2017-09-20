@@ -294,6 +294,14 @@ Route::group(['middleware' => ['auth']], function () {
                 'uses' => $controller.'PlayerController@data',
                 'as' => 'organization.player.data'
             ]);
+            Route::get('create/{id}', [
+                'uses' => $controller . 'PlayerController@create',
+                'as' => 'organization.player.create'
+            ]);
+            Route::post('store', [
+                'uses' => $controller . 'PlayerController@store',
+                'as' => 'organization.player.store'
+            ]);
         });
         Route::group(['prefix' => 'team'], function (){
            $controller =  "\\App\\Container\\SportCit\\Src\\Controllers\\";

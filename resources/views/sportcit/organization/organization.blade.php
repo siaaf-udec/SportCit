@@ -275,6 +275,9 @@
     <script src="{{ asset('assets/global/plugins/moment.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"
             type="text/javascript"></script>
+    {{-- jquery-repeater Scripts --}}
+    <script src="{{ asset('assets/global/plugins/jquery-repeater/jquery.repeater.js') }}"
+            type="text/javascript"></script>
 @endpush
 
 

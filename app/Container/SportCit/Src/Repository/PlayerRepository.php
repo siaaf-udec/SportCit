@@ -30,14 +30,10 @@ class PlayerRepository extends ControllerRepository implements PlayerInterface
      */
     protected function process($model, $data)
     {
-        $model['name'] = $data['name'];
-        $model['description'] = $data['description'];
-        $model['gender'] = $data['gender'];
-        $model['starting_year'] = $data['starting_year'];
-        $model['final_year'] = $data['final_year'];
-        $model['state_category'] = $data['state_category'];
-        $model['space'] = $data['space'];
+        $model['favorite_club'] = (isset($data['favorite_club']) || !empty($data['favorite_club'])) ? $data['favorite_club'] : null;
+        $model['height'] = (isset($data['height']) || !empty($data['height'])) ? $data['height'] : null;
         $model['fk_organization_id'] = $data['fk_organization_id'];
+        $model['fk_user_id'] = $data['fk_user_id'];
         $model->save();
 
         return $model;

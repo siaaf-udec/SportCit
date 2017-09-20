@@ -49,11 +49,22 @@ class PlayerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $id)
     {
-        //
+        if ($request->ajax() && $request->isMethod('GET')) {
+            return view('sportcit.player.content-ajax.ajax-create-player', [
+                'organization' => $id
+            ]);
+        }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
     }
 
     /**
@@ -80,6 +91,9 @@ class PlayerController extends Controller
                         return "<span class='label label-sm label-success'>" . $query->state . "</span>";
                     }
                     return "<span class='label label-sm label-danger'>" . $query->state . "</span>";
+                })
+                ->addColumn('category.name', function ($query) {
+                    return $query->category['name'];
                 })
                 ->rawColumns(['state'])
                 ->removeColumn('fk_organization_id')
@@ -116,9 +130,30 @@ class PlayerController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|max:15',
-        ]);
+        if ($request->ajax() && $request->isMethod('POST')) {
+            $players = json_decode($request->get('group'));
+            $other = $request->all();
+
+            if (!empty($players->group_a) && isset($players->group_a)) {
+                foreach ($players->group_a as $player) {
+                    $player = array_add((array)$player,'password', str_random(8));
+                    $user = $this->userInterface->store($player);
+                    $user->player()->create($other);
+                }
+            }
+
+            return AjaxResponse::success(
+                '¡Bien hecho!',
+                'Datos modificados correctamente.'
+            );
+
+        }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
+
     }
 
     /**
