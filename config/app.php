@@ -194,6 +194,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         Watson\Active\ActiveServiceProvider::class,
         Tightenco\Ziggy\ZiggyServiceProvider::class,
+        Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
 
         /*
          * Custom Service Providers...
@@ -206,6 +207,7 @@ return [
         App\Container\SportCit\Src\Providers\PlayerServiceProvider::class,
         App\Container\SportCit\Src\Providers\CategoryPlayerServiceProvider::class,
         App\Container\SportCit\Src\Providers\TeamServiceProvider::class,
+        App\Container\SportCit\Src\Providers\TestServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -272,6 +274,7 @@ return [
         'Access' => Styde\Html\Facades\Access::class,
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
         'Active' => Watson\Active\Facades\Active::class,
+        'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
 
         /*
         * Custom Aliases...

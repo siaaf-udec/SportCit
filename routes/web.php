@@ -102,8 +102,8 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller . 'ProfileController@update',
             'as' => 'user.profile.update'
         ])->where(['id' => '[0-9]+']);
-        Route::post('check/email',[
-            'uses' => $controller.'UserController@checkEmail',
+        Route::post('check/email', [
+            'uses' => $controller . 'UserController@checkEmail',
             'as' => 'users.check.email'
         ]);
     });
@@ -211,26 +211,26 @@ Route::group(['middleware' => ['auth']], function () {
         })->name('forms.dropzone.store');
     });
 
-    Route::group(['prefix' => 'organization'], function (){
+    Route::group(['prefix' => 'organization'], function () {
         $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
-        Route::get('menu/{id?}',[
-            'uses' => $controller.'MenuOrganizationController@index',
+        Route::get('menu/{id?}', [
+            'uses' => $controller . 'MenuOrganizationController@index',
             'as' => 'organization.menu.index'
         ]);
-        Route::get('index',[
-            'uses' => $controller.'OrganizationController@index',
+        Route::get('index', [
+            'uses' => $controller . 'OrganizationController@index',
             'as' => 'organization.index'
         ]);
         Route::get('create', [
             'uses' => $controller . 'OrganizationController@create',
             'as' => 'organization.create'
         ]);
-        Route::get('edit/{id?}',[
-            'uses' => $controller.'OrganizationController@edit',
+        Route::get('edit/{id?}', [
+            'uses' => $controller . 'OrganizationController@edit',
             'as' => 'organization.edit'
         ]);
-        Route::get('viewfile/{id?}',[
-            'uses' => $controller.'OrganizationController@viewfile',
+        Route::get('viewfile/{id?}', [
+            'uses' => $controller . 'OrganizationController@viewfile',
             'as' => 'organization.viewfile'
         ]);
         Route::post('store', [
@@ -245,26 +245,26 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller . 'OrganizationController@update_state',
             'as' => 'organization.update_state'
         ]);
-        Route::get('data',[
-            'uses' => $controller.'OrganizationController@data',
+        Route::get('data', [
+            'uses' => $controller . 'OrganizationController@data',
             'as' => 'organization.data'
         ]);
-        Route::get('index/ajax',[
-            'uses' => $controller.'OrganizationController@index_ajax',
+        Route::get('index/ajax', [
+            'uses' => $controller . 'OrganizationController@index_ajax',
             'as' => 'organization.index.ajax'
         ]);
         Route::post('delete/{id?}', [
             'uses' => $controller . 'OrganizationController@destroy',
             'as' => 'organization.destroy'
         ]);
-        Route::group(['prefix' => 'category'], function (){
+        Route::group(['prefix' => 'category'], function () {
             $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
-            Route::get('index/ajax/{id?}',[
-                'uses' => $controller.'CategoryPlayerController@index_ajax',
+            Route::get('index/ajax/{id?}', [
+                'uses' => $controller . 'CategoryPlayerController@index_ajax',
                 'as' => 'organization.category.index.ajax'
             ]);
-            Route::get('data/{id?}',[
-                'uses' => $controller.'CategoryPlayerController@data',
+            Route::get('data/{id?}', [
+                'uses' => $controller . 'CategoryPlayerController@data',
                 'as' => 'organization.category.data'
             ]);
             Route::post('store', [
@@ -284,14 +284,14 @@ Route::group(['middleware' => ['auth']], function () {
                 'as' => 'organization.category.destroy'
             ])->where(['id' => '[0-9]+']);
         });
-        Route::group(['prefix' => 'player'], function (){
+        Route::group(['prefix' => 'player'], function () {
             $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
-            Route::get('index/ajax/{id?}',[
-                'uses' => $controller.'PlayerController@index_ajax',
+            Route::get('index/ajax/{id?}', [
+                'uses' => $controller . 'PlayerController@index_ajax',
                 'as' => 'organization.player.index.ajax'
             ]);
-            Route::get('data/{id?}',[
-                'uses' => $controller.'PlayerController@data',
+            Route::get('data/{id?}', [
+                'uses' => $controller . 'PlayerController@data',
                 'as' => 'organization.player.data'
             ]);
             Route::get('create/{id}', [
@@ -303,19 +303,30 @@ Route::group(['middleware' => ['auth']], function () {
                 'as' => 'organization.player.store'
             ]);
         });
-        Route::group(['prefix' => 'team'], function (){
-           $controller =  "\\App\\Container\\SportCit\\Src\\Controllers\\";
-           Route::get('index/ajax/{id?}',[
-              'uses' => $controller.'TeamController@index_ajax',
-               'as' => 'organization.team.index.ajax'
-           ]);
-            Route::get('data/{id?}',[
-                'uses' => $controller.'TeamController@data',
+        Route::group(['prefix' => 'team'], function () {
+            $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
+            Route::get('index/ajax/{id?}', [
+                'uses' => $controller . 'TeamController@index_ajax',
+                'as' => 'organization.team.index.ajax'
+            ]);
+            Route::get('data/{id?}', [
+                'uses' => $controller . 'TeamController@data',
                 'as' => 'organization.team.data'
             ]);
         });
     });
 
+    Route::group(['prefix' => 'test'], function () {
+        $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
+        Route::get('index', [
+            'uses' => $controller . 'TestController@index',
+            'as' => 'test.index'
+        ]);
+        Route::get('create', [
+            'uses' => $controller . 'TestController@create',
+            'as' => 'test.create'
+        ]);
+    });
 
     Route::get('emails', function () {
         $organ = \App\Container\SportCit\Src\Organization::find(1);

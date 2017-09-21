@@ -23,6 +23,9 @@ class CreateUsersTable extends Migration
             $table->integer('identity_no')->nullable()->unsigned();
             $table->string('identity_expe_place')->nullable();
             $table->date('identity_expe_date')->nullable();
+            $table->string('city')->nullable();
+            $table->string('eps')->nullable();
+            $table->enum('rh',['AB+','AB-','A+','A-','B+','B-','O+','O-'])->nullable();
             $table->string('address')->nullable();
             $table->enum('gender', ['Masculino', 'Femenino'])->nullable();
             $table->string('phone')->nullable();
@@ -30,7 +33,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('state', ['Activo', 'Inactivo'])->default('Inactivo');
             $table->string('website')->nullable();
-
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

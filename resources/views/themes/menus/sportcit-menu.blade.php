@@ -36,8 +36,8 @@
     </a>
     <ul class="sub-menu">
         <li class="nav-item {{ active(['sportcit.create-organization'], 'start active open') }}">
-            <a href="{{ route('organization.index') }}" class="nav-link">
-                <i class="fa fa-users"></i>
+            <a href="{{ route('test.index') }}" class="nav-link">
+                <i class="fa fa-file-text"></i>
                 <span class="title">Test</span>
             </a>
         </li>

@@ -2,7 +2,7 @@ var SweetAlert = function () {
 
     return {
         //main function to initiate the module
-        init: function (title, text, type, url, datos) {
+        init: function (title, text, type, url, datos, peticion) {
             swal({
                     title: title,
                     text: text,
@@ -39,6 +39,7 @@ var SweetAlert = function () {
                             }
                         }
                     });
+
                 });
         }
     }

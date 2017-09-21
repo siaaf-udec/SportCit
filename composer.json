@@ -17,7 +17,8 @@
         "tightenco/ziggy": "^0.3.0",
         "watson/active": "^2.0",
         "yajra/laravel-datatables-oracle": "8.*",
-        "zizaco/entrust": "1.9.0-beta1"
+        "zizaco/entrust": "1.9.0-beta1",
+        "kris/laravel-form-builder": "1.*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.0",
