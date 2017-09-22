@@ -33,9 +33,6 @@
           type="text/css"/>
     {{-- bootstrap-toastr Scripts --}}
     <link href="{{ asset('assets/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css"/>
-    {{-- dropzone Scripts --}}
-    <link href="{{ asset('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}"
-          rel="stylesheet" type="text/css"/>
     {{-- bootstrap-toastr Scripts --}}
     <link href="{{ asset('assets/global/plugins/bootstrap-colorpicker/css/colorpicker.css')}}" rel="stylesheet"
           type="text/css"/>
@@ -48,6 +45,13 @@
     {{-- bootstrap-sweetalert Scripts --}}
     <link href="{{ asset('assets/global/plugins/bootstrap-sweetalert/sweetalert.css')}}" rel="stylesheet"
           type="text/css"/>
+    {{-- bootstrap-datepicker Scripts --}}
+    <link href="{{ asset('assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css') }}"
+          rel="stylesheet" type="text/css"/>
+    {{-- bootstrap-fileinput Scripts --}}
+    <link href="{{ asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css') }}" rel="stylesheet"
+          type="text/css"/>
+
 @endpush
 
 
@@ -252,9 +256,6 @@
             type="text/javascript"></script>
     {{-- bootstrap-toastr Scripts --}}
     <script src="{{ asset('assets/global/plugins/bootstrap-toastr/toastr.min.js') }}" type="text/javascript"></script>
-    {{-- bootstrap-datepicker Scripts --}}
-    <script src="{{ asset('assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"
-            type="text/javascript"></script>
     {{-- bootstrap-maxlength Scripts --}}
     <script src="{{ asset('assets/global/plugins/bootstrap-maxlength/bootstrap-maxlength.min.js') }}"
             type="text/javascript"></script>
@@ -278,6 +279,10 @@
     {{-- jquery-repeater Scripts --}}
     <script src="{{ asset('assets/global/plugins/jquery-repeater/jquery.repeater.js') }}"
             type="text/javascript"></script>
+    {{-- bootstrap-fileinput Scripts --}}
+    <script src="{{ asset('assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js') }}"
+            type="text/javascript"></script>
+
 @endpush
 
 

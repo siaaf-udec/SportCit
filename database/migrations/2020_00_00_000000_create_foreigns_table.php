@@ -13,6 +13,18 @@ class CreateForeignsTable extends Migration
      */
     public function up()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('cities_id')->nullable()->unsigned();
+            $table->integer('countries_id')->nullable()->unsigned();
+            $table->integer('regions_id')->nullable()->unsigned();
+
+            $table->foreign('cities_id')->references('id')->on('cities')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('countries_id')->references('id')->on('countries')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('regions_id')->references('id')->on('regions')
+                ->onUpdate('cascade')->onDelete('cascade');
+        });
 
         Schema::table('TBL_Category_Player', function (Blueprint $table) {
             $table->integer('fk_organization_id')->unsigned();

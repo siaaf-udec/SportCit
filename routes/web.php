@@ -108,6 +108,22 @@ Route::group(['middleware' => ['auth']], function () {
         ]);
     });
 
+    Route::group(['prefix' => 'location'], function () {
+        $controller = "\\App\\Container\\Users\\Src\\Controllers\\";
+        Route::get('countries',[
+            'uses' => $controller.'LocationController@to_list_countries',
+            'as' => 'location.countries'
+        ]);
+        Route::get('regions/find/country/{id?}',[
+            'uses' => $controller.'LocationController@to_list_regions_find',
+            'as' => 'location.regions.find'
+        ]);
+        Route::get('cities/find/country/{id_region?}/{id_city?}',[
+            'uses' => $controller.'LocationController@to_list_cities_find',
+            'as' => 'location.cities.find'
+        ]);
+    });
+
     Route::group(['prefix' => 'permissions'], function () {
         $controller = "\\App\\Container\\Permissions\\Src\\Controllers\\";
         Route::get('index', [
@@ -298,9 +314,13 @@ Route::group(['middleware' => ['auth']], function () {
                 'uses' => $controller . 'PlayerController@create',
                 'as' => 'organization.player.create'
             ]);
-            Route::post('store', [
-                'uses' => $controller . 'PlayerController@store',
-                'as' => 'organization.player.store'
+            Route::post('store_multi', [
+                'uses' => $controller . 'PlayerController@store_multi',
+                'as' => 'organization.player.store_multi'
+            ]);
+            Route::post('store_single', [
+                'uses' => $controller . 'PlayerController@store_single',
+                'as' => 'organization.player.store_single'
             ]);
         });
         Route::group(['prefix' => 'team'], function () {

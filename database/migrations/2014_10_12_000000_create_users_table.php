@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->integer('identity_no')->nullable()->unsigned();
             $table->string('identity_expe_place')->nullable();
             $table->date('identity_expe_date')->nullable();
-            $table->string('city')->nullable();
             $table->string('eps')->nullable();
             $table->enum('rh',['AB+','AB-','A+','A-','B+','B-','O+','O-'])->nullable();
             $table->string('address')->nullable();

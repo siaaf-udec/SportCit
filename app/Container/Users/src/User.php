@@ -10,9 +10,9 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 /*
  * Modelos
  * */
-
 use App\Container\SportCit\Src\Player;
 use App\Container\SportCit\Src\Organization;
+use App\Container\SportCit\Src\File;
 
 class User extends Authenticatable
 {
@@ -47,7 +47,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'lastname', 'birthday', 'email', 'password',
         'identity_type', 'identity_no', 'identity_expe_place', 'identity_expe_date',
-        'address', 'gender', 'phone', 'state', 'website'
+        'eps', 'rh', 'address', 'gender', 'phone', 'state', 'website',
+        'cities_id', 'countries_id', 'regions_id'
     ];
 
     /**
@@ -58,6 +59,30 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Get the user that owns the city.
+     */
+    public function city()
+    {
+        return $this->belongsTo(City::class, 'cities_id');
+    }
+
+    /**
+     * Get the user that owns the country.
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class, 'countries_id');
+    }
+
+    /**
+     * Get the user that owns the region.
+     */
+    public function region()
+    {
+        return $this->belongsTo(Region::class, 'regions_id');
+    }
 
     public function files()
     {

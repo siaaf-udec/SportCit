@@ -20,10 +20,10 @@ class Player extends Model
      * @var array
      */
     protected $fillable = [
-        'favorite_club', 'height', 'weight', 'motto',
-        'current_position', 'current_club', 'strengths',
-        'favorite_player', 'weakness', 'training_target', 'other',
-        'eps', 'fk_user_id', 'fk_organization_id', 'fk_cate_player_id',
+        'favorite_club', 'height', 'weight', 'foot','motto', 'state',
+        'current_club', 'favorite_player', 'strengths',
+        'weakness', 'training_target', 'other',
+        'fk_user_id', 'fk_organization_id', 'fk_cate_player_id',
         'fk_team_id', 'fk_position_id'
     ];
     /**

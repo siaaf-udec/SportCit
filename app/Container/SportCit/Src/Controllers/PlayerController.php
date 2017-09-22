@@ -4,6 +4,7 @@ namespace App\Container\SportCit\Src\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use Yajra\DataTables\DataTables;
 
@@ -128,7 +129,7 @@ class PlayerController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store_multi(Request $request)
     {
         if ($request->ajax() && $request->isMethod('POST')) {
             $players = json_decode($request->get('group'));
@@ -141,6 +142,49 @@ class PlayerController extends Controller
                     $user->player()->create($other);
                 }
             }
+
+            return AjaxResponse::success(
+                '¡Bien hecho!',
+                'Datos modificados correctamente.'
+            );
+
+        }
+
+        return AjaxResponse::fail(
+            '¡Lo sentimos!',
+            'No se pudo completar tu solicitud.'
+        );
+
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store_single(Request $request)
+    {
+        if ($request->ajax() && $request->isMethod('POST')) {
+
+            $user = $this->userInterface->store($request->all());
+
+            /*Guarda la imagen */
+            $img = $request->file('image_profile_create');
+            if($img !== null){
+                $url = Storage::disk('sportcit')->putFile('profile', $img);
+                $user->files()->create([
+                    'name_file' => '',
+                    'url_file' => $url,
+                    'type_file' => 'Perfil'
+                ]);
+            }else{
+                $user->files()->create([
+                    'url' => $request->get('identicon')
+                ]);
+            }
+
+            $user->player()->create($request->all());
 
             return AjaxResponse::success(
                 '¡Bien hecho!',
