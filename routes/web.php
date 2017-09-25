@@ -347,10 +347,15 @@ Route::group(['middleware' => ['auth']], function () {
             'as' => 'test.create'
         ]);
     });
-
-    Route::get('emails', function () {
-        $organ = \App\Container\SportCit\Src\Organization::find(1);
-        event(new StateOrganizationModified($organ));
+    
+    Route::get('markdown', function () {
+        $user = User::findOrFail(1);
+        /*
+        Mail::to($user)
+            ->send(new \App\Mail\UserRegistration('Miguel'));
+        return 'True';
+        */
+        return new \App\Mail\UserRegistration($user);
     })->name('forms.fields');
 
 });
