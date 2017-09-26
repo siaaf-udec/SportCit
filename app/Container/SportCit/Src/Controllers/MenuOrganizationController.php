@@ -33,7 +33,7 @@ class MenuOrganizationController extends Controller
             foreach (json_decode($organizations) as $organization) {
                 ($organization) ? $temp += 1 : '';
             }
-            $temp = round(($temp * 100) / 9);
+            $temp = round(($temp * 100) / 10);
 
             return view('sportcit.organization.content-ajax.ajax-menu-organization', [
                 'organization' => ['data' => $organizations, 'count' => $temp]

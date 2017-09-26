@@ -4,7 +4,7 @@
         <a target="_blank" href="javascript:;">{{ config('app.author') }}</a> &nbsp;|&nbsp;
         <a href="javascript:;" title="{{ config('app.author') }}" target="_blank">{{ config('app.name') }}</a>
         <div class="scroll-to-top">
-            <i class="icon-arrow-up"></i>
+            <i class="fa fa-arrow-circle-o-up"></i>
         </div>
     </div>
 </div>

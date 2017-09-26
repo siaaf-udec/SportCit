@@ -81,7 +81,7 @@
                     <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
-                            <i class="icon-bell"></i>
+                            <i class="fa fa-bell-o"></i>
                             <span class="badge badge-default"> 7 </span>
                         </a>
                         <ul class="dropdown-menu">
@@ -183,7 +183,7 @@
                     <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
-                            <i class="icon-envelope-open"></i>
+                            <i class="fa fa-envelope-open-o"></i>
                             <span class="badge badge-default"> 4 </span>
                         </a>
                         <ul class="dropdown-menu">
@@ -265,7 +265,7 @@
                     <li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
                            data-close-others="true">
-                            <i class="icon-calendar"></i>
+                            <i class="fa fa-calendar"></i>
                             <span class="badge badge-default"> 3 </span>
                         </a>
                         <ul class="dropdown-menu extended tasks">
@@ -392,31 +392,31 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-default">
                             <li>
-                                <a href="{{ route('user.profile') }}"><i class="icon-user"></i> My Profile </a>
+                                <a href="{{ route('user.profile') }}"><i class="fa fa-user"></i> My Profile </a>
                             </li>
                             <li>
-                                <a href="javascript:;"><i class="icon-calendar"></i> My Calendar </a>
+                                <a href="javascript:;"><i class="fa fa-calendar"></i> My Calendar </a>
                             </li>
                             <li>
                                 <a href="javascript:;">
-                                    <i class="icon-envelope-open"></i> My Inbox
+                                    <i class="fa fa-envelope-open"></i> My Inbox
                                     <span class="badge badge-danger"> 3 </span>
                                 </a>
                             </li>
                             <li>
                                 <a href="javascript:;">
-                                    <i class="icon-rocket"></i> My Tasks
+                                    <i class="fa fa-rocket"></i> My Tasks
                                     <span class="badge badge-success"> 7 </span>
                                 </a>
                             </li>
                             <li class="divider"></li>
                             <li>
-                                <a href="javascript:;"><i class="icon-lock"></i> Lock Screen </a>
+                                <a href="javascript:;"><i class="fa fa-lock"></i> Lock Screen </a>
                             </li>
                             <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="icon-key"></i> Salir </a>
+                                    <i class="fa fa-key"></i> Salir </a>
                                 </a>
                                 {!! Form::open(['id' => 'logout-form', 'method' => 'POST', 'url' => route('logout')]) !!}
                                 {!! Form::close() !!}
@@ -428,7 +428,7 @@
                     {{-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte --}}
                     <li class="dropdown dropdown-extended quick-sidebar-toggler">
                         <span class="sr-only">Toggle Quick Sidebar</span>
-                        <i class="icon-logout"></i>
+                        <i class="icon-login"></i>
                     </li>
                     {{-- END QUICK SIDEBAR TOGGLER --}}
                 </ul>

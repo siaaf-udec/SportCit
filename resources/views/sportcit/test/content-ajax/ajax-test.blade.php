@@ -1,20 +1,20 @@
 <div class="col-md-12">
-    @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'icon-frame', 'title' => 'Organizaciones'])
+    @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'icon-frame', 'title' => 'Test'])
 
         @slot('actions', [
 
             'link_upload' => [
-                'link' => '',
-                'icon' => 'icon-cloud-upload',
-            ],
-            'link_wrench' => [
-                'link' => '',
-                'icon' => 'icon-wrench',
-            ],
-            'link_trash' => [
-                'link' => '',
-                'icon' => 'icon-trash',
-            ],
+                    'link' => '',
+                    'icon' => 'fa fa-cloud-upload',
+                ],
+                'link_wrench' => [
+                    'link' => '',
+                    'icon' => 'fa fa-wrench',
+                ],
+                'link_trash' => [
+                    'link' => '',
+                    'icon' => 'fa fa-trash',
+                ],
 
         ])
         <div class="clearfix"></div><br><br><br>
@@ -22,20 +22,19 @@
             <div class="col-md-12">
                 <div class="actions">
                     <a href="javascript:;" class="btn btn-simple btn-success btn-icon create"><i
-                                class="fa fa-plus"></i>Nueva Organización</a></div>
+                                class="fa fa-plus"></i>Nuevo Test</a></div>
             </div>
             <div class="clearfix"></div>
             <br>
             <div class="col-md-12">
-                @component('themes.bootstrap.elements.tables.datatables', ['id' => 'organization-table-ajax'])
+                @component('themes.bootstrap.elements.tables.datatables', ['id' => 'test-table-ajax'])
                     @slot('columns', [
                         '#' => ['style' => 'width:20px;'],
-                        'User',
                         'Nombre',
-                        'Nit',
-                        'Ciudad',
-                        'Estado'=> ['style' => 'width:80px;'],
-                        'Admisión'=> ['style' => 'width:80px;'],
+                        'Estilo',
+                        'Creación',
+                        'Actualización',
+                        'Formulario'=> ['style' => 'width:80px;'],
                         'Legalidad' => ['style' => 'width:80px;'],
                         'Acciones' => ['style' => 'width:90px;']
                     ])
@@ -69,36 +68,23 @@
         </div>
         <!-- Modal -->
         <!-- Modal -->
-        <div class="modal fade" id="Modal-state" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="Modal-form" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
-                    {!! Form::open(['id' => 'from_mesanje_state', 'class' => '', 'url' => '/forms']) !!}
                     <div class="modal-header modal-header-success">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h1><i class="glyphicon glyphicon-thumbs-up"></i> Estado de la Organización</h1>
+                        <h1><i class="glyphicon glyphicon-thumbs-up"></i> Vista del formulario del test</h1>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-                                {!! Field::hidden('id_user') !!}
-                                {!! Field::hidden('id_organization') !!}
-                                {!! Field::select(
-                                                'type_state',
-                                                ['Aprobado' => 'Aprobado', 'Denegado' => 'Denegado'],null,
-                                                ['required','icon' => 'fa fa-hand-pointer-o','label' => 'Estado' , 'autofocus', 'auto' => 'off']) !!}
-                                {!! Field::textarea(
-                                    'mesanje_state',
-                                    ['label' => 'Motivos', 'max' => '300', 'min' => '2', 'auto' => 'off'],
-                                    ['icon' => 'fa fa-envelope','help' => 'Ingrese los motivos del estado']) !!}
+
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        {!! Form::submit('Guardar', ['class' => 'btn blue up_state']) !!}
-                        {!! Form::button('Cancelar', ['class' => 'btn red', 'data-dismiss' => 'modal' ]) !!}
                     </div>
-                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -111,19 +97,18 @@
         /*
          * Referencia https://datatables.net/reference/option/
          */
-        var $table = $('#organization-table-ajax'),
-            url = route('organization.data'),
+        var $table = $('#test-table-ajax'),
+            url = route('test.data'),
             columns = [
                 {data: 'id', name: 'id', "visible": false},
-                {data: 'fk_user_id', name: 'fk_user_id', "visible": false, searchable: false,},
-                {data: 'name_organization', name: 'name_organization'},
-                {data: 'nit', name: 'nit'},
-                {data: 'city', name: 'city'},
-                {data: 'state_organization', name: 'state_organization'},
+                {data: 'name', name: 'name'},
+                {data: 'style', name: 'style', "visible": false},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'updated_at', name: 'updated_at'},
                 {
-                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center state"><i class="fa fa-handshake-o"></i></a>',
-                    data: 'admision',
-                    name: 'admision',
+                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center state"><i class="fa fa-eye"></i></a>',
+                    data: 'Formulario',
+                    name: 'Formulario',
                     orderable: false,
                     searchable: false,
                     exportable: false,

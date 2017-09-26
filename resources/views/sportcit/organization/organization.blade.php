@@ -146,6 +146,7 @@
                             'User',
                             'Nombre',
                             'Nit',
+                            'Ciudad',
                             'Estado'=> ['style' => 'width:80px;'],
                             'Admisión'=> ['style' => 'width:80px;'],
                             'Legalidad' => ['style' => 'width:80px;'],
@@ -325,6 +326,7 @@
                     {data: 'fk_user_id', name: 'fk_user_id', "visible": false, searchable: false,},
                     {data: 'name_organization', name: 'name_organization'},
                     {data: 'nit', name: 'nit'},
+                    {data: 'city', name: 'city'},
                     {data: 'state_organization', name: 'state_organization'},
                     {
                         defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center state"><i class="fa fa-handshake-o"></i></a>',

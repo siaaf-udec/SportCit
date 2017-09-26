@@ -1,7 +1,7 @@
 <div class="page-bar">
     <ul class="page-breadcrumb">
         <li>
-            <i class="icon-home"></i>
+            <i class="fa fa-home"></i>
             <a href="javascript:;">Home</a>
             <i class="fa fa-angle-right"></i>
         </li>
@@ -22,17 +22,17 @@
             </button>
             <ul class="dropdown-menu pull-right" role="menu">
                 <li>
-                    <a href="javascript:;"><i class="icon-bell"></i> Acción</a>
+                    <a href="javascript:;"><i class="fa fa-bell"></i> Acción</a>
                 </li>
                 <li>
-                    <a href="javascript:;"><i class="icon-shield"></i> Otra action</a>
+                    <a href="javascript:;"><i class="fa fa-shield"></i> Otra acción</a>
                 </li>
                 <li>
-                    <a href="javascript:;"><i class="icon-user"></i> Algo más</a>
+                    <a href="javascript:;"><i class="fa fa-user"></i> Algo más</a>
                 </li>
                 <li class="divider"></li>
                 <li>
-                    <a href="javascript:;"><i class="icon-bag"></i> Link separado</a>
+                    <a href="javascript:;"><i class="fa fa-shopping-bag"></i> Link separado</a>
                 </li>
             </ul>
         </div>

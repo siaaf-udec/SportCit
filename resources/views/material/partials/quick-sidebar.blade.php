@@ -1,5 +1,5 @@
 <a href="javascript:;" class="page-quick-sidebar-toggler">
-    <i class="icon-login"></i>
+    <i class="fa fa-sign-in"></i>
 </a>
 <div class="page-quick-sidebar-wrapper" data-close-on-body-click="false">
     <div class="page-quick-sidebar">
@@ -21,20 +21,20 @@
                 <ul class="dropdown-menu pull-right">
                     <li>
                         <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab"><i
-                                    class="icon-bell"></i> Alerts </a>
+                                    class="fa fa-bell-o"></i> Alerts </a>
                     </li>
                     <li>
                         <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab"><i
-                                    class="icon-info"></i> Notifications </a>
+                                    class="fa fa-info"></i> Notifications </a>
                     </li>
                     <li>
                         <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab"><i
-                                    class="icon-speech"></i> Activities </a>
+                                    class="fa fa-commenting-o"></i> Activities </a>
                     </li>
                     <li class="divider"></li>
                     <li>
                         <a href="javascript:;" data-target="#quick_sidebar_tab_3" data-toggle="tab"><i
-                                    class="icon-settings"></i> Settings </a>
+                                    class="fa fa-cog"></i> Settings </a>
                     </li>
                 </ul>
             </li>
@@ -157,7 +157,7 @@
                     <div class="page-quick-sidebar-chat-user">
                         <div class="page-quick-sidebar-nav">
                             <a href="javascript:;" class="page-quick-sidebar-back-to-list"><i
-                                        class="icon-arrow-left"></i>Back</a>
+                                        class="fa fa-arrow-left"></i>Back</a>
                         </div>
                         <div class="page-quick-sidebar-chat-user-messages">
                             <div class="post out">
@@ -256,7 +256,7 @@
                                 <input type="text" class="form-control" placeholder="Type a message here...">
                                 <div class="input-group-btn">
                                     <button type="button" class="btn green">
-                                        <i class="icon-paper-clip"></i>
+                                        <i class="fa fa-paperclip"></i>
                                     </button>
                                 </div>
                             </div>
@@ -582,7 +582,7 @@
                     </ul>
                     <div class="inner-content">
                         <button class="btn btn-success">
-                            <i class="icon-settings"></i> Save Changes
+                            <i class="fa fa-cog"></i> Save Changes
                         </button>
                     </div>
                 </div>

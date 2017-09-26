@@ -17,6 +17,7 @@ class CreateTBLOrganizationsTable extends Migration
             $table->increments('id');
             $table->string('name_organization');
             $table->string('nit');
+            $table->string('city');
             $table->string('address_organization');
             $table->string('phone_organization');
             $table->string('fundation');

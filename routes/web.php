@@ -357,6 +357,18 @@ Route::group(['middleware' => ['auth']], function () {
             'uses' => $controller . 'TestController@create',
             'as' => 'test.create'
         ]);
+        Route::post('store',[
+            'uses' => $controller. 'TestController@store',
+            'as' => 'test.store'
+        ]);
+        Route::get('index/ajax', [
+            'uses' => $controller . 'TestController@index_ajax',
+            'as' => 'test.index.ajax'
+        ]);
+        Route::get('data', [
+            'uses' => $controller . 'TestController@data',
+            'as' => 'test.data'
+        ]);
     });
     
     Route::get('markdown', function () {

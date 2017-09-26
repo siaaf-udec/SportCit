@@ -93,7 +93,7 @@
 | @section('page-description', 'Título')
 --}}
 
-@section('page-description', 'Organizaciones')
+@section('page-description', 'Test')
 
 {{--
 |--------------------------------------------------------------------------
@@ -108,21 +108,21 @@
 --}}
 @section('content')
     <div class="col-md-12">
-        @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'icon-frame', 'title' => 'Test Físico'])
+        @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'fa fa-file-text', 'title' => 'Test Físico'])
 
             @slot('actions', [
 
                 'link_upload' => [
                     'link' => '',
-                    'icon' => 'icon-cloud-upload',
+                    'icon' => 'fa fa-cloud-upload',
                 ],
                 'link_wrench' => [
                     'link' => '',
-                    'icon' => 'icon-wrench',
+                    'icon' => 'fa fa-wrench',
                 ],
                 'link_trash' => [
                     'link' => '',
-                    'icon' => 'icon-trash',
+                    'icon' => 'fa fa-trash',
                 ],
 
             ])
@@ -138,14 +138,14 @@
                 <div class="col-md-12">
                     @component('themes.bootstrap.elements.tables.datatables', ['id' => 'test-table-ajax'])
                         @slot('columns', [
-                            '#' => ['style' => 'width:20px;'],
-                            'User',
-                            'Nombre',
-                            'Nit',
-                            'Estado'=> ['style' => 'width:80px;'],
-                            'Admisión'=> ['style' => 'width:80px;'],
-                            'Legalidad' => ['style' => 'width:80px;'],
-                            'Acciones' => ['style' => 'width:90px;']
+                         '#' => ['style' => 'width:20px;'],
+                         'Nombre',
+                         'Estilo',
+                         'Creación',
+                         'Actualización',
+                         'Formulario'=> ['style' => 'width:80px;'],
+                         'Legalidad' => ['style' => 'width:80px;'],
+                         'Acciones' => ['style' => 'width:90px;']
                         ])
                     @endcomponent
                 </div>
@@ -155,16 +155,17 @@
     <div class="row">
         <div class="col-md-12">
             <!-- Modal -->
-            <div id="Modal-viewpdf" class="modal fade" role="dialog">
+            <div id="Modal-form" class="modal fade" role="dialog">
                 <div class="modal-dialog">
 
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title text-center">Documento de Legalidad</h4>
+                            <h4 class="modal-title text-center">Formulario de test</h4>
                         </div>
-                        <div class="modal-body text-center body-viewpdf" id="texto">
+                        <div class="modal-body text-center">
+                            <div class="render-wrap"></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default btn-primary btn-center" data-dismiss="modal">
@@ -278,6 +279,13 @@
 {{-- jquery-repeater Scripts --}}
 <script src="{{asset('assets/global/plugins/jquery-repeater/jquery.repeater.js') }}"
         type="text/javascript"></script>
+{{-- form-builder --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="{{asset('assets/global/plugins/form-builder/js/form-builder.min.js') }}"
+        type="text/javascript"></script>
+<script src="{{asset('assets/global/plugins/form-builder/js/form-render.min.js') }}"
+        type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.1/jquery.rateyo.min.js"></script>
 @endpush
 
 
@@ -314,17 +322,17 @@
          * Referencia https://datatables.net/reference/option/
          */
         var $table = $('#test-table-ajax'),
-            url = route('organization.data'),
+            url = route('test.data'),
             columns = [
                 {data: 'id', name: 'id', "visible": false},
-                {data: 'fk_user_id', name: 'fk_user_id', "visible": false, searchable: false,},
-                {data: 'name_organization', name: 'name_organization'},
-                {data: 'nit', name: 'nit'},
-                {data: 'state_organization', name: 'state_organization'},
+                {data: 'name', name: 'name'},
+                {data: 'style', name: 'style', "visible": false},
+                {data: 'created_at', name: 'created_at'},
+                {data: 'updated_at', name: 'updated_at'},
                 {
-                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center state"><i class="fa fa-handshake-o"></i></a>',
-                    data: 'admision',
-                    name: 'admision',
+                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center formtest"><i class="fa fa-eye"></i></a>',
+                    data: 'Formulario',
+                    name: 'Formulario',
                     orderable: false,
                     searchable: false,
                     exportable: false,
@@ -439,36 +447,27 @@
 
         });
 
-        $table.on('click', '.viewfile', function (e) {
+        $table.on('click', '.formtest', function (e) {
             e.preventDefault();
             $tr = $(this).closest('tr');
-            var dataTable = $table.row($tr).data(),
-                route_file = route('organization.viewfile', dataTable.id);
-            type = 'GET';
-            var async = async || false;
-            $.ajax({
-                url: route_file,
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                cache: false,
-                type: type,
-                contentType: false,
-                data: 'viewfile',
-                processData: false,
-                async: async,
-                success: function (response, xhr, request) {
-                    if (request.status === 200 && xhr === 'success') {
-                        document.getElementById('texto').innerHTML = '';
-                        $('.body-viewpdf').prepend('<center><a class="media" href=' + response.message + '>Legalidad</a></center>');
-                        $("#Modal-viewpdf").modal();
-                        $('a.media').media({width: 500, height: 400});
-                    }
-                },
-                error: function (response, xhr, request) {
-                    if (request.status === 422 && xhr === 'error') {
-                        UIToastr.init(xhr, response.title, response.message);
-                    }
+            var dataTable = $table.row($tr).data();
+
+            var templates = {
+                starRating: function (fieldData) {
+                    return {
+                        field: '<span id="' + fieldData.name + '">',
+                        onRender: function () {
+                            $(document.getElementById(fieldData.name)).rateYo({rating: 3.6});
+                        }
+                    };
                 }
+            };
+            var datos = JSON.stringify(dataTable.style);
+            $('.render-wrap').formRender({
+                formData: datos,
+                templates: templates
             });
+            $("#Modal-form").modal();
         });
 
         /*Configuracion de Select*/

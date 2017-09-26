@@ -81,6 +81,11 @@
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-4 col-lg-offset-3 text-left">
+                                                    {!! Field::text('city', old('city'), ['label' => 'Ciudad', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-map-marker', 'help' => 'Ingrese la ciudad.']) !!}
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-4 col-lg-offset-3 text-left">
                                                     {!! Field::text('address', old('address'), ['label' => 'Dirección', 'autofocus', 'auto' => 'off'], ['icon' => 'fa fa-map-marker', 'help' => 'Ingrese la dirección.']) !!}
                                                 </div>
                                             </div>
@@ -328,6 +333,7 @@
             username: {minlength: 3, required: true},
             nit: {minlength: 5, required: true},
             address: {required: true},
+            city: {required: true},
             phone: {minlength: 5, required: true},
             date: {required: true},
             color_organization: {required: true},
@@ -373,6 +379,7 @@
                         'name_organization': $('input[name="username"]').val(),
                         'nit': $('input[name="nit"]').val(),
                         'address_organization': $('input[name="address"]').val(),
+                        'city': $('input[name="city"]').val(),
                         'phone_organization': $('input[name="phone"]').val(),
                         'fundation': $('input[name="date"]').val(),
                         'club_colors': $('input[name="color_organization"]').val(),

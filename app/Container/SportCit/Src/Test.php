@@ -11,14 +11,12 @@ class Test extends Model implements AuditableContract
 
     use Auditable;
 
-//protected $table = 'TBL_Tes';
+    protected $table = 'TBL_Tests';
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    /*protected $fillable = [
-    'id', 'name', 'season', 'city',
-    ];*/
+    protected $fillable = ['id', 'name', 'variables','style'];
 }

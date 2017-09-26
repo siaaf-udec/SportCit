@@ -1,10 +1,10 @@
 <div class="theme-panel">
     <div class="toggler tooltips" data-container="body" data-placement="left" data-html="true"
          data-original-title="Click to open advance theme customizer panel">
-        <i class="icon-settings"></i>
+        <i class="fa fa-settings"></i>
     </div>
     <div class="toggler-close">
-        <i class="icon-close"></i>
+        <i class="fa fa-close"></i>
     </div>
     <div class="theme-options">
         <div class="theme-option theme-colors clearfix">

@@ -32,6 +32,7 @@ class OrganizationRepository extends ControllerRepository implements Organizatio
     {
         $model['name_organization'] = $data['name_organization'];
         $model['nit'] = $data['nit'];
+        $model['city'] = $data['city'];
         $model['address_organization'] = $data['address_organization'];
         $model['phone_organization'] = $data['phone_organization'];
         $model['fundation'] = $data['fundation'];

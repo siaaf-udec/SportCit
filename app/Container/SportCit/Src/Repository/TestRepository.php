@@ -31,12 +31,12 @@ class TestRepository extends ControllerRepository implements TestInterface
      */
     protected function process($model, $data)
     {
-       /* $model['name'] = $data['name_team'];
-        $model['season'] = $data['season'];
-        $model['city'] = $data['city'];
+        $model['name'] = $data['name'];
+        $model['variables'] = $data['variables'];
+        $model['style'] = $data['style'];
         $model->save();
 
-        return $model;*/
+        return $model;
 
     }
 }
