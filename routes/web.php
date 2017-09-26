@@ -334,6 +334,17 @@ Route::group(['middleware' => ['auth']], function () {
                 'as' => 'organization.team.data'
             ]);
         });
+        Route::group(['prefix' => 'sport/place'], function () {
+            $controller = "\\App\\Container\\SportCit\\Src\\Controllers\\";
+            Route::get('index/ajax/{id?}', [
+                'uses' => $controller . 'SportPlaceController@index_ajax',
+                'as' => 'organization.sport.place.index.ajax'
+            ]);
+            Route::get('data/{id?}', [
+                'uses' => $controller . 'SportPlaceController@data',
+                'as' => 'organization.sport.place.data'
+            ]);
+        });
     });
 
     Route::group(['prefix' => 'test'], function () {

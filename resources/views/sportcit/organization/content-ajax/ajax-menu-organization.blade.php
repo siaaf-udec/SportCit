@@ -85,6 +85,22 @@
                     </div>
                 </a>
             </div>
+        </div><br>
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a class="dashboard-stat dashboard-stat-v2 sport-place-info green-dark" href="#">
+                    <div class="visual">
+                        <i class="fa fa-globe"></i>
+                    </div>
+                    <div class="details">
+                        <div class="number">
+                            <span data-counter="counterup"
+                                  data-value="1349">{{$organization['data']->num_sport_places}}</span>
+                        </div>
+                        <div class="desc">Escenarios Deportivos</div>
+                    </div>
+                </a>
+            </div>
         </div>
     @endcomponent
 </div>
@@ -112,6 +128,11 @@
         $('.team-info').on('click', function (e) {
             e.preventDefault();
             $route_organization = route('organization.team.index.ajax', $id_organization);
+            $(".content-ajax").load($route_organization);
+        });
+        $('.sport-place-info').on('click', function (e) {
+            e.preventDefault();
+            $route_organization = route('organization.sport.place.index.ajax', $id_organization);
             $(".content-ajax").load($route_organization);
         });
         $('#link_cancel').on('click', function (e) {

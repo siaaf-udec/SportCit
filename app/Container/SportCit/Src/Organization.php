@@ -55,6 +55,11 @@ class Organization extends Model implements AuditableContract
         return $this->hasMany(Team::class, 'fk_org_id');
     }
 
+    public function sportPlaces()
+    {
+        return $this->hasMany(SportPlace::class, 'fk_organization_id');
+    }
+
     public function getNumCategoriesAttribute()
     {
         return count($this->categories);
@@ -68,5 +73,10 @@ class Organization extends Model implements AuditableContract
     public function getNumTeamsAttribute()
     {
         return count($this->teams);
+    }
+
+    public function getNumSportPlacesAttribute()
+    {
+        return count($this->sportPlaces);
     }
 }

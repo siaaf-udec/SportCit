@@ -81,6 +81,13 @@ class CreateForeignsTable extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
         });
+        Schema::table('TBL_Sport_Places', function (Blueprint $table) {
+            $table->integer('fk_organization_id')->unsigned();
+            $table->foreign('fk_organization_id')
+                ->references('id')->on('TBL_Organizations')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+        });
     }
 
     /**

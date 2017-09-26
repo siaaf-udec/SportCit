@@ -3,8 +3,8 @@
 namespace App\Container\SportCit\Src\Controllers;
 
 use App\Container\Overall\Src\Facades\AjaxResponse;
+use App\Container\SportCit\Src\Interfaces\CategoryPlayerInterface;
 use App\Container\SportCit\Src\Interfaces\OrganizationInterface;
-use App\Container\SportCit\Src\Repository\CategoryPlayerRepository;
 use App\Http\Controllers\Controller;
 
 use Yajra\DataTables\DataTables;
@@ -17,7 +17,7 @@ class CategoryPlayerController extends Controller
     protected $organizationRepository;
     protected $categoryPlayerRepository;
 
-    public function __construct(OrganizationInterface $organizationRepository, CategoryPlayerRepository $categoryPlayerRepository)
+    public function __construct(OrganizationInterface $organizationRepository, CategoryPlayerInterface $categoryPlayerRepository)
     {
         $this->organizationRepository = $organizationRepository;
         $this->categoryPlayerRepository = $categoryPlayerRepository;
