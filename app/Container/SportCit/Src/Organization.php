@@ -24,7 +24,7 @@ class Organization extends Model implements AuditableContract
      * @var array
      */
     protected $fillable = [
-        'id', 'name_organization', 'nit', 'address_organization', 'phone_organization', 'fundation', 'club_colors', 'link_organization', 'state_organization',
+        'id', 'name_organization', 'nit','city', 'address_organization', 'phone_organization', 'fundation', 'club_colors', 'link_organization', 'state_organization',
     ];
     protected $table = 'TBL_Organizations';
 

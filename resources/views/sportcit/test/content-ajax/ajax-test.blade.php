@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'icon-frame', 'title' => 'Test'])
+    @component('themes.bootstrap.elements.portlets.portlet', ['icon' => 'fa fa-file-text', 'title' => 'Test'])
 
         @slot('actions', [
 
@@ -46,16 +46,17 @@
 <div class="row">
     <div class="col-md-12">
         <!-- Modal -->
-        <div id="Modal-viewpdf" class="modal fade" role="dialog">
+        <div id="Modal-form" class="modal fade" role="dialog">
             <div class="modal-dialog">
 
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title text-center">Documento de Legalidad</h4>
+                        <h4 class="modal-title text-center">Formulario de test</h4>
                     </div>
-                    <div class="modal-body text-center body-viewpdf" id="texto">
+                    <div class="modal-body text-center">
+                        <div class="render-wrap"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default btn-primary btn-center" data-dismiss="modal">
@@ -68,23 +69,36 @@
         </div>
         <!-- Modal -->
         <!-- Modal -->
-        <div class="modal fade" id="Modal-form" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal fade" id="Modal-state" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
+                    {!! Form::open(['id' => 'from_mesanje_state', 'class' => '', 'url' => '/forms']) !!}
                     <div class="modal-header modal-header-success">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h1><i class="glyphicon glyphicon-thumbs-up"></i> Vista del formulario del test</h1>
+                        <h1><i class="glyphicon glyphicon-thumbs-up"></i> Estado de la Organización</h1>
                     </div>
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-12">
-
+                                {!! Field::hidden('id_user') !!}
+                                {!! Field::hidden('id_organization') !!}
+                                {!! Field::select(
+                                                'type_state',
+                                                ['Aprobado' => 'Aprobado', 'Denegado' => 'Denegado'],null,
+                                                ['required','icon' => 'fa fa-hand-pointer-o','label' => 'Estado' , 'autofocus', 'auto' => 'off']) !!}
+                                {!! Field::textarea(
+                                    'mesanje_state',
+                                    ['label' => 'Motivos', 'max' => '300', 'min' => '2', 'auto' => 'off'],
+                                    ['icon' => 'fa fa-envelope','help' => 'Ingrese los motivos del estado']) !!}
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
+                        {!! Form::submit('Guardar', ['class' => 'btn blue up_state']) !!}
+                        {!! Form::button('Cancelar', ['class' => 'btn red', 'data-dismiss' => 'modal' ]) !!}
                     </div>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -106,7 +120,7 @@
                 {data: 'created_at', name: 'created_at'},
                 {data: 'updated_at', name: 'updated_at'},
                 {
-                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center state"><i class="fa fa-eye"></i></a>',
+                    defaultContent: '<a href="javascript:;" class="btn btn-simple btn-default btn-icon btn-center formtest"><i class="fa fa-eye"></i></a>',
                     data: 'Formulario',
                     name: 'Formulario',
                     orderable: false,
@@ -146,7 +160,7 @@
 
         $(".create").on('click', function (e) {
             e.preventDefault();
-            var route_create = route('organization.create');
+            var route_create = route('test.create');
             $(".content-ajax").load(route_create);
         });
         $table = $table.DataTable();
@@ -224,36 +238,27 @@
 
         });
 
-        $table.on('click', '.viewfile', function (e) {
+        $table.on('click', '.formtest', function (e) {
             e.preventDefault();
             $tr = $(this).closest('tr');
-            var dataTable = $table.row($tr).data(),
-                route_file = route('organization.viewfile', dataTable.id);
-            type = 'GET';
-            var async = async || false;
-            $.ajax({
-                url: route_file,
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                cache: false,
-                type: type,
-                contentType: false,
-                data: 'viewfile',
-                processData: false,
-                async: async,
-                success: function (response, xhr, request) {
-                    if (request.status === 200 && xhr === 'success') {
-                        document.getElementById('texto').innerHTML = '';
-                        $('.body-viewpdf').prepend('<center><a class="media" href=' + response.message + '>Legalidad</a></center>');
-                        $("#Modal-viewpdf").modal();
-                        $('a.media').media({width: 500, height: 400});
-                    }
-                },
-                error: function (response, xhr, request) {
-                    if (request.status === 422 && xhr === 'error') {
-                        UIToastr.init(xhr, response.title, response.message);
-                    }
+            var dataTable = $table.row($tr).data();
+
+            var templates = {
+                starRating: function (fieldData) {
+                    return {
+                        field: '<span id="' + fieldData.name + '">',
+                        onRender: function () {
+                            $(document.getElementById(fieldData.name)).rateYo({rating: 3.6});
+                        }
+                    };
                 }
+            };
+            var datos = JSON.stringify(dataTable.style);
+            $('.render-wrap').formRender({
+                formData: datos,
+                templates: templates
             });
+            $("#Modal-form").modal();
         });
 
         /*Configuracion de Select*/
